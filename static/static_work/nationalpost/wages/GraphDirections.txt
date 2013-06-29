@@ -1,0 +1,6 @@
+Graph 1: Unemployment
+
+Graph 2: Women in the Labour Force
+*Merge graphs
+*Time series vis (example: http://nvd3.com/ghpages/lineWithFocus.html)
+-Graph with View Finder

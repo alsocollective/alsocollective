@@ -1,0 +1,26 @@
+<html>
+<head>
+	<title>basic</title>
+</head>
+<body>
+	{% for category in content %}
+		{{category.title}}
+		<br>
+
+		{% if category.pages %}
+			<p>there are pages</p>
+			{% for page in category%}
+				{{page}}
+			{% endfor %}
+		{% endif %}
+
+		{% if category.projects %}
+			<p>there are projects</p>
+			{% for projct in category%}
+				{{project}}
+			{% endfor %}
+		{% endif %}
+
+	{% endfor %}
+</body>
+</html>

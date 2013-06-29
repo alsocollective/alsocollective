@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html><head>
+<title>Labour in Canada</title>
+
+
+
+<!-- STYLESHEETS-->
+<link rel="stylesheet" href="css/nv.d3.css" type="text/css" />
+<!--Stylesheet specifically for visualization-->
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+<!--Page stylesheet, everythign else goes here-->
+
+</head>
+
+<body>
+	<div class="wrap">
+    
+    	<header class="center">
+        <h1 id="headline">Labour in Canada</h1>
+        	<!--<h1>Canadian Labour in Graphics: Who is employed, who is not and how the workforce breaks down</h1>-->
+        </header>
+        
+		<div id="content" class="center">
+
+			<section class="left" id="main">
+                
+				<div id="content" class="center">
+
+					<section class="left" id="main">
+
+		                <article id="unemployment">
+                
+		                    <h2 id="headtitle">Wage Increases</h2>
+                    
+		                    <img src="img/WageByOccupation.png"/>
+                    
+		                    <blockquote>Wages are up across all major sectors, with managers enjoying significantly better raises than  other groups. Least improved? Labourers and childcare anf home support workers.</blockquote>
+                   
+		                    <h3>Canada's Unemployment Rates</h3>
+                    
+		                    <div class="subtext">
+		                    	<h4>Provincial rate is annual average percentage</h4>
+		                        <h5><div id="rectangle"></div>Canada rate is quarterly average percentage</h5>
+		                    </div>
+          
+		                    <div id="charts">
+		                    </div>
+							
+							<img id="backup" class="hidden" src="img/Fallback-WageByOccupation.png"/>
+    
+		                </article>
+
+			</section>
+
+</div>
+</div>
+
+<!-- LIBRARIES -->
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/lib/d3.v2.min.js"></script>
+<script type="text/javascript" src="js/nv.d3.js"></script>
+
+<!-- OUR STUFF -->
+<!--<script type="text/javascript" src="js/scroll.js"></script>-->
+<script type="text/javascript" src="js/graphs.js"></script>
+</body>
+</html>
