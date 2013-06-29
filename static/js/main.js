@@ -33,18 +33,19 @@ window.onload = function(){
 		event.preventDefault();
 
 		if(splashsrc){
+		setTimeout(function(){
 			var newSplash = document.createElement("iframe");
 			newSplash.src = splashsrc;
 			newSplash.width = "100%";
 			newSplash.height = "100%";
 			newSplash.id = "splashFrame";
 			document.getElementById("splash").appendChild(newSplash);
+		},1000);
+
 		}
-		setTimeout(function(){
-			workObject.resetSize();
-			aboutObject.resetSize();
-			processObject.resetSize();
-		},250);
+		workObject.resetSize();
+		aboutObject.resetSize();
+		processObject.resetSize();
 	})
 
 	setTimeout(function(){
