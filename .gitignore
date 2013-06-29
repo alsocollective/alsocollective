@@ -5,7 +5,6 @@
 *.pyc
 *.psd
 *.json
-yeaa
 settings.py
 jquery.royalslider.min.js
 royalslider.css
@@ -13,4 +12,3 @@ royalslider.css
 new-old/
 /data/
 /static/static_work/
-
