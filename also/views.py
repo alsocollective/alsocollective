@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render_to_response, get_object_or_404
-# from  ALSO.models import Project,Category,Page
-from ALSO.models import ImageNode, TextNode, Category ,Article, InstaPost, Post, Day
+# from  also.models import Project,Category,Page
+from also.models import ImageNode, TextNode, Category ,Article, InstaPost, Post, Day
 
 
 import requests

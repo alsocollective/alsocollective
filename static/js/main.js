@@ -565,6 +565,6 @@ function initialize() {
 		position: new google.maps.LatLng(43.650153,-79.397196),
 		map: map,
 		fillColor: "#e6dc5a",
-		title: "ALSO Collective"
+		title: "also Collective"
 	});
 }

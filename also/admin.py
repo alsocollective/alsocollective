@@ -1,5 +1,5 @@
 from django.contrib import admin
-from ALSO.models import ImageNode, TextNode, Category, Article, InstaPost, Post, Day
+from also.models import ImageNode, TextNode, Category, Article, InstaPost, Post, Day
 
 # class ProjectAdmin(admin.ModelAdmin):
 # 	fields = ['title','content']
