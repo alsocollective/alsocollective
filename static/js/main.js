@@ -105,7 +105,7 @@ function imagefullscreenresize(){
 	this.style.left = pageWidth/2 - $(this).width()/2;
 
 	if($(this).height()>padgeHeight){
-		this.top = padgeHeight/2 - $(this).height()/2;
+		this.style.top = padgeHeight/2 - $(this).height()/2;
 	}
 }
 
