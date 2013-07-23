@@ -1,5 +1,4 @@
 if(google && document.getElementById("map-canvas")){
-	console.log("tried to lad the maps");
 	google.maps.event.addDomListener(window, 'load', initialize);
 }
 var workObject, aboutObject, processObject;
@@ -33,18 +32,19 @@ window.onload = function(){
 		event.preventDefault();
 
 		if(splashsrc){
+		setTimeout(function(){
 			var newSplash = document.createElement("iframe");
 			newSplash.src = splashsrc;
 			newSplash.width = "100%";
 			newSplash.height = "100%";
 			newSplash.id = "splashFrame";
 			document.getElementById("splash").appendChild(newSplash);
+		},1000);
+
 		}
-		setTimeout(function(){
-			workObject.resetSize();
-			aboutObject.resetSize();
-			processObject.resetSize();
-		},250);
+		workObject.resetSize();
+		aboutObject.resetSize();
+		processObject.resetSize();
 	})
 
 	setTimeout(function(){
@@ -81,27 +81,61 @@ function loadwork(){
 				children.each(function(imgLvl){
 					if(data[artLvl]["image"][imgLvl]){
 						if(data[artLvl]["image"][imgLvl]["link"]){
-							var iframe = document.createElement("iframe");
-							iframe.src = data[artLvl]["image"][imgLvl]["link"]+"?title=0&amp;byline=0&amp;portrait=0&amp;color=ff0179";
-							iframe.frameBorder = "0";
-							iframe.width = "100%;";
-							iframe.height = "100%;";
-							children[imgLvl+1].appendChild(iframe);
+							createImage(children[imgLvl+1],'/static/img/uploaded/'+data[artLvl]["image"][imgLvl]["title"],data[artLvl]["image"][imgLvl]["link"]);
 						} else {
-							children[imgLvl+1].style.backgroundImage = "url('/static/img/uploaded/"+ data[artLvl]["image"][imgLvl]["title"] +"')";
+							createImage(children[imgLvl+1],'/static/img/uploaded/'+data[artLvl]["image"][imgLvl]["title"]);
 						}
 					}
 				});
 			});
 		});
 	}
+	setTimeout(function(){
+		var temp = $($(".page")[2]);
+		pageWidth = temp.width();
+		padgeHeight = temp.height();
+		console.log(padgeHeight);
+		$(".image-fullscreen").each(imagefullscreenresize);
+	},1000);
 }
+
+function imagefullscreenresize(){
+	this.style.height = padgeHeight;
+	this.style.position = "absolute";
+	this.style.left = pageWidth/2 - $(this).width()/2;
+}
+
+function createImage(parent,image,video){
+	var out = document.createElement("img");
+	out.src = image;
+	out.className = "image-fullscreen";
+	parent.appendChild(out);
+	if(video){
+		var ontop = document.createElement("div");
+		ontop.className="playvideo-button";
+		$(ontop).click(function(){
+			createVideo(parent,video)
+		});
+		parent.appendChild(ontop);
+	}
+}
+
+function createVideo(parent,link){
+	parent.innerHTML = "";
+	var out = document.createElement("iframe");
+	out.src = link+"?autoplay=1";
+	out.frameBorder = "0";
+	out.width = "100%;";
+	out.height = "100%;";
+	parent.appendChild(out);
+}
+
+
 
 var toLoadAbout = true;
 function loadAbout(){
 	if(toLoadAbout){
 		toLoadAbout = false;
-		console.log("loading about");
 		$.getJSON('/adata/', function(data) {
 			var children = $(".biodesc");
 			children.each(function(index){
@@ -114,11 +148,30 @@ function loadAbout(){
 	}
 }
 
+
+var pageWidth,padgeHeight;
 $(window).bind("resize",function(){
 	workObject.setSizeOfElements();
 	aboutObject.setSizeOfElements();
 	processObject.setSizeOfElements("instegram");
-})
+	var temp = $($(".page")[2]);
+	pageWidth = temp.width();
+	padgeHeight = temp.height();
+	$(".image-fullscreen").each(imagefullscreenresize);
+});
+
+$(window).keydown(function(event){
+	console.log(event);
+	var move = 0;
+	if(event.keyCode == 39){
+		move = 120;
+	} else if(event.keyCode == 37){
+		move = -120;
+	}
+	aboutObject.scrollAmout(move);
+	workObject.scrollAmout(move);
+	processObject.scrollAmout(move);
+});
 
 function setupWork(paerentID){
 	//getting all the elements
@@ -174,6 +227,12 @@ function setupWork(paerentID){
 				splashsrc = splash.src;
 				splash.parentNode.removeChild(splash);
 			}, 1000)
+		}
+	}
+
+	this.scrollAmout = function(inAmmout){
+		if(isActiveElement){
+			$(slidingElement).scrollLeft($(slidingElement).scrollLeft() + inAmmout);
 		}
 	}
 
@@ -447,7 +506,6 @@ function goToThisEndPoint(location,offset){
 	var body = $(element.parentNode.parentNode);
 	var bodyOffset = $(element.parentNode).offset().left*-1;
 	body.scrollLeft(bodyOffset + left - (offset/2));
-	console.log(body);
 	//body.animate({scrollLeft : bodyOffset + left - (offset/2)},1000);
 // 	setTimeout(function(){
 // //		setHashTag(location);
