@@ -94,7 +94,6 @@ function loadwork(){
 		var temp = $($(".page")[2]);
 		pageWidth = temp.width();
 		padgeHeight = temp.height();
-		console.log(padgeHeight);
 		$(".image-fullscreen").each(imagefullscreenresize);
 	},1000);
 }
@@ -103,10 +102,7 @@ function imagefullscreenresize(){
 	this.style.minHeight = padgeHeight;
 	this.style.position = "absolute";
 	this.style.left = pageWidth/2 - $(this).width()/2;
-
-	if($(this).height()>padgeHeight){
-		this.style.top = padgeHeight/2 - $(this).height()/2;
-	}
+	this.style.top = padgeHeight/2 - $(this).height()/2;
 }
 
 function createImage(parent,image,video){
