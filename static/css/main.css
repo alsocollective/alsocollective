@@ -359,6 +359,7 @@ h1 span{
 	display: inline-block;
 	vertical-align: top;
 	overflow: hidden;
+	position: relative;
 	height: 100%;
 }
 
@@ -474,8 +475,9 @@ h1 span{
 #work .page img{
 	width: auto;
 	min-width: inherit;
-	height: auto;
-	min-height: 100%;
+/*	min-width: inherit;
+	height: auto;*/
+	/*min-height: 100%;*/
 }
 
 #work .background {
@@ -504,6 +506,23 @@ h1 span{
 	height: 70%;
 	position: absolute;
 	width: inherit;
+}
+
+.playvideo-button{
+	width: 100%;
+	height: 100%;
+	background-position:center;
+	background-repeat: no-repeat;
+	background-image: url('http://alsocollective.com/static/img/play.png');
+	position: absolute;
+	transition: all 0.5s;
+	-moz-transition: all 0.5s;
+	-webkit-transition: all 0.5s;
+	-o-transition: all 0.5s;
+}
+
+.playvideo-button:hover{
+	opacity: 0.5;
 }
 
 /*******************

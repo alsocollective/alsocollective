@@ -110,16 +110,12 @@
 				</a><article class="project">{% for c1, c2 in allContent.Process.artList.0.insta %}<span class="page instaPic">
 					<div class="background" style="background-image: url('{{c1.url}}')">
 						<div>
-							{{c1.message|safe}}{# <br> #}
-{# 							{{c1.creator|safe}}<br> #}
-{# 							{{c1.date|safe}}<br> #}
+							{{c1.message|safe}}
 						</div>
 					</div>
 					<div class="background" style="background-image: url('{{c2.url}}')">
 						<div>
-							{{c1.message|safe}}{# <br> #}
-{# 							{{c1.creator|safe}}<br> #}
-{# 							{{c1.date|safe}}<br> #}
+							{{c1.message|safe}}
 						</div>
 					</div>
 				</span>{% endfor %}</article></div>

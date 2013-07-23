@@ -8,49 +8,50 @@ var Logo = [[3,341],[3,347],[3,353],[5,333],[5,359],[7,365],[8,326],[10,371],[12
 paper.install(window);
 
 window.onload = function(){
-	var height = window.innerHeight;
-	var width = window.innerWidth;
-
-	var canvasElement = document.getElementById("myCanvas");
-	canvasElement.height = height;
-	canvasElement.width = width;
-
-	paper.setup("myCanvas");
-
-	var points = createLines(Logo,(width/2)-221,(height/2)-300);
-
-    view.draw();
-
-    var ranSize = 0;
-
-	zeroAndRandom(points,ranSize);
-
-
-	//grow = false;
 	setTimeout(function(){
-		grow = true;
-	},100);
-	view.onFrame = function(event) {
-			linesFromLocationTo(points,ranSize,growTo);
+		var height = window.innerHeight;
+		var width = window.innerWidth;
 
-			if(ranSize > 0){
-			ranSize -= .5;
-			} else {
-				ranSize = 0;
-			}
-			if(grow == true){
-				ranSize += 1;
-				if(ranSize> 20){
-					grow = false;
+		var canvasElement = document.getElementById("myCanvas");
+		canvasElement.height = height;
+		canvasElement.width = width;
+
+		paper.setup("myCanvas");
+
+		var points = createLines(Logo,(width/2)-221,(height/2)-300);
+
+	    view.draw();
+
+	    var ranSize = 0;
+
+		zeroAndRandom(points,ranSize);
+
+
+		//grow = false;
+		setTimeout(function(){
+			grow = true;
+		},100);
+		view.onFrame = function(event) {
+				linesFromLocationTo(points,ranSize,growTo);
+
+				if(ranSize > 0){
+				ranSize -= .5;
+				} else {
+					ranSize = 0;
 				}
-			}
-	}
+				if(grow == true){
+					ranSize += 1;
+					if(ranSize> 20){
+						grow = false;
+					}
+				}
+		}
 
-	var tool = new Tool();
-    tool.onMouseMove = function(event){
-	    grow = true;
-	}
-
+		var tool = new Tool();
+	    tool.onMouseMove = function(event){
+		    grow = true;
+		}
+	},100);
 }
 
 setTimeout(function(){
