@@ -103,6 +103,10 @@ function imagefullscreenresize(){
 	this.style.height = padgeHeight;
 	this.style.position = "absolute";
 	this.style.left = pageWidth/2 - $(this).width()/2;
+
+	if(this.height()>padgeHeight){
+		this.top = padgeHeight/2 - $(this).height()/2;
+	}
 }
 
 function createImage(parent,image,video){
