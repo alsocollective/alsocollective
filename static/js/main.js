@@ -123,7 +123,7 @@ function createImage(parent,image,video){
 function createVideo(parent,link){
 	parent.innerHTML = "";
 	var out = document.createElement("iframe");
-	out.src = link+"?autoplay=1";
+	out.src = link+"?autoplay=1;title=0&amp;byline=0&amp;portrait=0&amp;color=c67eb4";
 	out.frameBorder = "0";
 	out.width = "100%;";
 	out.height = "100%;";
