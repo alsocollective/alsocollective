@@ -100,7 +100,7 @@ function loadwork(){
 }
 
 function imagefullscreenresize(){
-	this.style.height = padgeHeight;
+	this.style.minHeight = padgeHeight;
 	this.style.position = "absolute";
 	this.style.left = pageWidth/2 - $(this).width()/2;
 
