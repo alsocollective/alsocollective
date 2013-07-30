@@ -58,6 +58,12 @@ class InstaPost(models.Model):
 	url = models.URLField(max_length=1000)
 	date = models.DateTimeField(auto_now=False)
 	creator = models.CharField(max_length=300)
+	display = models.BooleanField(blank = True, default=True)
+	def instaImage(self):
+		if self.url:
+			return '<img style="width:200px;height:auto;" src="%s"/>' % self.url
+		return "not an image"
+	instaImage.allow_tags = True
 
 class Category(models.Model):
 	title = models.CharField(max_length=600)

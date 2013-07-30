@@ -22,6 +22,7 @@ class ArticleAdmin(admin.ModelAdmin):
 			}),
 	]
 
+
 class Image(admin.ModelAdmin):
 	list_display = ('title', 'order','admin_image','admin_video')
 	fieldsets = [
@@ -32,6 +33,10 @@ class Image(admin.ModelAdmin):
 			}),
 	]
 
+class Insta(admin.ModelAdmin):
+	list_display = ('creator','instaImage','display','date')
+	fieldsets = [(None,{'fields':['display','creator','date']})]
+
 class TextAdmin(admin.ModelAdmin):
 	list_display = ('title', 'date')
 
@@ -40,6 +45,6 @@ admin.site.register(ImageNode,Image)
 admin.site.register(TextNode,TextAdmin)
 admin.site.register(Category)
 admin.site.register(Article,ArticleAdmin)
-admin.site.register(InstaPost)
+admin.site.register(InstaPost,Insta)
 admin.site.register(Post)
 # admin.site.register(Day)

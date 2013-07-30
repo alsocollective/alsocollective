@@ -1,7 +1,8 @@
 from django.http import HttpResponse
 from django.shortcuts import render_to_response, get_object_or_404
 # from  also.models import Project,Category,Page
-from also.models import ImageNode, TextNode, Category ,Article, InstaPost, Post, Day
+from also.models import *
+
 
 
 import requests
@@ -11,6 +12,9 @@ import random
 
 
 def home(request):
+	if(False):#not request.mobile):
+		return render_to_response('mobile/index.html',{"none":"None"})
+
 	categories = Category.objects.all()
 	allContent = {}
 	for category in categories:
@@ -36,8 +40,9 @@ def home(request):
 				imageList.append(imageObj)
 ## instegram
 			instaList = []
-			allInstaPosts = article.instagramFields.all().order_by('-date')
+			allInstaPosts = article.instagramFields.filter(display = True).all().order_by('-date')
 			for i in xrange(0,len(allInstaPosts)-2,2):
+
 				subList = ({"message":allInstaPosts[i].message,
 							"url":allInstaPosts[i].url,
 							"date":allInstaPosts[i].date.strftime('%Y-%m-%d %H:%M:%S'),
@@ -87,6 +92,7 @@ def home(request):
 	allContent.update({"days":days,"firstSlide":"RLine"})#listOfSlides[random.randint(0,len(listOfSlides)-1)]})
 
 	return render_to_response('index.html',{'allContent':allContent})
+
 
 
 def workData(request):
@@ -139,6 +145,74 @@ def instaData(request):
 	return HttpResponse(json.dumps(instaList), mimetype="application/json")
 
 
+def mWorkData(request,project = None):
+	articles = Article.objects.all().order_by('-date').filter(category = Category.objects.all().filter(slug="work")[0])
+	artList = []
+	for article in articles:
+		artObj = {"title":article.title,"slug":article.slug,article.slug:"yep"}
+
+		textList = []
+		for text in article.textFields.all().order_by('-date'):
+			textObj = {"text":text.textField,"title":text.title}
+			for image in text.backgroundImage.all():
+				textObj.update({"bkImage":image.title})
+			textList.append(textObj)
+		artObj.update({"text":textList});
+
+		imageList = []
+		for image in article.imageFields.all().order_by('order'):
+			imageObj = {"title":image.title}
+			if image.video:
+				imageObj.update({"link":image.video})
+			imageList.append(imageObj)
+		artObj.update({"image":imageList})
+		artList.append(artObj);
+
+	response_data = {"articles":artList}
+
+	print project
+	if(project):
+		for pro in artList:
+			if(pro["slug"]==project):
+				response_data.update({"current":pro,"number":len(pro["image"])+len(pro["text"])})
+	else:
+		response_data.update({"current":artList[0],"number":len(artList[0]["image"])+len(artList[0]["text"])})
+
+	print "rendering a project"
+	return render_to_response("mobile/work.html",response_data)
+	#return HttpResponse(json.dumps(response_data), mimetype="application/json")
+
+def mAboutData(request):
+	article = Article.objects.all().filter(slug = "people")[0]
+	artObj = {"title":article.title,"slug":article.slug,article.slug:"yep"}
+
+	textList = []
+	for text in article.textFields.all().order_by('-date'):
+		textObj = {"title":text.title}
+		for image in text.backgroundImage.all():
+			textObj.update({"bkImage":image.title})
+		textList.append(textObj)
+
+	response_data = {"articles":textList}
+	return render_to_response("mobile/about.html",textList)
+
+
+def mInstaData(request):
+	article = Article.objects.all().filter(slug = "instagram")[0]
+	artObj = {"title":article.title,"slug":article.slug,article.slug:"yep"}
+	print article.textFields.all()
+	print article.imageFields.all()
+
+	instaList = []
+	allInstaPosts = article.instagramFields.all().order_by('-date')
+	for i in xrange(0,len(allInstaPosts)-2,2):
+		subList = ({"message":allInstaPosts[i].message,
+					"url":allInstaPosts[i].url,
+					"url":allInstaPosts[i+1].url})
+		instaList.append(subList)
+	return render_to_response("mobile/process.html",instaList)
+
+
 def pureData(request):
 
 	return render_to_response('basic.html',{"nothing":"out"})
@@ -171,8 +245,10 @@ def getNewInstaPost(request):
 				instaArticle.instagramFields.add(newImage)
 
 	instaArticle.save()
-
 	return render_to_response('basic.html',{"nothing":"out"})
 
+################ mobile stuff ##################
 
+def mhome(request):
+	return render_to_response('mobile/index.html',{"none":"None"})
 
