@@ -12,7 +12,10 @@ urlpatterns = patterns('',
     url(r'^adata/','also.views.aboutData'),
     url(r'^idata/','also.views.instaData'),
 
-
+    url(r'^work/$','also.views.mWorkData',name="menu"),
+    url(r'^work/(?P<project>.*)/$','also.views.mWorkData',name="projects"),
+    url(r'^about/$','also.views.mAboutData'),
+    url(r'^process/$','also.views.mInstaData'),
     #url(r'^basic/', 'also.views.pureData', name='home'),
     # url(r'^alsowD/', include('alsowD.foo.urls')),
 
