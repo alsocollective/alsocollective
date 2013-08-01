@@ -11,103 +11,75 @@ from datetime import datetime
 import random
 
 
+##functions
+def getTexts(listin):
+	textList = []
+	for text in listin:
+		textObj = {"text":text.textField,"title":text.title}
+		for image in text.backgroundImage.all():
+			textObj.update({"bkImage":image.title})
+		textList.append(textObj)
+	return textList
+
+def getImages(listin):
+	imageList = []
+	for image in listin:
+		imageObj = {"title":image.title}
+		if image.video:
+			imageObj.update({"link":image.video})
+		imageList.append(imageObj)
+	return imageList
+
+def getInstagram(listin):
+	instaList = []
+	for i in xrange(0,len(listin)-2,2):
+		subList = ({"message":listin[i].message,
+					"url":listin[i].url,
+					"date":listin[i].date.strftime('%Y-%m-%d %H:%M:%S'),
+					"creator":listin[i].creator},{"message":listin[i+1].message,
+					"url":listin[i+1].url,
+					"date":listin[i+1].date.strftime('%Y-%m-%d %H:%M:%S'),
+					"creator":listin[i+1].creator})
+		instaList.append(subList)
+	return instaList
+
+
+##Desktop Main request
 def home(request):
-	if(False):#not request.mobile):
+	if(True):#not request.mobile):
 		return render_to_response('mobile/index.html',{"none":"None"})
 
 	categories = Category.objects.all()
+	rootArticles = Article.objects.all().order_by('-date')
+
 	allContent = {}
 	for category in categories:
 		catObj = {"cat":category,"description":category.description.textField}
-		articles = Article.objects.all().order_by('-date').filter(category__exact = category)
+		articles = rootArticles.filter(category__exact = category)
 		artList = []
 		for article in articles:
-## initialze Category
-			artObj = {"title":article.title,"slug":article.slug,article.slug:"yep"}#, "textFields":article.textFields.all()}
-## texts
-			textList = []
-			for text in article.textFields.all().order_by('-date'):
-				textObj = {"text":text.textField,"title":text.title}
-				for image in text.backgroundImage.all():
-					textObj.update({"bkImage":image.title})
-				textList.append(textObj)
-## images
-			imageList = []
-			for image in article.imageFields.all().order_by('order'):
-				imageObj = {"title":image.title}
-				if image.video:
-					imageObj.update({"link":image.video})
-				imageList.append(imageObj)
-## instegram
-			instaList = []
-			allInstaPosts = article.instagramFields.filter(display = True).all().order_by('-date')
-			for i in xrange(0,len(allInstaPosts)-2,2):
+			## initialze Category
+			artObj = {"title":article.title,"slug":article.slug,article.slug:"yep",
+					"text":getTexts(article.textFields.all().order_by('-date')),
+					"image":getImages(article.imageFields.all().order_by('order')),
+					"insta":getInstagram(article.instagramFields.filter(display = True).all().order_by('-date'))
+					}
 
-				subList = ({"message":allInstaPosts[i].message,
-							"url":allInstaPosts[i].url,
-							"date":allInstaPosts[i].date.strftime('%Y-%m-%d %H:%M:%S'),
-							"creator":allInstaPosts[i].creator},{"message":allInstaPosts[i+1].message,
-							"url":allInstaPosts[i+1].url,
-							"date":allInstaPosts[i+1].date.strftime('%Y-%m-%d %H:%M:%S'),
-							"creator":allInstaPosts[i+1].creator})
-				instaList.append(subList)
-
-			# for insta in article.instagramFields.all():
-			# 	instaObj = {"message":insta.message,"url":insta.url,"date":insta.date.strftime('%Y-%m-%d %H:%M:%S'),"creator":insta.creator}
-			# 	instaList.append(instaObj)
-
-## save
-			artObj.update({"text":textList,"image":imageList,"insta":instaList})
 			artList.append(artObj)
 		catObj.update({"artList":artList})
 		allContent.update({category.title:catObj})
 
-	days=[]
-	allDays = Day.objects.all()
-	for dayObj in allDays:
-		day = {"date":dayObj.date.strftime('%Y-%m-%d')}
-
-		postOut = []
-		for post in dayObj.posts.all():
-			out = {
-				post.postType:"type",
-				"text":post.text,
-				"poster":post.creator,
-				"title":post.title,
-				"slug":post.slug
-				}
-			for image in post.image.all():
-				out.update({"image":image.title})
-			postOut.append(out)
-
-		for image in dayObj.instagramFields.all():
-			postOut.append({"insta":"type","url":image.url})
-
-		day.update({"posts":postOut})
-		days.append(day)
-
-	listOfSlides = [#"pixelPush",
-			"linesToPoint",
-			"RLine"]
-	allContent.update({"days":days,"firstSlide":"RLine"})#listOfSlides[random.randint(0,len(listOfSlides)-1)]})
+	allContent.update({"firstSlide":"RLine"})#"days":days,#listOfSlides[random.randint(0,len(listOfSlides)-1)]})
 
 	return render_to_response('index.html',{'allContent':allContent})
 
-
-
+#Desktop sup requests
 def workData(request):
 	articles = Article.objects.all().order_by('-date').filter(category = Category.objects.all().filter(slug="work")[0])
 	artList = []
 	for article in articles:
-		artObj = {"title":article.title,"slug":article.slug,article.slug:"yep"}
-
-		imageList = []
-		for image in article.imageFields.all().order_by('order'):
-			imageObj = {"title":image.title}
-			if image.video:
-				imageObj.update({"link":image.video})
-			imageList.append(imageObj)
-		artObj.update({"image":imageList})
+		artObj = {"title":article.title,"slug":article.slug,article.slug:"yep",
+				"image":getImages(article.imageFields.all().order_by('order'))}
 		artList.append(artObj);
 
 	response_data = {"articles":artList}
@@ -127,7 +99,6 @@ def aboutData(request):
 	response_data = {"articles":textList}
 	return HttpResponse(json.dumps(textList), mimetype="application/json")
 
-
 def instaData(request):
 	article = Article.objects.all().filter(slug = "instagram")[0]
 	artObj = {"title":article.title,"slug":article.slug,article.slug:"yep"}
@@ -145,42 +116,24 @@ def instaData(request):
 	return HttpResponse(json.dumps(instaList), mimetype="application/json")
 
 
+##Mobile Requests
 def mWorkData(request,project = None):
-	articles = Article.objects.all().order_by('-date').filter(category = Category.objects.all().filter(slug="work")[0])
-	artList = []
-	for article in articles:
-		artObj = {"title":article.title,"slug":article.slug,article.slug:"yep"}
+	articles = Article.objects.all().order_by('-date').filter(category = Category.objects.all().filter(slug="work"))
+	article = articles[0]
 
-		textList = []
-		for text in article.textFields.all().order_by('-date'):
-			textObj = {"text":text.textField,"title":text.title}
-			for image in text.backgroundImage.all():
-				textObj.update({"bkImage":image.title})
-			textList.append(textObj)
-		artObj.update({"text":textList});
+	projectList = []
+	for pro in articles:
+		projectList.append({"title":pro.title,"slug":pro.slug})
+		if(pro.slug == project):
+			article = pro
 
-		imageList = []
-		for image in article.imageFields.all().order_by('order'):
-			imageObj = {"title":image.title}
-			if image.video:
-				imageObj.update({"link":image.video})
-			imageList.append(imageObj)
-		artObj.update({"image":imageList})
-		artList.append(artObj);
+	response_data = {
+				"title":article.title,"slug":article.slug,"projectList":projectList,
+				"text":getTexts(article.textFields.all().order_by('-date')),
+				"image":getImages(article.imageFields.all().order_by('order'))}
+	response_data.update({"number":(len(response_data["image"])+1)})
 
-	response_data = {"articles":artList}
-
-	print project
-	if(project):
-		for pro in artList:
-			if(pro["slug"]==project):
-				response_data.update({"current":pro,"number":len(pro["image"])+len(pro["text"])})
-	else:
-		response_data.update({"current":artList[0],"number":len(artList[0]["image"])+len(artList[0]["text"])})
-
-	print "rendering a project"
 	return render_to_response("mobile/work.html",response_data)
-	#return HttpResponse(json.dumps(response_data), mimetype="application/json")
 
 def mAboutData(request):
 	article = Article.objects.all().filter(slug = "people")[0]
@@ -194,8 +147,8 @@ def mAboutData(request):
 		textList.append(textObj)
 
 	response_data = {"articles":textList}
-	return render_to_response("mobile/about.html",textList)
-
+	print response_data
+	return render_to_response("mobile/about.html",response_data)
 
 def mInstaData(request):
 	article = Article.objects.all().filter(slug = "instagram")[0]
@@ -214,7 +167,6 @@ def mInstaData(request):
 
 
 def pureData(request):
-
 	return render_to_response('basic.html',{"nothing":"out"})
 
 def getNewInstaPost(request):
@@ -246,9 +198,4 @@ def getNewInstaPost(request):
 
 	instaArticle.save()
 	return render_to_response('basic.html',{"nothing":"out"})
-
-################ mobile stuff ##################
-
-def mhome(request):
-	return render_to_response('mobile/index.html',{"none":"None"})
 
