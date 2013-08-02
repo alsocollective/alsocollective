@@ -46,7 +46,7 @@ def getInstagram(listin):
 
 ##Desktop Main request
 def home(request):
-	if(True):#not request.mobile):
+	if(False):#not request.mobile):
 		return render_to_response('mobile/index.html',{"none":"None"})
 
 	categories = Category.objects.all()
@@ -119,21 +119,14 @@ def instaData(request):
 ##Mobile Requests
 def mWorkData(request,project = None):
 	articles = Article.objects.all().order_by('-date').filter(category = Category.objects.all().filter(slug="work"))
-	article = articles[0]
 
-	projectList = []
+	projectData = []
 	for pro in articles:
-		projectList.append({"title":pro.title,"slug":pro.slug})
-		if(pro.slug == project):
-			article = pro
+		projectData.append({"title":pro.title,"slug":pro.slug,
+				"text":getTexts(pro.textFields.all().order_by('-date')),
+				"image":getImages(pro.imageFields.all().order_by('order'))})
 
-	response_data = {
-				"title":article.title,"slug":article.slug,"projectList":projectList,
-				"text":getTexts(article.textFields.all().order_by('-date')),
-				"image":getImages(article.imageFields.all().order_by('order'))}
-	response_data.update({"number":(len(response_data["image"])+1)})
-
-	return render_to_response("mobile/work.html",response_data)
+	return render_to_response("mobile/work.html",{"projects":projectData})
 
 def mAboutData(request):
 	article = Article.objects.all().filter(slug = "people")[0]
