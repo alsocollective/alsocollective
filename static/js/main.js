@@ -5,6 +5,8 @@ var workObject, aboutObject, processObject;
 var screenIsMoving = false;
 var objectList = [];
 var splashsrc;
+var pageWidth,padgeHeight;
+
 
 window.onload = function(){
 	//setpage();
@@ -28,7 +30,7 @@ window.onload = function(){
 	objectList.push(aboutObject);
 	objectList.push(processObject);
 
-	$(document.getElementById("globalNave").childNodes[0]).bind("click",function(event){
+	$($("#globalNave").children()[0]).bind("click",function(event){
 		event.preventDefault();
 
 		if(splashsrc){
@@ -65,7 +67,28 @@ window.onload = function(){
 		},100);
 	},1000);
 
+	$(window).bind("resize",function(){
+		workObject.setSizeOfElements();
+		aboutObject.setSizeOfElements();
+		processObject.setSizeOfElements("instegram");
+		var temp = $($(".page")[2]);
+		pageWidth = temp.width();
+		padgeHeight = temp.height();
+		$(".image-fullscreen").each(imagefullscreenresize);
+	});
 
+	$(window).keydown(function(event){
+		console.log(event);
+		var move = 0;
+		if(event.keyCode == '39'){
+			move = 120;
+		} else if(event.keyCode == '37'){
+			move = -120;
+		}
+		aboutObject.scrollAmout(move);
+		workObject.scrollAmout(move);
+		processObject.scrollAmout(move);
+	});
 }
 
 var	toLoadWork = true;
@@ -149,40 +172,21 @@ function loadAbout(){
 }
 
 
-var pageWidth,padgeHeight;
-$(window).bind("resize",function(){
-	workObject.setSizeOfElements();
-	aboutObject.setSizeOfElements();
-	processObject.setSizeOfElements("instegram");
-	var temp = $($(".page")[2]);
-	pageWidth = temp.width();
-	padgeHeight = temp.height();
-	$(".image-fullscreen").each(imagefullscreenresize);
-});
 
-$(window).keydown(function(event){
-	console.log(event);
-	var move = 0;
-	if(event.keyCode == 39){
-		move = 120;
-	} else if(event.keyCode == 37){
-		move = -120;
-	}
-	aboutObject.scrollAmout(move);
-	workObject.scrollAmout(move);
-	processObject.scrollAmout(move);
-});
 
 function setupWork(paerentID){
 	//getting all the elements
-	var parentNode = document.getElementById(paerentID); //ver top element
-	var titleBackground = findFirstEl(parentNode.childNodes[0]);
-	var slidingElement = parentNode.childNodes[1];			//the sliding element
-	var backgroundElement = slidingElement.childNodes[0];// the background Element that is fixed
-	var widthOfSliding = slidingElement.childNodes[1];	//container of articles
+	var parentNode = 2222;
+	var parentNode = $("#"+paerentID)[0]; //ver top element
+	var titleBackground = $($(parentNode).children()[0]).children()[0]/*findFirstEl(parentNode.childNodes[0]);*/
+	var slidingElement = $(parentNode).children()[1];			//the sliding element
+	var backgroundElement = $(slidingElement).children()[0];// the background Element that is fixed
+	var widthOfSliding = $(slidingElement).children()[1];	//container of articles
 	//test to make sure the file mark up is good
-	if(parentNode.nodeType != 1 || slidingElement.nodeType != 1 || backgroundElement.nodeType != 1 || widthOfSliding.nodeType != 1){
+	if(!parentNode || parentNode.nodeType != 1 || slidingElement.nodeType != 1 || backgroundElement.nodeType != 1 || widthOfSliding.nodeType != 1){
 		console.log("FAILED Loading the setup");
+		// var style = document.getElementById("style1");
+		// style.disabled = !style.disabled
 	} else {
 
 	}
@@ -344,10 +348,11 @@ function setupWork(paerentID){
 		titleBackground.parentNode.style.marginLeft = offsetBetween/4+"px";
 		widthOfSliding.style.width = Math.ceil(size)+10 +"px";
 
-	//setting the navigation up
-		var links = backgroundElement.childNodes[1].childNodes;
+		//setting the navigation up
+		var links = $($(backgroundElement).children()[0]).children();
 		for (var a = 0; a < links.length; ++a){
 			if(links[a].nodeType == 1 && links[a].hasChildNodes()){
+				console.log("binding elelemnts with links");
 				addEvent(links[a],links[a].firstChild.name,offsetBetween*0.5);
 			}
 		}
@@ -405,20 +410,16 @@ function setupWork(paerentID){
 		if(!scroll){
 			widthOfSliding.childNodes[0].scrollIntoView();
 		}
-		with(parentNode.style){
-			top = "";
-			left = "80%";
-			height = "";
-			width = "";
-		}
+		parentNode.style.top = "";
+		parentNode.style.left = "80%";
+		parentNode.style.height = "";
+		parentNode.style.width = "";
 		isActiveElement = false;
 		hideBackroundElement();
 	}
 
 	this.startPosition  = function(){
-		with(parentNode.style){
-			left = windowWidth;
-		}
+			parentNode.style.left = windowWidth;
 	}
 
 	this.setActive = function(){
@@ -439,48 +440,44 @@ function setupWork(paerentID){
 
 	function hideBackroundElement(){
 		setBackgroundDefault();
-		with(backgroundElement.style){
-			if(currentActiveIs > theCountofElement){
-				top = (theCountofElement*5) + "%";
-			} else {
-				top = (100-((siblingSections.length - theCountofElement)*5)) + "%";
-			}
-			opacity = 0;
+		if(currentActiveIs > theCountofElement){
+			backgroundElement.style.top = (theCountofElement*5) + "%";
+		} else {
+			backgroundElement.style.top = (100-((siblingSections.length - theCountofElement)*5)) + "%";
 		}
+		backgroundElement.style.opacity = 0;
+
 	}
 
 	function setSize(){
 		if(isActiveElement){
-			with (parentNode.style){		//resizes the element to large format
-				top	= (theCountofElement*5)+"%"
-				height = "90%";
-				left = "0px";
-				width = "100%";
-			}
+			//resizes the element to large format
+			parentNode.style.top	= (theCountofElement*5)+"%"
+			parentNode.style.height = "90%";
+			parentNode.style.left = "0px";
+			parentNode.style.width = "100%";
 			slidingElement.style.zIndex = 0; //enables the scrolling
 			for(var a = 0; a < siblingsElements.length; ++a){
 				siblingsElements[a].deActive();
 				siblingsElements[a].activeElement(theCountofElement);
 				siblingsElements[a].OutSidesetSize();
 			}
-				with(backgroundElement.style){
-					top = (theCountofElement*5)+"%";
-					opacity = 1;
-				}
+
+			backgroundElement.style.top = (theCountofElement*5)+"%";
+			backgroundElement.style.opacity = 1;
 
 		} else {
-			with (parentNode.style){		//resizes to the appropirate size and location
-				if(currentActiveIs > theCountofElement){
-					top = (theCountofElement*5) + "%";
-					height = "5%";
-					left = "0%";
-					width = "100%";
-				} else {
-					top = (100-((siblingSections.length - theCountofElement)*5)) + "%";
-					height = "5%";
-					left = "0%";
-					width = "100%";
-				}
+			//resizes to the appropirate size and location
+			if(currentActiveIs > theCountofElement){
+				parentNode.style.top = (theCountofElement*5) + "%";
+				parentNode.style.height = "5%";
+				parentNode.style.left = "0%";
+				parentNode.style.width = "100%";
+			} else {
+				parentNode.style.top = (100-((siblingSections.length - theCountofElement)*5)) + "%";
+				parentNode.style.height = "5%";
+				parentNode.style.left = "0%";
+				parentNode.style.width = "100%";
 			}
 			slidingElement.style.zIndex = -1; //makes the area none dragable
 			hideBackroundElement();
@@ -492,7 +489,6 @@ function setupWork(paerentID){
 function addEvent(link, endPoint, offset){
 	$(link).unbind();
 	$(link).bind('click', function(event){
-		event.preventDefault();
 		goToThisEndPoint(endPoint,offset);
 	});
 }
@@ -598,6 +594,8 @@ function initialize() {
 		}
 	]
 
+	google.maps.visualRefresh = true;
+
 	var mapOptions = {
 		center: new google.maps.LatLng(43.650153,-79.397196),
 		zoom: 17,
@@ -612,7 +610,7 @@ function initialize() {
 		zoomControlOptions: {
 		        style: google.maps.ZoomControlStyle.LARGE,
 		        position: google.maps.ControlPosition.BOTTOM_LEFT
-			},
+			}
 	};
 
 	google.maps.visualRefresh = true;
@@ -625,4 +623,25 @@ function initialize() {
 		fillColor: "#e6dc5a",
 		title: "also Collective"
 	});
+
+	var infoContent = $("#smith-address")[0].cloneNode(true);
+
+	var infowindow = new google.maps.InfoWindow({
+		content: infoContent
+	});
+
+	infowindow.open(map,marker);
+
+	google.maps.event.addListener(marker, 'click', function() {
+		infowindow.open(map,marker);
+	});
+
+	$("#about").click(function(){
+		setTimeout(function(){
+			map.setCenter(marker.getPosition());
+
+		},1000);
+	});
 }
+
+
