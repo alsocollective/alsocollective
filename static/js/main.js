@@ -7,25 +7,20 @@ var objectList = [];
 var splashsrc;
 var pageWidth,padgeHeight;
 
-console.log("some start up stuff is happening...")
 
 window.onload = function(){
 	//setpage();
-	console.log("started to set up objects")
 	workObject = new setupWork("work");
 	workObject.setSizeOfElements();
 	workObject.startPosition();
-	console.log("finished work")
 
 	aboutObject = new setupWork("about");
 	aboutObject.setSizeOfElements();
 	aboutObject.startPosition();
-	console.log("finished about")
 
 	processObject = new setupWork("process");
 	processObject.setSizeOfElements("instegram");
 	processObject.startPosition();
-	console.log("finished process")
 
 	workObject.setSiblings([aboutObject,processObject]);
 	aboutObject.setSiblings([workObject,processObject]);
@@ -34,7 +29,6 @@ window.onload = function(){
 	objectList.push(workObject);
 	objectList.push(aboutObject);
 	objectList.push(processObject);
-	console.log("add objects to list")
 
 	$($("#globalNave").children()[0]).bind("click",function(event){
 		event.preventDefault();
@@ -375,9 +369,6 @@ function setupWork(paerentID){
 		var returnSize = 0;
 		if(type == "normal"){
 			for(var a = 0; a < funcChildren.length; ++a){
-				console.log(type);
-				console.log("HERE");
-				console.log(funcChildren[a]);
 				funcChildren[a].style.width = setWidth*percentOfOriginal+"px";
 				funcChildren[a].style.minWidth = setWidth*percentOfOriginal+"px";
 				returnSize += setWidth*percentOfOriginal;
@@ -498,10 +489,6 @@ function setupWork(paerentID){
 function addEvent(link, endPoint, offset){
 	$(link).unbind();
 	$(link).bind('click', function(event){
-		console.log("hello!!! this is a link");
-	// 	event.preventDefault();
-	// 	console.log("clicked!!!");
-	// 	console.log(endPoint);
 		goToThisEndPoint(endPoint,offset);
 	});
 }
