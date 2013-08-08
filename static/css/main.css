@@ -680,8 +680,11 @@ About
 	transform: rotate(-45deg);
 	-ms-transform: rotate(-45deg); /* IE 9 */
 	-webkit-transform: rotate(-45deg); /* Safari and Chrome */
+	z-index: 0;
 }
-
+.gm-style-iw #smith-address{
+	color: #000;
+}
 
 /*******************
 process

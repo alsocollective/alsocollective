@@ -125,8 +125,14 @@ def mWorkData(request,project = None):
 		projectData.append({"title":pro.title,"slug":pro.slug,
 				"text":getTexts(pro.textFields.all().order_by('-date')),
 				"image":getImages(pro.imageFields.all().order_by('order'))})
-
-	return render_to_response("mobile/work.html",{"projects":projectData})
+	if project:
+		projectObject = article.filter(slug = project)
+		current = {"title":projectObject.title,"slug":project,
+				"text":getTexts(projectObject.textFields.all().order_by('-date')),
+				"image":getImages(projectObject.imageFields.all().order_by('order'))}
+	else:
+		current = False
+	return render_to_response("mobile/work.html",{"projects":projectData,"current":current})
 
 def mAboutData(request):
 	article = Article.objects.all().filter(slug = "people")[0]
