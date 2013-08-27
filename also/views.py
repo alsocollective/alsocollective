@@ -46,7 +46,7 @@ def getInstagram(listin):
 
 ##Desktop Main request
 def home(request):
-	if(False):#not request.mobile):
+	if(True):#not request.mobile):
 		return render_to_response('mobile/index.html',{"none":"None"})
 
 	categories = Category.objects.all()
@@ -120,33 +120,43 @@ def instaData(request):
 def mWorkData(request,project = None):
 	articles = Article.objects.all().order_by('-date').filter(category = Category.objects.all().filter(slug="work"))
 
+	if project:
+		# projectObject = articles.filter(slug = project)[0]
+		current = {"prev":False}
+		found = False
+		for pro in articles:
+			if(found):
+				current.update({"next":pro.slug,"nextT":pro.title})
+				return render_to_response("mobile/project.html",current);
+
+			if(pro.slug == project):
+				current.update({"title":pro.title,"slug":pro.slug,
+					"text":getTexts(pro.textFields.all().order_by('-date')),
+					"image":getImages(pro.imageFields.all().order_by('order'))})
+				found = True
+			else:
+				current.update({"prev":pro.slug,"prevT":pro.title})
+		if(found):
+			current.update({"next":False})
+			return render_to_response("mobile/project.html",current);
+	else:
+		current = False
+
 	projectData = []
 	for pro in articles:
 		projectData.append({"title":pro.title,"slug":pro.slug,
 				"text":getTexts(pro.textFields.all().order_by('-date')),
 				"image":getImages(pro.imageFields.all().order_by('order'))})
-	if project:
-		projectObject = article.filter(slug = project)
-		current = {"title":projectObject.title,"slug":project,
-				"text":getTexts(projectObject.textFields.all().order_by('-date')),
-				"image":getImages(projectObject.imageFields.all().order_by('order'))}
-	else:
-		current = False
+
 	return render_to_response("mobile/work.html",{"projects":projectData,"current":current})
 
 def mAboutData(request):
-	article = Article.objects.all().filter(slug = "people")[0]
-	artObj = {"title":article.title,"slug":article.slug,article.slug:"yep"}
+	articles = Article.objects.all()
 
-	textList = []
-	for text in article.textFields.all().order_by('-date'):
-		textObj = {"title":text.title}
-		for image in text.backgroundImage.all():
-			textObj.update({"bkImage":image.title})
-		textList.append(textObj)
-
-	response_data = {"articles":textList}
-	print response_data
+	response_data = {"bio":articles.filter(slug = "people")[0].textFields.all().order_by('-date')[0].textField,
+					"contact":getTexts(articles.filter(title = "Contact")[0].textFields.all())[0]["text"],
+					"awards":getTexts(articles.filter(title = "Awards")[0].textFields.all())[0]["text"],
+	}
 	return render_to_response("mobile/about.html",response_data)
 
 def mInstaData(request):
