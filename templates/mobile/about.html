@@ -1,0 +1,49 @@
+{% extends "mobile/base.html" %}
+
+{% block content %}
+	<div id="about">
+	<div class="header-container">
+		<h1>About</h1>
+	</div>
+
+
+	<form action="http://maps.google.com/maps" method="get" target="_blank" data-role="none">
+		<input  data-role="none" class="hidden" name="daddr" value="196 unit 408 Spadina Ave. Toronto, ON, Canada, M5T 2C2" /><a href="tel:1-416-846-4212" class="half">(416) 846 4212</a><a href="tel:1-416-846-2236" class="half">(416) 846 2236</a>
+		<a href="mailto:collaborate@alsocollective.com">collaborate@alsocollective.com</a>
+		<a onclick="this.parentNode.submit()">196 unit 408 Spadina Ave. Toronto,<br>On, Canada, M5T 2C2</a>
+		<a href="https://twitter.com/ALSOcollective" class="third">Tweet</a><a href="https://www.facebook.com/ALSOcollective" class="third">Like</a><a href="https://vimeo.com/alsocollective" class="third">Watch</a>
+
+	</form>
+
+	<h2>Bio</h2>
+	<p class="bio">
+		{{bio|safe}}
+	</p>
+	<img src="/static/img/group_shot.jpg">
+
+	<h2>Awards</h2>
+	{{awards|safe}}
+
+	<h2>People</h2>
+	<table class="people" cellspacing="0">
+		{% for p1, p2 in people%}
+			<tr>
+				<td><a href="/people/{{p1.slug}}">{{p1.name|safe}}</a></td>
+				<td><a href="/people/{{p2.slug}}">{{p2.name|safe}}</a></td>
+			</tr>
+		{% endfor %}
+	</table>
+
+	<script type="text/javascript">
+		showWorkButton();
+	</script>
+{% endblock %}
+
+
+{% block header%}
+	<div><a href="/work"  data-transition="slidedown">Work</a></div>
+{%endblock%}
+
+{% block footer%}
+	<div><a href="/process"  data-transition="slideup">Process</a></div>
+{%endblock%}

@@ -1,0 +1,30 @@
+{% extends "mobile/base.html" %}
+
+{% block content %}
+<div id="person">
+	<img src="/static/img/uploaded/mobile{{bkimg}}">
+
+	<div class="header-container">
+		<h2>{{name|safe}}</h2>
+	</div>
+	{{bio|safe}}
+
+	<div class="project-nav">
+		<a href="/people/{{prev}}">{%if prev%}Prev{% endif %}</a><a href="/people/{{next}}">{%if next%}Next{% endif %}</a>
+	</div>
+	<div class="to-about-shadow">
+		<a href="/about/" onclick="sendDownAbout()">About</a>
+	</div>
+
+	<script type="text/javascript">
+		showWorkButton();
+		function sendDownWork(){
+			$(".to-about-shadow").animate({bottom: "-100%"},1000);
+		}
+	</script>
+</div>
+{%endblock%}
+
+
+
+
