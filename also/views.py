@@ -152,12 +152,26 @@ def mWorkData(request,project = None):
 
 def mAboutData(request):
 	articles = Article.objects.all()
+	bios = articles.filter(slug = "people")[0].textFields.all().order_by('-date')
+	people = getListofPeople(bios[1:])
 
-	response_data = {"bio":articles.filter(slug = "people")[0].textFields.all().order_by('-date')[0].textField,
+	response_data = {"bio":bios[0].textField,
 					"contact":getTexts(articles.filter(title = "Contact")[0].textFields.all())[0]["text"],
 					"awards":getTexts(articles.filter(title = "Awards")[0].textFields.all())[0]["text"],
+					"people":people,
 	}
 	return render_to_response("mobile/about.html",response_data)
+
+def getListofPeople(people):
+	pepOut = []
+	for person in range(0,len(people),2):
+		pepOut.append(({"name":onlyBeforBr(people[person].title),"slug":people[person].slug},
+			{"name":onlyBeforBr(people[person+1].title),"slug":people[person+1].slug}))
+
+	return pepOut
+
+def onlyBeforBr(input):
+	return input[:input.find("<")]
 
 def mInstaData(request):
 	article = Article.objects.all().filter(slug = "instagram")[0]
@@ -174,6 +188,32 @@ def mInstaData(request):
 		instaList.append(subList)
 	return render_to_response("mobile/process.html",instaList)
 
+def mPersons(request, person = None):
+	personData = Article.objects.get(slug = "people").textFields.all().order_by('-date')#get(slug = person)
+	prev = None
+	current = None
+	next = None
+	for per in personData:
+		if(current):
+			next = per
+			out = {	"name":current.title,
+					"bio":current.textField,
+					"bkimg":getImages(current.backgroundImage.all())[0]["title"],
+					"prev":prev.slug,
+					"next":next.slug,
+					}
+			return render_to_response('mobile/person.html',out)
+
+		if(per.slug == person):
+			current = per
+		else:
+			prev = per
+	out = {	"name":current.title,
+			"bio":current.textField,
+			"bkimg":getImages(current.backgroundImage.all())[0]["title"],
+			"prev":prev.slug,
+			}
+	return render_to_response('mobile/person.html',out)
 
 def pureData(request):
 	return render_to_response('basic.html',{"nothing":"out"})
