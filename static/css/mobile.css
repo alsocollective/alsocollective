@@ -71,11 +71,19 @@
 		text-align: center;
 		background-color: #ffcc66;
 		display: block;
+/*		display: table;*/
+	}
+
+	#logo-canvas{
+		padding-top: 25%;
+		display: block;
+/*		display: table-cell;
+		vertical-align: middle;*/
 	}
 
 	#home-container img{
 		width: 100%;
-		height: auto;
+		padding-bottom: 3.5em;
 	}
 /*	#home-container > span{
 		display: table-row;
