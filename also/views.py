@@ -46,7 +46,7 @@ def getInstagram(listin):
 
 ##Desktop Main request
 def home(request):
-	if(True):#not request.mobile):
+	if(request.mobile):
 		return render_to_response('mobile/index.html',{"none":"None"})
 
 	categories = Category.objects.all()
