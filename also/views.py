@@ -9,7 +9,7 @@ import requests
 import json
 from datetime import datetime
 import random
-
+import time
 
 ##functions
 def getTexts(listin):
@@ -44,8 +44,10 @@ def getInstagram(listin):
 	return instaList
 
 
+
 ##Desktop Main request
 def home(request):
+	getNewInstaPost()
 	if(request.mobile):
 		return render_to_response('mobile/index.html',{"none":"None"})
 
@@ -70,7 +72,6 @@ def home(request):
 		allContent.update({category.title:catObj})
 
 	allContent.update({"firstSlide":"RLine"})#"days":days,#listOfSlides[random.randint(0,len(listOfSlides)-1)]})
-
 	return render_to_response('index.html',{'allContent':allContent})
 
 #Desktop sup requests
@@ -218,10 +219,11 @@ def mPersons(request, person = None):
 def pureData(request):
 	return render_to_response('basic.html',{"nothing":"out"})
 
-def getNewInstaPost(request):
+def getNewInstaPost():
 	tag = "AlsoCollective"
 	address = "https://api.instagram.com/v1/tags/%s/media/recent?client_id=f6f99af9459c462d90e826d5893b61f7"%tag
 	data = json.loads(requests.get(address).content)
+
 	allInstaPosts = InstaPost.objects.all()
 	instaArticle = Article.objects.filter(title="Instagram")[0]
 
@@ -232,10 +234,8 @@ def getNewInstaPost(request):
 		for instance in allInstaPosts:
 			if instance.url == link:
 				isItNew = False
-				print "it's old"
 				break
 		if isItNew:
-			print "new %s" %link
 			if image["caption"]:
 				text = image["caption"]["text"]
 				user = image["caption"]["from"]["username"]
@@ -246,5 +246,5 @@ def getNewInstaPost(request):
 				instaArticle.instagramFields.add(newImage)
 
 	instaArticle.save()
-	return render_to_response('basic.html',{"nothing":"out"})
+
 
