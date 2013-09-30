@@ -1,0 +1,23 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+    <Bohdan Anderson> -- <Designer / Developer> -- <ALSOcollective>
+	<Emma Novotny> -- <Designer> -- <ALSOcollective>
+	<Lisa MacDonald> -- <Researcher> -- <ALSOcollective>
+	<Andrei Vassilliev> -- <Consultant> -- <ALSOcollective>
+	
+	<Antonio Lennert> -- <Art Director> -- <ALSOcollective>
+	<Symon Oliver> -- <Art Director> -- <ALSOcollective>
+
+# THANKS
+
+    <The Internet>
+
+# TECHNOLOGY COLOPHON
+
+    HTML5, CSS3
+    jQuery, Modernizr
+	Python, Django
+	MySQL, Javascript
