@@ -7,7 +7,6 @@ admin.autodiscover()
 urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'also.views.home', name='home'),
-    url(r'^insta/','also.views.getNewInstaPost'),
     url(r'^data/','also.views.workData'),
     url(r'^adata/','also.views.aboutData'),
     url(r'^idata/','also.views.instaData'),
@@ -15,8 +14,11 @@ urlpatterns = patterns('',
     url(r'^work/$','also.views.mWorkData',name="menu"),
     url(r'^work/(?P<project>.*)/$','also.views.mWorkData',name="projects"),
     url(r'^about/$','also.views.mAboutData'),
-    url(r'^process/$','also.views.mInstaData'),
     url(r'^people/(?P<person>.*)/$','also.views.mPersons',name="persons"),
+    url(r'^bloglist/$','blog.views.list',name="bloglist"),
+    url(r'^blog-post/(?P<post>.*)/$','blog.views.post',name="bloglist"),
+    url(r'^nicedit/', include('nicedit.urls')),
+
     #url(r'^basic/', 'also.views.pureData', name='home'),
     # url(r'^alsowD/', include('alsowD.foo.urls')),
 

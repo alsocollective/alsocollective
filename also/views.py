@@ -48,7 +48,7 @@ def getInstagram(listin):
 
 ##Desktop Main request
 def home(request):
-	getNewInstaPost()
+	# getNewInstaPost()
 	if(request.mobile):
 		return render_to_response('mobile/index.html',{"none":"None"})
 
@@ -75,7 +75,9 @@ def home(request):
 	allContent.update({"firstSlide":"RLine"})#"days":days,#listOfSlides[random.randint(0,len(listOfSlides)-1)]})
 	return render_to_response('index.html',{'allContent':allContent})
 
+
 #Desktop sup requests
+#for ajax calls to the each sub section
 def workData(request):
 	articles = Article.objects.all().order_by('-date').filter(category = Category.objects.all().filter(slug="work")[0])
 	artList = []
@@ -175,20 +177,20 @@ def getListofPeople(people):
 def onlyBeforBr(input):
 	return input[:input.find("<")]
 
-def mInstaData(request):
-	article = Article.objects.all().filter(slug = "instagram")[0]
-	artObj = {"title":article.title,"slug":article.slug,article.slug:"yep"}
-	print article.textFields.all()
-	print article.imageFields.all()
+# def mInstaData(request):
+# 	article = Article.objects.all().filter(slug = "instagram")[0]
+# 	artObj = {"title":article.title,"slug":article.slug,article.slug:"yep"}
+# 	print article.textFields.all()
+# 	print article.imageFields.all()
 
-	instaList = []
-	allInstaPosts = article.instagramFields.all().order_by('-date')
-	for i in xrange(0,len(allInstaPosts)-2,2):
-		subList = ({"message":allInstaPosts[i].message,
-					"url":allInstaPosts[i].url,
-					"url":allInstaPosts[i+1].url})
-		instaList.append(subList)
-	return render_to_response("mobile/process.html",instaList)
+# 	instaList = []
+# 	allInstaPosts = article.instagramFields.all().order_by('-date')
+# 	for i in xrange(0,len(allInstaPosts)-2,2):
+# 		subList = ({"message":allInstaPosts[i].message,
+# 					"url":allInstaPosts[i].url,
+# 					"url":allInstaPosts[i+1].url})
+# 		instaList.append(subList)
+# 	return render_to_response("mobile/process.html",instaList)
 
 def mPersons(request, person = None):
 	personData = Article.objects.get(slug = "people").textFields.all().order_by('-date')#get(slug = person)

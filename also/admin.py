@@ -47,4 +47,5 @@ admin.site.register(Category)
 admin.site.register(Article,ArticleAdmin)
 admin.site.register(InstaPost,Insta)
 admin.site.register(Post)
+
 # admin.site.register(Day)
