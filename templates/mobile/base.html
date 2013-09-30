@@ -46,6 +46,7 @@
 		$("#work-button").stop(true,true);
 		$("#work-button").animate({bottom: "0%"},0);
 	}
+	var continueToLoop = true;
 	</script>
 	<link
 		rel="stylesheet"
@@ -70,15 +71,20 @@
 </div>
 
 <script type="text/javascript">
+if(continueToLoop == null){
+	continueToLoop = false;
+}
 $("#work-button").click(function(){
 	$(".ui-overlay-c").css("background-color",$(this).css("background-color"));
 	$(document).off("pagebeforeshow",showWorkButton);
 	$(document).on("pagebeforeshow",showAboutButton);
+	continueToLoop = false;
 });
 $("#about-button").click(function(){
 	$(".ui-overlay-c").css("background-color",$(this).css("background-color"));
 	$(document).off("pagebeforeshow",showAboutButton);
 	$(document).on("pagebeforeshow",showWorkButton);
+	continueToLoop = false;
 });
 
 </script>
