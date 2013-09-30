@@ -180,6 +180,8 @@ var DragDivScroll = function( divId, optionString, funcRef ) /* 07.Mar.13 */
  
  /*** Download with instructions: http://scripterlative.com?dragdivscroll ***/
 
+console.log("yep");
+
  this.isTouchScreen = false;
  this.divElem = document.getElementById( divId );
  this.controlUsed = false;

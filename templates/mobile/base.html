@@ -1,0 +1,88 @@
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US" xmlns:x2="http://www.w3.org/2002/06/xhtml2">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+	<title>ALSO Collective</title>
+
+	<!--Description, Keywords-->
+	<meta name="description" content="ALSO Collective is an award winning multidisciplinary design studio based in Toronto, Canada. We explore traditional design approaches and topics through design research and experimentation. Our efforts aim to define new boundaries of design, moving beyond traditional media and established practices. Our goal is to contribute to a local and global culture of communication while challenging the conventions of our discipline.">
+
+	<meta name="keywords" content="also, also, also collective, design studio, design firm, collective, art, design, multidisciplinary, graphic, industrial, environmental, web, interactive, film, video, music, installation, print, data, visualization, application, mobile, animation, analog, digital, analogue, screen printing, bookbinding, printmaking, workshop, critical, community, creative, studio, firm, cross disciplinary, medicine, medical, biomedical, toronto, ontario, canadian, queen, spadina, downtown, design district, culture, publishing, publication, canada, north america, brazil, brasil, brasileiro, brazilian, designer, artist, collaborator, advertising, marketing, strategy, design thinking, foresight, seo, antonio lennert, symon oliver, lisa macdonald, bohdan anderson, developer, andrei veissiliev, mike lovas, lucas murnaghan, emma novotny, shannon gerard, graham nicholas, caroline macfarlane, blake macfarlane, nicholas smith, david caterini, ansel schmidt, eunice luk, darren rigo, winnie truong, brendan george ko, branding, ocad, iphone, javascript, processing, new media">
+	<meta name="google-site-verification" content="6lPQp8df9K1P7sGX4CyX3EkohLT2ibuXC7BCb9MtZBY" />
+
+	<!--For Mobile Devices-->
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<!--
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css">
+    <script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
+ -->
+ 	<link rel="stylesheet" type="text/css" href="/static/js/temp/jquery.mobile-1.3.1.css">
+ 	<script type="text/javascript" src="/static/js/temp/jquery.js"></script>
+ 	<script type="text/javascript" src="/static/js/temp/jquery.mobile-1.3.1.js"></script>
+
+	<link rel="stylesheet" href="/static/css/mobile.css">
+
+	<script type="text/javascript">
+	WebFontConfig = {google: { families: [ 'Montserrat:700,400:latin' ] }};
+	(function() {
+		var wf = document.createElement('script');
+		wf.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+		wf.type = 'text/javascript';
+		wf.async = 'true';
+		var s = document.getElementsByTagName('script')[0];
+		s.parentNode.insertBefore(wf, s);
+	})();
+
+	function showAboutButton(){
+		$("#work-button").animate({bottom: "300%"},1000);
+		$("#about-button").stop(true,true);
+		$("#about-button").animate({bottom: "0%"},0);
+	}
+	function showWorkButton(){
+		$("#about-button").animate({bottom: "300%"},1000);
+		$("#work-button").stop(true,true);
+		$("#work-button").animate({bottom: "0%"},0);
+	}
+	</script>
+	<link
+		rel="stylesheet"
+		href="//f.fontdeck.com/s/css/wMErktaKFxpwhaGE/Bm0r6zK5/alsocollective.com/20418.css" 
+		type="text/css"
+	/>
+</head>
+
+<body>
+
+<div id="work-button" class="main-nav-button"> <a href="/work/" data-transition="slideup">Work</a><div class="dragerr"></div></div>
+<div id="about-button" class="main-nav-button"> <a href="/about" data-transition="slideup">About</a><div class="dragerr"></div></div>
+
+<div data-role="page" id="page1" class="{% block pagename %}{% endblock %}">
+	<div class="background"></div>
+
+
+
+	<div data-role="content" data-enhance="false">{% block content %}{% endblock %}</div>
+
+
+</div>
+
+<script type="text/javascript">
+$("#work-button").click(function(){
+	$(".ui-overlay-c").css("background-color",$(this).css("background-color"));
+	$(document).off("pagebeforeshow",showWorkButton);
+	$(document).on("pagebeforeshow",showAboutButton);
+});
+$("#about-button").click(function(){
+	$(".ui-overlay-c").css("background-color",$(this).css("background-color"));
+	$(document).off("pagebeforeshow",showAboutButton);
+	$(document).on("pagebeforeshow",showWorkButton);
+});
+
+</script>
+
+</body>
+</html>
+

@@ -9,7 +9,7 @@ import requests
 import json
 from datetime import datetime
 import random
-
+import time
 
 ##functions
 def getTexts(listin):
@@ -44,9 +44,11 @@ def getInstagram(listin):
 	return instaList
 
 
+
 ##Desktop Main request
 def home(request):
-	if(False):#not request.mobile):
+	getNewInstaPost()
+	if(request.mobile):
 		return render_to_response('mobile/index.html',{"none":"None"})
 
 	categories = Category.objects.all()
@@ -70,7 +72,6 @@ def home(request):
 		allContent.update({category.title:catObj})
 
 	allContent.update({"firstSlide":"RLine"})#"days":days,#listOfSlides[random.randint(0,len(listOfSlides)-1)]})
-
 	return render_to_response('index.html',{'allContent':allContent})
 
 #Desktop sup requests
@@ -120,34 +121,58 @@ def instaData(request):
 def mWorkData(request,project = None):
 	articles = Article.objects.all().order_by('-date').filter(category = Category.objects.all().filter(slug="work"))
 
+	if project:
+		# projectObject = articles.filter(slug = project)[0]
+		current = {"prev":False}
+		found = False
+		for pro in articles:
+			if(found):
+				current.update({"next":pro.slug,"nextT":pro.title})
+				return render_to_response("mobile/project.html",current);
+
+			if(pro.slug == project):
+				current.update({"title":pro.title,"slug":pro.slug,
+					"text":getTexts(pro.textFields.all().order_by('-date')),
+					"image":getImages(pro.imageFields.all().order_by('order'))})
+				found = True
+			else:
+				current.update({"prev":pro.slug,"prevT":pro.title})
+		if(found):
+			current.update({"next":False})
+			return render_to_response("mobile/project.html",current);
+	else:
+		current = False
+
 	projectData = []
 	for pro in articles:
 		projectData.append({"title":pro.title,"slug":pro.slug,
 				"text":getTexts(pro.textFields.all().order_by('-date')),
 				"image":getImages(pro.imageFields.all().order_by('order'))})
-	if project:
-		projectObject = article.filter(slug = project)
-		current = {"title":projectObject.title,"slug":project,
-				"text":getTexts(projectObject.textFields.all().order_by('-date')),
-				"image":getImages(projectObject.imageFields.all().order_by('order'))}
-	else:
-		current = False
+
 	return render_to_response("mobile/work.html",{"projects":projectData,"current":current})
 
 def mAboutData(request):
-	article = Article.objects.all().filter(slug = "people")[0]
-	artObj = {"title":article.title,"slug":article.slug,article.slug:"yep"}
+	articles = Article.objects.all()
+	bios = articles.filter(slug = "people")[0].textFields.all().order_by('-date')
+	people = getListofPeople(bios[1:])
 
-	textList = []
-	for text in article.textFields.all().order_by('-date'):
-		textObj = {"title":text.title}
-		for image in text.backgroundImage.all():
-			textObj.update({"bkImage":image.title})
-		textList.append(textObj)
-
-	response_data = {"articles":textList}
-	print response_data
+	response_data = {"bio":bios[0].textField,
+					"contact":getTexts(articles.filter(title = "Contact")[0].textFields.all())[0]["text"],
+					"awards":getTexts(articles.filter(title = "Awards")[0].textFields.all())[0]["text"],
+					"people":people,
+	}
 	return render_to_response("mobile/about.html",response_data)
+
+def getListofPeople(people):
+	pepOut = []
+	for person in range(0,len(people),2):
+		pepOut.append(({"name":onlyBeforBr(people[person].title),"slug":people[person].slug},
+			{"name":onlyBeforBr(people[person+1].title),"slug":people[person+1].slug}))
+
+	return pepOut
+
+def onlyBeforBr(input):
+	return input[:input.find("<")]
 
 def mInstaData(request):
 	article = Article.objects.all().filter(slug = "instagram")[0]
@@ -164,14 +189,41 @@ def mInstaData(request):
 		instaList.append(subList)
 	return render_to_response("mobile/process.html",instaList)
 
+def mPersons(request, person = None):
+	personData = Article.objects.get(slug = "people").textFields.all().order_by('-date')#get(slug = person)
+	prev = None
+	current = None
+	next = None
+	for per in personData:
+		if(current):
+			next = per
+			out = {	"name":current.title.replace("<br/>"," "),
+					"bio":current.textField,
+					"bkimg":getImages(current.backgroundImage.all())[0]["title"],
+					"prev":prev.slug,
+					"next":next.slug,
+					}
+			return render_to_response('mobile/person.html',out)
+
+		if(per.slug == person):
+			current = per
+		else:
+			prev = per
+	out = {	"name":current.title,
+			"bio":current.textField,
+			"bkimg":getImages(current.backgroundImage.all())[0]["title"],
+			"prev":prev.slug,
+			}
+	return render_to_response('mobile/person.html',out)
 
 def pureData(request):
 	return render_to_response('basic.html',{"nothing":"out"})
 
-def getNewInstaPost(request):
+def getNewInstaPost():
 	tag = "AlsoCollective"
 	address = "https://api.instagram.com/v1/tags/%s/media/recent?client_id=f6f99af9459c462d90e826d5893b61f7"%tag
 	data = json.loads(requests.get(address).content)
+
 	allInstaPosts = InstaPost.objects.all()
 	instaArticle = Article.objects.filter(title="Instagram")[0]
 
@@ -182,10 +234,8 @@ def getNewInstaPost(request):
 		for instance in allInstaPosts:
 			if instance.url == link:
 				isItNew = False
-				print "it's old"
 				break
 		if isItNew:
-			print "new %s" %link
 			if image["caption"]:
 				text = image["caption"]["text"]
 				user = image["caption"]["from"]["username"]
@@ -196,5 +246,5 @@ def getNewInstaPost(request):
 				instaArticle.instagramFields.add(newImage)
 
 	instaArticle.save()
-	return render_to_response('basic.html',{"nothing":"out"})
+
 

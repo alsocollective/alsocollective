@@ -49,6 +49,11 @@ class TextNode(models.Model):
 	backgroundImage = models.ManyToManyField(ImageNode, blank=True, related_name="bkImage+")
 	textField = models.TextField(max_length=4000)
 	date = models.DateField(auto_now=False,blank=True,null=True)
+	slug = models.SlugField(blank=True)
+
+	def save(self,*args, **kwargs):
+		self.slug = slugify(self.title)
+		super(TextNode, self).save(*args, **kwargs)
 
 	def __unicode__(self):
 		return self.title
