@@ -197,7 +197,7 @@ def mPersons(request, person = None):
 	for per in personData:
 		if(current):
 			next = per
-			out = {	"name":current.title,
+			out = {	"name":current.title.replace("<br/>"," "),
 					"bio":current.textField,
 					"bkimg":getImages(current.backgroundImage.all())[0]["title"],
 					"prev":prev.slug,
