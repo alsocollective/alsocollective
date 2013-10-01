@@ -18,6 +18,7 @@ window.onload = function(){
 
 		paper.setup("myCanvas");
 
+		//var points = createLines(Logo,(width/2)-612,(height/2)-420);
 		var points = createLines(Logo,(width/2)-221,(height/2)-300);
 
 	    view.draw();
@@ -31,25 +32,30 @@ window.onload = function(){
 		setTimeout(function(){
 			grow = true;
 		},100);
+		
 		view.onFrame = function(event) {
+				
 				linesFromLocationTo(points,ranSize,growTo);
 
 				if(ranSize > 0){
-				ranSize -= .5;
+				ranSize -= 1;
 				} else {
 					ranSize = 0;
 				}
+				
 				if(grow == true){
-					ranSize += 1;
-					if(ranSize> 20){
+					ranSize += 1.001;
+					
+					/*if(ranSize > 30){
 						grow = false;
-					}
+					}*/
 				}
 		}
-
+		
 		var tool = new Tool();
 	    tool.onMouseMove = function(event){
 		    grow = true;
+			ranSize += 0.5;
 		}
 	},100);
 }
@@ -63,6 +69,7 @@ setTimeout(function(){
 		canvasElement.width = width;
 		view.draw();
 	}
+
 },500)
 
 function zeroAndRandom(path, size){
@@ -100,7 +107,11 @@ function createLines(points,x,y){
 		path = new Path();
 		path.add([prevPoint[0]+x,prevPoint[1]+y]);
 		path.add([view.viewSize.width/2,view.viewSize.height/2]);//[prevPoint.x+x+200,prevPoint.y+y]);
-		path.strokeColor = 'black';
+		path.strokeColor = '#000';
+		//path.strokeColor = '#'+(Math.random()*0xFFFFFF<<0).toString(16);
+		path.strokeWidth = Math.floor((Math.random()*3)+1);
+		
+		path.strokeCap = 'round';
 
 
 		points.splice(nextPoint,1);
@@ -138,4 +149,3 @@ function subtract(point1, point2){
 
 	return x+y;
 } 
-
