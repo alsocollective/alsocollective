@@ -34,7 +34,7 @@ class ImageNode(models.Model):
 
 	def admin_image(self):
 		if self.title:
-			return '<img style="width:200px;height:auto;" src="/static/img/uploaded/%s"/>' % self.title
+			return '<img style="width:200px;height:auto;" src="/static/img/uploaded/mobile/%s"/>' % self.title
 		return "not an image"
 	admin_image.allow_tags = True
 
