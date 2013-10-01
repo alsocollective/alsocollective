@@ -219,10 +219,9 @@
 		color: #fefefe;
 	}
 	#project p{
-		background-color: #fff;
+		color: #fff;
 		width: 60%;
-		padding: 10%;
-		margin: 0 10% 0 10%;
+		margin: 0 auto 10% auto;
 	}
 
 	.project-images{
@@ -308,21 +307,25 @@
 	/* #contact-info */
 		#about #contact-info{
 			margin: 9em 0 0 0;
+			font-size: 0.9em;
 		}
 		#about #contact-info a{
 			display: block;
 			text-align: left;
 			padding: 0 0 0.2em 0;
 			text-decoration: none;
-			color: #fff !important;
+			color: #333 !important;
 			text-align: center;
-			font-size: 0.8em;
+		}
+
+		#contact-email {
+			margin: 0 0 1em 0;
 		}
 
 		#about #contact-info .half{
 			display: inline-block;
 			width: 40%;
-			font-size: 1.5em;
+			/*font-size: 1.1em;*/
 			padding: 0 5% 1.4em 5%;
 		}
 		#about #contact-info .centered{
@@ -339,7 +342,7 @@
 		#about #contact-info .third a{
 			display: inline-block;
 			width: 32%;
-			font-size: 1.1em;
+			/*font-size: 1.1em;*/
 			padding: 0;
 		}
 		#about #contact-info .third a:first-child{
@@ -347,6 +350,13 @@
 		}
 		#about #contact-info .third a:last-child{
 			border-left: solid #fff 2px;
+		}
+		@media all and (max-width: 100px){
+			#about #contact-info{
+				display: block;
+				font-size: 1.1em;
+				background-color: #f00;
+			}
 		}
 
 	#about ul{
