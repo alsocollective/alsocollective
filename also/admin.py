@@ -12,6 +12,7 @@ from also.models import ImageNode, TextNode, Category, Article, InstaPost, Post,
 
 class ArticleAdmin(admin.ModelAdmin):
 	list_display = ('title', 'date')
+	list_editable = ('date',)
 	filter_horizontal = ('textFields','imageFields','instagramFields',)
 
 	fieldsets = [
@@ -25,6 +26,7 @@ class ArticleAdmin(admin.ModelAdmin):
 
 class Image(admin.ModelAdmin):
 	list_display = ('title', 'order','admin_image','admin_video')
+	list_editable = ('order',)
 	fieldsets = [
 		(None,{'fields':['location','video','url','order']}),
 		('Advance options', {
