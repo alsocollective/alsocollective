@@ -17,6 +17,18 @@
 		<a href="https://twitter.com/ALSOcollective">Tweet</a><a href="https://www.facebook.com/ALSOcollective">Like</a><a href="https://vimeo.com/alsocollective">Watch</a>
 		</span>
 	</div>
+	<div id="temp-video">
+		<iframe width="100%"  src="//www.youtube.com/embed/j3akX_qYIsw?rel=0&showinfo=0" frameborder="0" allowfullscreen></iframe>
+		<script type="text/javascript">
+			resizeVideo();
+			$(window).on("resize",resizeVideo);
+			function resizeVideo(){
+				var videoEl = $("#temp-video iframe");
+				var width = videoEl.width();
+				videoEl.css("height",width/1.77);
+			}
+		</script>
+	</div>
 
 	<h2>Bio</h2>
 	<p class="bio">

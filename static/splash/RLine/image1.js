@@ -111,7 +111,7 @@ function createLines(points,x,y){
 		//path.strokeColor = '#'+(Math.random()*0xFFFFFF<<0).toString(16);
 		path.strokeWidth = Math.floor((Math.random()*3)+1);
 		
-		path.strokeCap = 'round';
+		// path.strokeCap = 'round';
 
 
 		points.splice(nextPoint,1);
