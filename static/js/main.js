@@ -685,7 +685,7 @@ function onYouTubeIframeAPIReady() {
 		},
 	});
 	splashsrc = $("#splashFrame")[0].src;
-	$("#splashFrame")[0].src = "/";
+	$("#splashFrame")[0].src = "";
 	setPlayerSizeCustom();
 	playerResizer = $(window).on("resize",setPlayerSizeCustom);
 	console.log("loaded the youtube page stuff");
