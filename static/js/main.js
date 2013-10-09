@@ -668,7 +668,7 @@ function onYouTubeIframeAPIReady() {
 	player = new YT.Player('youtube-player', {
 		height: '390',
 		width: '640',
-		videoId: 'j3akX_qYIsw',
+		videoId: '_vJG9kaVLEA',
 		playerVars:{'autoplay': 1,"loop":0,"autohide":0,"controls":0,"showinfo":0,"hd":0,"modestbranding":1},
 		events: {'onReady': onPlayerReady,'onStateChange':removeVideo}
 	});
@@ -676,30 +676,32 @@ function onYouTubeIframeAPIReady() {
 	$("#splashFrame")[0].src = "";
 	setPlayerSizeCustom();
 	playerResizer = $(window).on("resize",setPlayerSizeCustom);
+	console.log($(document.documentElement).hasClass('lt-ie9'))
 	console.log("loaded the youtube page stuff");
 }
 
 function setPlayerSizeCustom(){
 	var w = $(window).width();
-	var h = $(window).height()+20;
+	var h = ($(window).height())+20;
 	var pw = w;
 	var ph = h;
 	var pl = 0;
 	var pt = 0;
 	var diff = (w/h);
 	// console.log(w/16, h/9)
+	console.log("diff is ",diff)
 	if(w/16 > h/9){
 		console.log("Wider image!!!");
 		pw = w;
 		ph = h*(1+diff);
 	} else {
-		console.log("Taller image!!!");
-		console.log(w,h,w/h,h/w)
-		 pw = w*(1+(h/w)+diff);
+		console.log("Taller image!!!", w,h,diff);
+		pw = w*(1+(h/w)+diff);
 		ph = h;
 	}
 	pl = (w-pw)/2;
 	pt = (h-ph)/2;
+	console.log(pw, ph, pl ,pt);
 	$(player.a).css({width:pw,height:ph,left:pl,top:pt});
 }
 function onPlayerReady(evt){
@@ -735,7 +737,7 @@ function removeVideo(evt){
 }
 
 $("#skip-video").on("click",function(){
-	removeVideo({data:0,target:{a:document.getElementById("player")}});
+	removeVideo({data:0,target:{a:document.getElementById("youtube-player")}});
 })
 
 
