@@ -678,7 +678,7 @@ function onYouTubeIframeAPIReady() {
 	playerResizer = $(window).on("resize",setPlayerSizeCustom);
 	if(!window.addEventListener){
 		alert("on ie");
-		removeVideo(1);
+		removeVideo({data:1});
 	}
 	console.log("loaded the youtube page stuff");
 }
@@ -733,7 +733,7 @@ function removeVideo(evt){
 	if(evt.data == 1){
 		setTimeout(function(){$("#splash").fadeIn('slow');},200);
 	}
-	if (event.data == YT.PlayerState.BUFFERING) {
+	if (evt.data == YT.PlayerState.BUFFERING) {
 		evt.target.setPlaybackQuality("hd720");
 	}
 	console.log(evt);
