@@ -676,7 +676,10 @@ function onYouTubeIframeAPIReady() {
 	$("#splashFrame")[0].src = "";
 	setPlayerSizeCustom();
 	playerResizer = $(window).on("resize",setPlayerSizeCustom);
-	console.log($(document.documentElement).hasClass('lt-ie9'))
+	if(!window.addEventListener){
+		alert("on ie");
+		console.log("on IE");
+	}
 	console.log("loaded the youtube page stuff");
 }
 
