@@ -789,6 +789,7 @@ OTHER PURPLE: #9933ff
 #youtube-player{
 	position: relative;
 	z-index: 5;
+	background-color: #33ccff;
 }
 
 #loading-animation{
@@ -803,8 +804,9 @@ OTHER PURPLE: #9933ff
 	position: absolute;
 	bottom: 0;
 	right: 0;
-	background-color: #fff;
 	display: block;
 	padding: 1em;
 	z-index: 9999;
+	color: #fff;
+	background-color: #9933ff;
 }
