@@ -682,7 +682,7 @@ function onYouTubeIframeAPIReady() {
 		events: {
 			'onReady': onPlayerReady,
 			'onStateChange':removeVideo
-		},
+		}
 	});
 	splashsrc = $("#splashFrame")[0].src;
 	$("#splashFrame")[0].src = "";
