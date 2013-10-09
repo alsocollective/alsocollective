@@ -732,6 +732,7 @@ function removeVideo(evt){
 		pageInitilizer();
 	}
 	if(evt.data == 1){
+		$("#splashFrame").fadeOut('fast');
 		setTimeout(function(){$("#splash").fadeIn('slow');},200);
 	}
 	if (evt.data == YT.PlayerState.BUFFERING) {
