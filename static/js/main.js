@@ -669,7 +669,7 @@ function onYouTubeIframeAPIReady() {
 		height: '390',
 		width: '640',
 		videoId: '_vJG9kaVLEA',
-		playerVars:{'autoplay': 1,"loop":0,"autohide":0,"controls":0,"showinfo":0,"hd":0,"modestbranding":1},
+		playerVars:{'autoplay': 1,"loop":0,"autohide":0,"controls":0,"showinfo":0,"hd":0,"modestbranding":1,"wmode":"opaque"},
 		events: {'onReady': onPlayerReady,'onStateChange':removeVideo}
 	});
 	splashsrc = $("#splashFrame")[0].src;
@@ -677,6 +677,7 @@ function onYouTubeIframeAPIReady() {
 	setPlayerSizeCustom();
 	playerResizer = $(window).on("resize",setPlayerSizeCustom);
 	if(!window.addEventListener){
+
 		// alert("on ie");
 		// onPlayerReady({target:player})
 		removeVideo({data:1});
