@@ -657,7 +657,7 @@ function initialize() {
 console.log("creating the script above the frame");
 var tag = document.createElement('script');
 tag.src = "https://www.youtube.com/iframe_api";
-var firstScriptTag = document.getElementById('player');
+var firstScriptTag = document.getElementById('youtube-player');
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 // var done = false;
 var player;
@@ -665,7 +665,7 @@ var playerResizer;
 
 function onYouTubeIframeAPIReady() {
 	console.log("creating the youtube player");
-	player = new YT.Player('player', {
+	player = new YT.Player('youtube-player', {
 		height: '390',
 		width: '640',
 		videoId: 'j3akX_qYIsw',
