@@ -787,9 +787,8 @@ PINK: #ff3399
 OTHER PURPLE: #9933ff
 */
 #youtube-player{
-	position: relative;
+	position: absolute;
 	z-index: 5;
-	background-color: #33ccff;
 }
 
 #loading-animation{
