@@ -788,7 +788,6 @@ OTHER PURPLE: #9933ff
 */
 #youtube-player{
 	position: absolute;
-	z-index: 5;
 }
 
 #loading-animation{
