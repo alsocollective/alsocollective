@@ -669,20 +669,8 @@ function onYouTubeIframeAPIReady() {
 		height: '390',
 		width: '640',
 		videoId: 'j3akX_qYIsw',
-		playerVars:{
-						'autoplay': 1,
-						"loop":0,
-						"autohide":0,
-						"controls":0,
-						"showinfo":0,
-						"hd":0,
-						"modestbranding":1
-
-					},
-		events: {
-			'onReady': onPlayerReady,
-			'onStateChange':removeVideo
-		}
+		playerVars:{'autoplay': 1,"loop":0,"autohide":0,"controls":0,"showinfo":0,"hd":0,"modestbranding":1},
+		events: {'onReady': onPlayerReady,'onStateChange':removeVideo}
 	});
 	splashsrc = $("#splashFrame")[0].src;
 	$("#splashFrame")[0].src = "";
