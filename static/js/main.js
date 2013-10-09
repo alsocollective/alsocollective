@@ -677,8 +677,9 @@ function onYouTubeIframeAPIReady() {
 	setPlayerSizeCustom();
 	playerResizer = $(window).on("resize",setPlayerSizeCustom);
 	if(!window.addEventListener){
-		onPlayerReady({target:player})
-		// removeVideo({data:1});
+		// alert("on ie");
+		// onPlayerReady({target:player})
+		removeVideo({data:1});
 	}
 	console.log("loaded the youtube page stuff");
 }
