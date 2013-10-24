@@ -317,15 +317,16 @@ function setupWork(paerentID){
 				}else {
 					location.hash = "#"+currentHash;
 				}
-				console.log(currentHash);
 				
 				var parseHash = currentHash.split("_");
 				
 				console.log('/'+parseHash[0]+'/'+parseHash[1]);
-				//_gaq.push(['_trackPageview', '/'+parseHash[0]+'/'+parseHash[1]]);
 				
-				var pageTracker = _gat._getTracker("UA-37086718-1");
-				pageTracker._trackPageview("/"+parseHash[0]+"/"+parseHash[1]);
+				if(parseHash.length < 1) {
+					pageTracker._trackPageview("/"+parseHash[0]);
+				}else {
+					pageTracker._trackPageview("/"+parseHash[0]+"/"+parseHash[1]);
+				}
 			}
 		}
 	});
