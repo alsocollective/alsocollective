@@ -317,10 +317,12 @@ function setupWork(paerentID){
 				}else {
 					location.hash = "#"+currentHash;
 				}
-				// ga('send', 'pageview', {
-				// 	'page': '/'+pageSlug+"/#"+currentHashEl,
-				// 	'title': currentHashEl
-				// });
+				console.log(currentHash);
+				
+				var parseHash = currentHash.split("_");
+				
+				//console.log('/'+parseHash[0]+'/'+parseHash[1]);
+				_gaq.push(['_trackPageview', '/'+parseHash[0]+'/'+parseHash[1]]);
 			}
 		}
 	});
