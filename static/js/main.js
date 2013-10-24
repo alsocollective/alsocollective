@@ -64,9 +64,9 @@ function pageInitilizer(){
 				var subHashs = hash.split("_")
 				$(objectList).each(function(index){
 					if(objectList[index].paerentID()==subHashs[0]){
-						if(subHashs.length > 0){
-							console.log(subHashs[1]);
-						}
+						// if(subHashs.length > 0){
+						// 	console.log(subHashs[1]);
+						// }
 						objectList[index].expandThisZoneFromOut();
 						window.location.hash = hash;
 					}
@@ -210,6 +210,11 @@ function setupWork(paerentID){
 	var button = widthOfSliding.childNodes[0];	//the button that selects the area
 	var windowWidth;
 	var catName = paerentID;
+	var slideWidth = 0;
+	var offsetBetween = 0;
+	var widthsOfEl = [0];
+	var sectionTages = [];
+	var currentHash = window.location.hash.split("_")[1];
 
 	for(var a = 0, max = siblingSections.length; a < max; ++a){
 		if(parentNode.id == siblingSections[a].id){
@@ -302,8 +307,23 @@ function setupWork(paerentID){
 		return parentNode.id;
 	}
 
-	var slideWidth = 0;
-	var offsetBetween = 0;
+	$(widthOfSliding.parentNode).on("scroll",function(){
+		var contentScrollTop = $(this).scrollLeft();
+		for(var a = 0, max = widthsOfEl.length; a < max; a += 1){
+			if(sectionTages[a] != currentHash && widthsOfEl[a] < contentScrollTop &&widthsOfEl[a+1] > contentScrollTop){
+				currentHash = sectionTages[a]
+				if(history.pushState) {
+					history.pushState(null, null, "#"+currentHash);
+				}else {
+					location.hash = "#"+currentHash;
+				}
+				// ga('send', 'pageview', {
+				// 	'page': '/'+pageSlug+"/#"+currentHashEl,
+				// 	'title': currentHashEl
+				// });
+			}
+		}
+	});
 
 	this.setSizeOfElements = function(formatOfDivs){
 		formatOfDivs = typeof formatOfDivs !== 'undefined' ? formatOfDivs : "default";
@@ -328,6 +348,7 @@ function setupWork(paerentID){
 		}
 
 		var thisSlideWidth = 0;
+		widthsOfEl = [0];
 
 		for(var a = 0, max = children.length; a < max; ++a){
 			if(children[a].nodeType == 1 && children[a].id != "workButton"){
@@ -342,15 +363,16 @@ function setupWork(paerentID){
 				} else {
 					children[a].style.width = slideWidth+"px";
 				}
-
 				thisSlideWidth = children[a].offsetWidth;
 				children[a].style.marginLeft = offsetBetween + "px";
 				size += thisSlideWidth + offsetBetween;
-
 			} else if(children[a].nodeType == 1 && children[a].id == "workButton"){
 				children[a].style.width = staticWidth*0.125+"px";
 				size += staticWidth*0.125;
 			}
+			size = Math.floor(size);
+			widthsOfEl.push(size);
+			sectionTages.push(children[a].id);
 		}
 		backgroundElement.style.width = offsetBetween/4 +"px";
 		titleBackground.parentNode.style.marginLeft = offsetBetween/4+"px";
