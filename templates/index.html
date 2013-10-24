@@ -18,7 +18,6 @@
 
 	</head>
 
-
 <body>
 
 <!--[if lt IE 7]>
@@ -139,21 +138,12 @@ var google;
 <script type="text/javascript">
 
   var _gaq = _gaq || [];
-  var pluginUrl = /*enhanced analytics*/
-   '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
-  _gaq.push(['_require', 'inpage_linkid', pluginUrl]);
-  
   _gaq.push(['_setAccount', 'UA-37086718-1']);
   _gaq.push(['_trackPageview']);
-  
-  $('#globalNave').click(function() { _gaq.push(['_trackEvent', 'Nav', 'Section Visit', 'Home']);});
-  $('#work').click(function() { _gaq.push(['_trackEvent', 'Nav', 'Section Visit', 'Work']);});
-  $('#about').click(function() { _gaq.push(['_trackEvent', 'Nav', 'Section Visit', 'About']);});
-  $('#process').click(function() { _gaq.push(['_trackEvent', 'Nav', 'Section Visit', 'Process']);});
 
   (function() {
     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 
