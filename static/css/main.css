@@ -282,6 +282,10 @@ article{
 	padding: 0;
 }
 
+#about_comrades a{
+	color: #9933ff;
+}
+
 article h1{
 	/*background-color: #444;*/
 	position: relative;
