@@ -1,5 +1,11 @@
 (function ( $ ) {
 $.fn.Jtube = function( options ) {
+	/*
+		version 0.1 of J-tube
+		by Bohdan Anderson @ Also Collective
+		24 10 2013
+	*/
+
 	var settings = $.extend({
 		iframeEl:this[0],
 		player:null,
@@ -35,9 +41,19 @@ $.fn.Jtube = function( options ) {
 		timeCounterEl:null,
 		videoLength:0,
 		loaded:false,
-		cancle:false
+		cancle:false,
+		skipWhash:true,
+		skipHash:"#skip-vid"
 	}, options );
 
+	if(settings.skipWhash){
+		var hash = window.location.hash
+		if(hash.length>0){
+			settings.cancle = true;
+			removeVideo({data:0,target:{a:settings.iframeEl}});
+			return null;
+		}
+	}
 	if(settings.loadingDiv){
 		settings.winW = $(window).width();
 		settings.winH = ($(window).height())
@@ -250,6 +266,7 @@ $.fn.Jtube = function( options ) {
 			$(settings.player.a).css({width:settings.pW,height:settings.pH,left:(settings.winW-settings.pW)/2,top:(settings.winH-settings.pH)/2});
 		}
 	}
+
 	return this;
 
 
