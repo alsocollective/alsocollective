@@ -35,7 +35,7 @@ function pageInitilizer(){
 
 	$($("#globalNave").children()[0]).bind("click",function(event){
 		event.preventDefault();
-
+		window.location.hash = '';
 		if(splashsrc){
 		setTimeout(function(){
 			var newSplash = document.createElement("iframe");
@@ -60,10 +60,15 @@ function pageInitilizer(){
 		setTimeout(function(){
 			var hash = window.location.hash;
 			if(hash){
-				var hashParent = findElementCat(document.getElementById(hash.substring(1))).id;
+				hash = hash.substring(1);
+				var subHashs = hash.split("_")
 				$(objectList).each(function(index){
-					if(objectList[index].paerentID()==hashParent){
+					if(objectList[index].paerentID()==subHashs[0]){
+						// if(subHashs.length > 0){
+						// 	console.log(subHashs[1]);
+						// }
 						objectList[index].expandThisZoneFromOut();
+						window.location.hash = hash;
 					}
 				});
 			}
@@ -205,8 +210,13 @@ function setupWork(paerentID){
 	var button = widthOfSliding.childNodes[0];	//the button that selects the area
 	var windowWidth;
 	var catName = paerentID;
+	var slideWidth = 0;
+	var offsetBetween = 0;
+	var widthsOfEl = [0];
+	var sectionTages = [];
+	var currentHash = window.location.hash.split("_")[1];
 
-	for(var a = 0; a < siblingSections.length; ++a){
+	for(var a = 0, max = siblingSections.length; a < max; ++a){
 		if(parentNode.id == siblingSections[a].id){
 			theCountofElement = a;
 		}
@@ -297,8 +307,25 @@ function setupWork(paerentID){
 		return parentNode.id;
 	}
 
-	var slideWidth = 0;
-	var offsetBetween = 0;
+	$(widthOfSliding.parentNode).on("scroll",function(){
+		var contentScrollTop = $(this).scrollLeft();
+		for(var a = 0, max = widthsOfEl.length; a < max; a += 1){
+			if(sectionTages[a] != currentHash && widthsOfEl[a] < contentScrollTop &&widthsOfEl[a+1] > contentScrollTop){
+				currentHash = sectionTages[a]
+				if(history.pushState) {
+					history.pushState(null, null, "#"+currentHash);
+				}else {
+					location.hash = "#"+currentHash;
+				}
+				console.log(currentHash);
+				
+				var parseHash = currentHash.split("_");
+				
+				//console.log('/'+parseHash[0]+'/'+parseHash[1]);
+				_gaq.push(['_trackPageview', '/'+parseHash[0]+'/'+parseHash[1]]);
+			}
+		}
+	});
 
 	this.setSizeOfElements = function(formatOfDivs){
 		formatOfDivs = typeof formatOfDivs !== 'undefined' ? formatOfDivs : "default";
@@ -323,8 +350,9 @@ function setupWork(paerentID){
 		}
 
 		var thisSlideWidth = 0;
+		widthsOfEl = [0];
 
-		for(var a = 0; a < children.length; ++a){
+		for(var a = 0, max = children.length; a < max; ++a){
 			if(children[a].nodeType == 1 && children[a].id != "workButton"){
 				var possibleWidth;
 				if(catName == "work"){
@@ -337,15 +365,16 @@ function setupWork(paerentID){
 				} else {
 					children[a].style.width = slideWidth+"px";
 				}
-
 				thisSlideWidth = children[a].offsetWidth;
 				children[a].style.marginLeft = offsetBetween + "px";
 				size += thisSlideWidth + offsetBetween;
-
 			} else if(children[a].nodeType == 1 && children[a].id == "workButton"){
 				children[a].style.width = staticWidth*0.125+"px";
 				size += staticWidth*0.125;
 			}
+			size = Math.floor(size);
+			widthsOfEl.push(size);
+			sectionTages.push(children[a].id);
 		}
 		backgroundElement.style.width = offsetBetween/4 +"px";
 		titleBackground.parentNode.style.marginLeft = offsetBetween/4+"px";
@@ -353,7 +382,7 @@ function setupWork(paerentID){
 
 		//setting the navigation up
 		var links = $($(backgroundElement).children()[0]).children();
-		for (var a = 0; a < links.length; ++a){
+		for (var a = 0, max = links.length; a < max; ++a){
 			if(links[a].nodeType == 1 && links[a].hasChildNodes()){
 				addEvent(links[a],links[a].firstChild.name,offsetBetween*0.5);
 			}
@@ -370,13 +399,13 @@ function setupWork(paerentID){
 		}
 		var returnSize = 0;
 		if(type == "normal"){
-			for(var a = 0; a < funcChildren.length; ++a){
+			for(var a = 0, max = funcChildren.length; a < max; ++a){
 				funcChildren[a].style.width = setWidth*percentOfOriginal+"px";
 				funcChildren[a].style.minWidth = setWidth*percentOfOriginal+"px";
 				returnSize += setWidth*percentOfOriginal;
 			}
 		} else if(type == "first"){
-			for(var a = 0; a < funcChildren.length; ++a){
+			for(var a = 0, max = funcChildren.length; a < max; ++a){
 				if(a == 0){
 					funcChildren[a].style.width = setWidth*percentOfOriginal/2+"px";
 					funcChildren[a].style.minWidth = setWidth*percentOfOriginal/2+"px";
@@ -388,7 +417,7 @@ function setupWork(paerentID){
 				}
 			}
 		} else if(type == "all"){
-			for(var a = 0; a < funcChildren.length; ++a){
+			for(var a = 0, max = funcChildren.length; a < max; ++a){
 					funcChildren[a].style.width = setWidth*percentOfOriginal/2+"px";
 					funcChildren[a].style.minWidth = setWidth*percentOfOriginal/2+"px";
 					returnSize += setWidth*percentOfOriginal/2;
@@ -400,7 +429,7 @@ function setupWork(paerentID){
 	function heightOfTitle(){
 		var outHeight =0;
 		var childNodesBg = titleBackground.childNodes;
-		for(var a = 0; a < childNodesBg.length; ++a){
+		for(var a = 0, max = childNodesBg.length; a < max; ++a){
 			if(childNodesBg[a].nodeType == 1){
 				outHight = getPageTopLeft(childNodesBg[a]).top;// + childNodesBg[a].offsetHeight;
 			}
@@ -567,7 +596,7 @@ function findElementCat(el){
 
 function findFirstEl(el){
 	el = el.childNodes;
-	for(var a = 0; a < el.length; ++a){
+	for(var a = 0, max = el.length; a < max; ++a){
 		if(el[a].nodeType == 1){
 			return el[a];
 		}
@@ -654,7 +683,6 @@ function initialize() {
 //// youtube stuff ////
 ///////////////////////
 var myPlayer = $("#youtube-player").Jtube({
-		// timePosGradient:["top","transparent","#9933ff"],
 		videoId:"_vJG9kaVLEA",
 		ldCssFunc:function(){
 			var loc = document.createElement("div");

@@ -2,18 +2,7 @@
 <html class="no-js lt-ie9 lt-ie8 lt-ie7">
 
 	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-
-		<title>ALSO Collective</title>
-
-
-<!-- Make sure to replace all the keywords ands such!!! -->
-		<meta name="google-site-verification" content="6lPQp8df9K1P7sGX4CyX3EkohLT2ibuXC7BCb9MtZBY" />
-		<!--Description, Keywords-->
-		<meta name="description" content="ALSO Collective is an award winning multidisciplinary design studio based in Toronto, Canada. We explore traditional design approaches and topics through design research and experimentation. Our efforts aim to define new boundaries of design, moving beyond traditional media and established practices. Our goal is to contribute to a local and global culture of communication while challenging the conventions of our discipline.">
-
-		<meta name="keywords" content="also, also, also collective, design studio, design firm, collective, art, design, multidisciplinary, graphic, industrial, environmental, web, interactive, film, video, music, installation, print, data, visualization, application, mobile, animation, analog, digital, analogue, screen printing, bookbinding, printmaking, workshop, critical, community, creative, studio, firm, cross disciplinary, medicine, medical, biomedical, toronto, ontario, canadian, queen, spadina, downtown, design district, culture, publishing, publication, canada, north america, brazil, brasil, brasileiro, brazilian, designer, artist, collaborator, advertising, marketing, strategy, design thinking, foresight, seo, antonio lennert, symon oliver, lisa macdonald, bohdan anderson, developer, andrei veissiliev, mike lovas, lucas murnaghan, emma novotny, shannon gerard, graham nicholas, caroline macfarlane, blake macfarlane, nicholas smith, david caterini, ansel schmidt, eunice luk, darren rigo, winnie truong, brendan george ko, branding, ocad, iphone, javascript, processing, new media">
+		{% include "header-meta.html" %}
 
 		<!--For Mobile Devices-->
 		<!--
@@ -26,28 +15,7 @@
 		<link rel="stylesheet" href="/static/css/normalize.min.css">
 		<link rel="stylesheet" href="/static/css/main.css">
 		<link rel="stylesheet" type="text/css" href="/static/css/j-tube.css">
-
-<!-- We need to get the logo in here! -->
-		<link rel="icon" type="image/png" href="static/img/favicon.png">
-
-		<link
-			rel="stylesheet"
-			href="//f.fontdeck.com/s/css/wMErktaKFxpwhaGE/Bm0r6zK5/alsocollective.com/20418.css" 
-			type="text/css"
-		/>
-		
-		<script>
-		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-		  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-		  ga('create', 'UA-37086718-4', 'alsocollective.com');
-		  ga('send', 'pageview');
-
-		</script>
-		
-		<script type="text/javascript"> var fb_param = {}; fb_param.pixel_id = '6013269052792'; fb_param.value = '0.00'; fb_param.currency = 'CAD'; (function(){ var fpw = document.createElement('script'); fpw.async = true; fpw.src = '//connect.facebook.net/en_US/fp.js'; var ref = document.getElementsByTagName('script')[0]; ref.parentNode.insertBefore(fpw, ref); })(); </script> <noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/offsite_event.php?id=6013269052792&amp;value=0&amp;currency=CAD" /></noscript>
+		<link rel="stylesheet" type="text/javascript" href="/static/js/ganalytics.js">
 
 	</head>
 
@@ -77,11 +45,11 @@
 		</div><div class="slider" id="sWork"><div id="backgroundAREA">
 					<ul class="navList">
 						{% for article in allContent.Work.artList %}
-							<li><a href="#{{article.slug}}" name="{{article.slug}}">{{article.title|safe}}</a></li>
+							<li><a href="#work_{{article.slug}}" name="work_{{article.slug}}">{{article.title|safe}}</a></li>
 						{% endfor %}
 					</ul>
 				</div><div id="widthOfWork"><a href="#work" id="workButton" class="invisibleButton">
-				</a>{% for article in allContent.Work.artList %}<article id="{{article.slug}}" class="project articles">{% for text in article.text %}<span id="halfPage" class="page">
+				</a>{% for article in allContent.Work.artList %}<article id="work_{{article.slug}}" class="project articles">{% for text in article.text %}<span id="halfPage" class="page">
 						<h1>{{article.title|safe}}</h1>
 						<p>
 							{{text.text|safe}}
@@ -100,10 +68,10 @@
 		</div><div class="slider" id="sAbout"><div id="backgroundAREA">
 				<ul class="navList">
 					{% for article in allContent.About.artList %}
-						<li><a href="#{{article.slug}}" name="{{article.slug}}">{{article.title|safe}}</a></li>
+						<li><a href="#about_{{article.slug}}" name="about_{{article.slug}}">{{article.title|safe}}</a></li>
 					{% endfor %}
 				</ul>
-			</div><div id="widthOfWork"><a href="#about" class="invisibleButton" id="workButton"></a>{% for article in allContent.About.artList %}<article id="{{article.slug}}" class="project">{% if article.contact %}
+			</div><div id="widthOfWork"><a href="#about" class="invisibleButton" id="workButton"></a>{% for article in allContent.About.artList %}<article id="about_{{article.slug}}" class="project">{% if article.contact %}
 
 					<![if !IE]><div id="map-canvas"/><![endif]>
 					<![if IE]><div>
