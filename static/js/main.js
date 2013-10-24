@@ -61,7 +61,7 @@ function pageInitilizer(){
 			var hash = window.location.hash;
 			if(hash){
 				hash = hash.substring(1);
-				subHashs = hash.split("_")
+				var subHashs = hash.split("_")
 				$(objectList).each(function(index){
 					if(objectList[index].paerentID()==subHashs[0]){
 						if(subHashs.length > 0){
