@@ -9,3 +9,5 @@ _gaq.push(['_trackPageview']);
 	ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
 	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 })();
+
+var pageTracker = _gat._getTracker("UA-37086718-1");
