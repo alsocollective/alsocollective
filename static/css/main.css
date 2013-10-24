@@ -259,12 +259,12 @@ article{
 	padding: 0 0 0 1.5em;
 }
 
-#comrades ul {
+#about_comrades ul {
 	margin: 0;
 	padding: 0 0 0 1.5em;
 }
 
-#comrades li {
+#about_comrades li {
 	display: inline-block;
 	vertical-align: top;
 	width: 30%;
@@ -272,12 +272,12 @@ article{
 	padding: 0;
 }
 
-#comrades h4 {
+#about_comrades h4 {
 	padding: 0;
 	margin: 0;
 }
 
-#comrades p{
+#about_comrades p{
 	margin: 0;
 	padding: 0;
 }

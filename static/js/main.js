@@ -320,8 +320,6 @@ function setupWork(paerentID){
 				
 				var parseHash = currentHash.split("_");
 				
-				console.log('/'+parseHash[0]+'/'+parseHash[1]);
-				
 				var pageTracker = _gat._getTracker("UA-37086718-1");
 				
 				if(parseHash.length > 1) {
