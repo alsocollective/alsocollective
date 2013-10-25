@@ -232,6 +232,7 @@ function setupWork(paerentID){
 				isActiveElement = true;
 				setSize();
 				window.location.hash = "#"+parentNode.id;
+				currentHash = parentNode.id;
 				setBackgroundActive();
 			}
 			setTimeout(function(){
@@ -309,6 +310,7 @@ function setupWork(paerentID){
 
 	$(widthOfSliding.parentNode).on("scroll",function(){
 		var contentScrollTop = $(this).scrollLeft();
+		console.log(sectionTages);
 		for(var a = 0, max = widthsOfEl.length; a < max; a += 1){
 			if(sectionTages[a] != currentHash && widthsOfEl[a] < contentScrollTop &&widthsOfEl[a+1] > contentScrollTop){
 				currentHash = sectionTages[a]
@@ -317,17 +319,12 @@ function setupWork(paerentID){
 				}else {
 					location.hash = "#"+currentHash;
 				}
-				
+
 				var parseHash = currentHash.split("_");
-				
 				var pageTracker = _gat._getTracker("UA-37086718-1");
-				
 				if(parseHash.length > 1) {
-					//_gaq.push(["_set", "title", "Your Brand New Page Title"]);
-					//pageTracker._set("Fun");
 					pageTracker._trackPageview("/"+parseHash[0]+"/"+parseHash[1]);
 				}else {
-					//pageTracker._set("Fun");
 					pageTracker._trackPageview("/"+parseHash[0]);
 				}
 			}
@@ -359,6 +356,7 @@ function setupWork(paerentID){
 		var thisSlideWidth = 0;
 		widthsOfEl = [0];
 
+		console.log("--------------");
 		for(var a = 0, max = children.length; a < max; ++a){
 			if(children[a].nodeType == 1 && children[a].id != "workButton"){
 				var possibleWidth;
@@ -381,6 +379,7 @@ function setupWork(paerentID){
 			}
 			size = Math.floor(size);
 			widthsOfEl.push(size);
+			console.log(children[a].id);
 			sectionTages.push(children[a].id);
 		}
 		backgroundElement.style.width = offsetBetween/4 +"px";
