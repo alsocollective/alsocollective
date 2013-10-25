@@ -61,7 +61,7 @@
 		</div>
 	</section><section id="about"><div id="staticBackground">
 			<h1>{{allContent.About.cat|safe}}</h1>
-			{# <p>{{allContent.About.description|safe}}</p> #}
+
 		</div><div class="slider" id="sAbout"><div id="backgroundAREA">
 				<ul class="navList">
 					{% for article in allContent.About.artList %}
@@ -72,7 +72,7 @@
 
 					<![if !IE]><div id="map-canvas"/><![endif]>
 					<![if IE]><div>
-						<img src="static/img/map-fallback.jpg">
+						<img src="static/img/map-fallback.jpg" alt="Google Map Fallback"/>
 
 					</div><![endif]>
 
@@ -98,7 +98,7 @@
 		</div>
 	</section><section id="process"><div id="staticBackground">
 			<h1>{{allContent.Process.cat|safe}}</h1>
-			{# <p>{{allContent.Process.description|safe}}</p> #}
+
 		</div><div id="sProcess" class="slider"><div id="backgroundAREA">
 				<ul>
 

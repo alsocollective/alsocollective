@@ -140,6 +140,7 @@ function createImage(parent,image,video){
 	var out = document.createElement("img");
 	out.src = image;
 	out.className = "image-fullscreen";
+	out.alt = image;
 	parent.appendChild(out);
 	if(video){
 		var ontop = document.createElement("div");
