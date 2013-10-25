@@ -193,7 +193,7 @@ function setupWork(paerentID){
 	var widthOfSliding = $(slidingElement).children()[1];	//container of articles
 	//test to make sure the file mark up is good
 	if(!parentNode || parentNode.nodeType != 1 || slidingElement.nodeType != 1 || backgroundElement.nodeType != 1 || widthOfSliding.nodeType != 1){
-		console.log("FAILED Loading the setup");
+		//console.log("FAILED Loading the setup");
 		// var style = document.getElementById("style1");
 		// style.disabled = !style.disabled
 	} else {
@@ -311,7 +311,7 @@ function setupWork(paerentID){
 
 	$(widthOfSliding.parentNode).on("scroll",function(){
 		var contentScrollTop = $(this).scrollLeft();
-		console.log(sectionTages);
+		//console.log(sectionTages);
 		for(var a = 0, max = widthsOfEl.length; a < max; a += 1){
 			if(sectionTages[a] != currentHash && widthsOfEl[a] < contentScrollTop &&widthsOfEl[a+1] > contentScrollTop){
 				currentHash = sectionTages[a]
@@ -357,7 +357,7 @@ function setupWork(paerentID){
 		var thisSlideWidth = 0;
 		widthsOfEl = [0];
 
-		console.log("--------------");
+		//console.log("--------------");
 		for(var a = 0, max = children.length; a < max; ++a){
 			if(children[a].nodeType == 1 && children[a].id != "workButton"){
 				var possibleWidth;
@@ -380,7 +380,7 @@ function setupWork(paerentID){
 			}
 			size = Math.floor(size);
 			widthsOfEl.push(size);
-			console.log(children[a].id);
+			//console.log(children[a].id);
 			sectionTages.push(children[a].id);
 		}
 		backgroundElement.style.width = offsetBetween/4 +"px";
