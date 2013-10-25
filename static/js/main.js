@@ -324,10 +324,10 @@ function setupWork(paerentID){
 				
 				if(parseHash.length > 1) {
 					//_gaq.push(["_set", "title", "Your Brand New Page Title"]);
-					pageTracker._setTitle("Fun");
+					//pageTracker._set("Fun");
 					pageTracker._trackPageview("/"+parseHash[0]+"/"+parseHash[1]);
 				}else {
-					pageTracker._setTitle("Fun");
+					//pageTracker._set("Fun");
 					pageTracker._trackPageview("/"+parseHash[0]);
 				}
 			}
