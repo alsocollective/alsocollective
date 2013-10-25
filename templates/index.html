@@ -71,7 +71,7 @@
 						<li><a href="#about_{{article.slug}}" name="about_{{article.slug}}">{{article.title|safe}}</a></li>
 					{% endfor %}
 				</ul>
-			</div><div id="widthOfWork"><a href="#about" class="invisibleButton" id="work"></a>{% for article in allContent.About.artList %}<article id="about_{{article.slug}}" class="project">{% if article.contact %}
+			</div><div id="widthOfWork"><a href="#about" class="invisibleButton" id="about"></a>{% for article in allContent.About.artList %}<article id="about_{{article.slug}}" class="project">{% if article.contact %}
 
 					<![if !IE]><div id="map-canvas"/><![endif]>
 					<![if IE]><div>
@@ -106,7 +106,7 @@
 				<ul>
 
 				</ul>
-			</div><div id="widthOfWork"><a href="#process" id="work" class="invisibleButton">
+			</div><div id="widthOfWork"><a href="#process" id="process" class="invisibleButton">
 				</a><article class="project">{% for c1, c2 in allContent.Process.artList.0.insta %}<span class="page instaPic">
 					<div class="background" style="background-image: url('{{c1.url}}')">
 						<div>
@@ -140,15 +140,17 @@ var google;
 
 <script type="text/javascript">
 
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-37086718-1']);
-  _gaq.push(['_trackPageview']);
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-37086718-1']);
+_gaq.push(['_setDomainName', 'alsocollective.com']);
+_gaq.push(['_setAllowLinker', true]);
+_gaq.push(['_trackPageview']);
 
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
+(function() {
+	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
 
 </script>
 
