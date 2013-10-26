@@ -43,8 +43,8 @@
 	<table class="people" cellspacing="0">
 		{% for p1, p2 in people%}
 			<tr>
-				<td><a href="/people/{{p1.slug}}">{{p1.name|safe}}</a></td>
-				<td><a href="/people/{{p2.slug}}">{{p2.name|safe}}</a></td>
+				<td><a href="/people/{{p1.slug}}" title="{{p1.slug}}">{{p1.name|safe}}</a></td>
+				<td><a href="/people/{{p2.slug}}" title="{{p1.slug}}">{{p2.name|safe}}</a></td>
 			</tr>
 		{% endfor %}
 	</table>
