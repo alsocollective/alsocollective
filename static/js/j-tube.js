@@ -112,7 +112,7 @@ $.fn.Jtube = function( options ) {
 		settings.timeCounterEl = document.createElement("div");
 		settings.timeCounterEl.id= "time-counter";
 		parent.appendChild(settings.timeCounterEl);
-		console.log("what what ",settings.skipvidWidth)
+		//console.log("what what ",settings.skipvidWidth)
 		$(settings.timeCounterEl).css("right",settings.skipvidWidth);
 
 		setInterval(function(){
@@ -171,7 +171,7 @@ $.fn.Jtube = function( options ) {
 
 			//setting up the video length stuff...
 			settings.videoLength = settings.player.getDuration();
-			console.log("ths video lenth should be set here", settings.player.getDuration());
+			//console.log("ths video lenth should be set here", settings.player.getDuration());
 			if(settings.skipvid && settings.timeLeft){
 				setInterval(function(){
 					if(!settings.videoLength){
