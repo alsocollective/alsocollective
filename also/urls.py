@@ -17,6 +17,8 @@ urlpatterns = patterns('',
     url(r'^about/$','also.views.mAboutData'),
     url(r'^process/$','also.views.mInstaData'),
     url(r'^people/(?P<person>.*)/$','also.views.mPersons',name="persons"),
+
+    url(r'^other/','also.views.allData'),
     #url(r'^basic/', 'also.views.pureData', name='home'),
     # url(r'^alsowD/', include('alsowD.foo.urls')),
 
