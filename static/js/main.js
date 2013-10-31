@@ -1,7 +1,9 @@
-if(google && document.getElementById("map-canvas")){
+var google;
+
+if(document.getElementById("map-canvas")){
+	console.log("addeing DOM listener");
 	google.maps.event.addDomListener(window, 'load', initialize);
 }
-
 var workObject, aboutObject, processObject;
 var screenIsMoving = false;
 var objectList = [];
@@ -13,15 +15,15 @@ var pageWidth,padgeHeight;
 
 function pageInitilizer(){
 	//setpage();
-	workObject = new setupWork("work");
+	workObject = new SetupWork("work");
 	workObject.setSizeOfElements();
 	workObject.startPosition();
 
-	aboutObject = new setupWork("about");
+	aboutObject = new SetupWork("about");
 	aboutObject.setSizeOfElements();
 	aboutObject.startPosition();
 
-	processObject = new setupWork("process");
+	processObject = new SetupWork("process");
 	processObject.setSizeOfElements("instegram");
 	processObject.startPosition();
 
@@ -50,7 +52,7 @@ function pageInitilizer(){
 		workObject.resetSize();
 		aboutObject.resetSize();
 		processObject.resetSize();
-	})
+	});
 
 	setTimeout(function(){
 		workObject.resetSize(true);
@@ -61,12 +63,9 @@ function pageInitilizer(){
 			var hash = window.location.hash;
 			if(hash){
 				hash = hash.substring(1);
-				var subHashs = hash.split("_")
+				var subHashs = hash.split("_");
 				$(objectList).each(function(index){
 					if(objectList[index].paerentID()==subHashs[0]){
-						// if(subHashs.length > 0){
-						// 	console.log(subHashs[1]);
-						// }
 						objectList[index].expandThisZoneFromOut();
 						window.location.hash = hash;
 					}
@@ -105,16 +104,16 @@ function loadwork(){
 		toLoadWork = false;
 		$.getJSON('/data/', function(data) {
 			var projects = $(".articles");
-			data = data["articles"];
+			data = data.articles;
 			var children;
 			projects.each(function(artLvl){
 				children = $(projects[artLvl]).children();
 				children.each(function(imgLvl){
-					if(data[artLvl]["image"][imgLvl]){
-						if(data[artLvl]["image"][imgLvl]["link"]){
-							createImage(children[imgLvl+1],'/static/img/uploaded/'+data[artLvl]["image"][imgLvl]["title"],data[artLvl]["image"][imgLvl]["link"]);
+					if(data[artLvl].image[imgLvl]){
+						if(data[artLvl].image[imgLvl].link){
+							createImage(children[imgLvl+1],'/static/img/uploaded/'+data[artLvl]["image"][imgLvl].title,data[artLvl].image[imgLvl].link);
 						} else {
-							createImage(children[imgLvl+1],'/static/img/uploaded/'+data[artLvl]["image"][imgLvl]["title"]);
+							createImage(children[imgLvl+1],'/static/img/uploaded/'+data[artLvl]["image"][imgLvl].title);
 						}
 					}
 				});
@@ -146,7 +145,7 @@ function createImage(parent,image,video){
 		var ontop = document.createElement("div");
 		ontop.className="playvideo-button";
 		$(ontop).click(function(){
-			createVideo(parent,video)
+			createVideo(parent,video);
 		});
 		parent.appendChild(ontop);
 	}
@@ -172,7 +171,7 @@ function loadAbout(){
 			var children = $(".biodesc");
 			children.each(function(index){
 				// if(index != 0){
-					children[index].parentNode.style.backgroundImage = "url('/static/img/uploaded/"+ data[index+1]["bkImage"] +"')";
+					children[index].parentNode.style.backgroundImage = "url('/static/img/uploaded/"+ data[index+1].bkImage +"')";
 				// }
 			});
 			//style="background-image: url('/static/img/uploaded/{{text.bkImage}}')"
@@ -183,10 +182,10 @@ function loadAbout(){
 
 
 
-function setupWork(paerentID){
+function SetupWork(paerentID){
 	//getting all the elements
 	var parentNode = 2222;
-	var parentNode = $("#"+paerentID)[0]; //ver top element
+	parentNode = $("#"+paerentID)[0]; //ver top element
 	var titleBackground = $($(parentNode).children()[0]).children()[0]/*findFirstEl(parentNode.childNodes[0]);*/
 	var slidingElement = $(parentNode).children()[1];			//the sliding element
 	var backgroundElement = $(slidingElement).children()[0];// the background Element that is fixed
@@ -205,7 +204,7 @@ function setupWork(paerentID){
 
 	var isActiveElement = false;
 	var currentActiveIs;
-	var siblingsElements; 				//the other objects containing this data
+	var siblingsElements;				//the other objects containing this data
 	var theCountofElement;				//the locaiotn in this list
 	var siblingSections = parentNode.parentNode.childNodes; //siblings can contain the total numbers
 	var button = widthOfSliding.childNodes[0];	//the button that selects the area
@@ -228,7 +227,7 @@ function setupWork(paerentID){
 	parentNode.onclick = expandThisZone;
 	function expandThisZone(){
 		if(!screenIsMoving){
-			screenIsMoving = true
+			screenIsMoving = true;
 			if(!isActiveElement){
 				isActiveElement = true;
 				setSize();
@@ -245,7 +244,7 @@ function setupWork(paerentID){
 			setTimeout(function(){
 				splashsrc = splash.src;
 				splash.parentNode.removeChild(splash);
-			}, 1000)
+			}, 1000);
 		}
 	}
 
@@ -253,13 +252,14 @@ function setupWork(paerentID){
 		if(isActiveElement){
 			$(slidingElement).scrollLeft($(slidingElement).scrollLeft() + inAmmout);
 		}
-	}
+	};
 
 	function setBackgroundActive(){
 		if(parentNode.id=="about" && document.getElementById("map-canvas")){
 			setTimeout(function(){
 				document.getElementById("map-canvas").style.height = $("#map-canvas").parent().height();
 				google.maps.event.trigger(map, 'resize');
+
 			},1100);
 		}
 		if(toLoadWork && parentNode.id=="work"){
@@ -275,46 +275,46 @@ function setupWork(paerentID){
 		if(!$(parentNode).hasClass("activestate")){
 			$(parentNode).addClass("activestate");
 		}
-	}
+	};
 	function setBackgroundDefault(){
 		$(parentNode).removeClass("navstate");
 		$(parentNode).removeClass("activestate");
 		if(!$(parentNode).hasClass("defaultstate")){
 			$(parentNode).addClass("defaultstate");
 		}
-	}
+	};
 	function setBackgroundNav(){
 		$(parentNode).removeClass("activestate");
 		$(parentNode).removeClass("defaultstate");
 		if(!$(parentNode).hasClass("navstate")){
 			$(parentNode).addClass("navstate");
 		}
-	}
+	};
 
 	this.expandThisZoneFromOut = function(){
 		expandThisZone();
-	}
+	};
 
 	this.scrollTo = function(newLocation){
 		if(isActiveElement){
 			$(slidingElement).scrollLeft(newLocation);
 		}
-	}
+	};
 
 	this.setSiblings = function(inputArray){
 		siblingsElements = inputArray;
-	}
+	};
 
 	this.paerentID = function(){
 		return parentNode.id;
-	}
+	};
 
 	$(widthOfSliding.parentNode).on("scroll",function(){
 		var contentScrollTop = $(this).scrollLeft();
 		//console.log(sectionTages);
 		for(var a = 0, max = widthsOfEl.length; a < max; a += 1){
 			if(sectionTages[a] != currentHash && widthsOfEl[a] < contentScrollTop &&widthsOfEl[a+1] > contentScrollTop){
-				currentHash = sectionTages[a]
+				currentHash = sectionTages[a];
 				if(history.pushState) {
 					history.pushState(null, null, "#"+currentHash);
 				}else {
@@ -335,12 +335,12 @@ function setupWork(paerentID){
 	this.setSizeOfElements = function(formatOfDivs){
 		formatOfDivs = typeof formatOfDivs !== 'undefined' ? formatOfDivs : "default";
 
-		slideWidth = 0; 								//size of each block
-		offsetBetween = 0; 								//distance between each slide
+		slideWidth = 0;									//size of each block
+		offsetBetween = 0;								//distance between each slide
 		windowWidth = $(window).width();				//we find the total width of the screen
 
 		//getting the children of the working area
-		var children = widthOfSliding.childNodes
+		var children = widthOfSliding.childNodes;
 
 		var size = 0;
 		//these set the ratio, they HAVE TO equal 1!!!!!
@@ -349,7 +349,7 @@ function setupWork(paerentID){
 
 		offsetBetween = windowWidth*0.8;
 
-		if(formatOfDivs == "instegram"){ 
+		if(formatOfDivs == "instegram"){
 			var windowHeight = $(window).height()*0.90/2;
 			slideWidth = windowHeight;//$("#process").height()/2;
 		}
@@ -362,9 +362,9 @@ function setupWork(paerentID){
 			if(children[a].nodeType == 1 && children[a].id != "workButton"){
 				var possibleWidth;
 				if(catName == "work"){
-					possibleWidth = findCildWidth(children[a],slideWidth,1,"first");
+					possibleWidth = findChildWidth(children[a],slideWidth,1,"first");
 				} else {
-					possibleWidth = findCildWidth(children[a],slideWidth,1,"normal");
+					possibleWidth = findChildWidth(children[a],slideWidth,1,"normal");
 				}
 				if( possibleWidth ){
 					children[a].style.width = possibleWidth+"px";
@@ -394,10 +394,10 @@ function setupWork(paerentID){
 				addEvent(links[a],links[a].firstChild.name,offsetBetween*0.5);
 			}
 		}
-	}
+	};
 
-	function findCildWidth(element, setWidth, percentOfOriginal,type){
-		if(element.id == "people"){
+	function findChildWidth(element, setWidth, percentOfOriginal,type){
+		if(element.id == "about_people"){
 			type = "all";
 		}
 		var funcChildren = element.childNodes;
@@ -432,17 +432,17 @@ function setupWork(paerentID){
 		}
 		return returnSize;
 	}
-
+/*
 	function heightOfTitle(){
 		var outHeight =0;
 		var childNodesBg = titleBackground.childNodes;
 		for(var a = 0, max = childNodesBg.length; a < max; ++a){
 			if(childNodesBg[a].nodeType == 1){
-				outHight = getPageTopLeft(childNodesBg[a]).top;// + childNodesBg[a].offsetHeight;
+				outHeight = getPageTopLeft(childNodesBg[a]).top;// + childNodesBg[a].offsetHeight;
 			}
 		}
-		return outHight
-	}
+		return outHeight;
+	}*/
 
 	this.resetSize = function(scroll){
 		if(!scroll){
@@ -458,23 +458,23 @@ function setupWork(paerentID){
 
 	this.startPosition  = function(){
 			parentNode.style.left = windowWidth;
-	}
+	};
 
 	this.setActive = function(){
 		isActiveElement = true;
-	}
+	};
 	this.deActive = function(){
 		isActiveElement = false;
-	}
+	};
 	this.activeElement = function(number){
 		currentActiveIs = number;
-	}
+	};
 	this.activity = function(){
 		return isActiveElement;
-	}
+	};
 	this.OutSidesetSize = function(){
 		setSize();
-	}
+	};
 
 	function hideBackroundElement(){
 		setBackgroundDefault();
@@ -490,7 +490,7 @@ function setupWork(paerentID){
 	function setSize(){
 		if(isActiveElement){
 			//resizes the element to large format
-			parentNode.style.top	= (theCountofElement*5)+"%"
+			parentNode.style.top	= (theCountofElement*5)+"%";
 			parentNode.style.height = "90%";
 			parentNode.style.left = "0px";
 			parentNode.style.width = "100%";
@@ -540,12 +540,8 @@ function goToThisEndPoint(location,offset){
 	var body = $(element.parentNode.parentNode);
 	var bodyOffset = $(element.parentNode).offset().left*-1;
 	body.scrollLeft(bodyOffset + left - (offset/2));
-	//body.animate({scrollLeft : bodyOffset + left - (offset/2)},1000);
-// 	setTimeout(function(){
-// //		setHashTag(location);
-// 	},1100);
 }
-
+/*
 function setHashTag(newTag){
 	var element = document.getElementById(newTag);
 	element.id = "";
@@ -554,26 +550,26 @@ function setHashTag(newTag){
 }
 
 function windowSize() {
-  var myWidth = 0, myHeight = 0;
-  if( typeof( window.innerWidth ) == 'number' ) {
-    //Non-IE
-    myWidth = window.innerWidth;
-    myHeight = window.innerHeight;
-  } else if( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) {
-    //IE 6+ in 'standards compliant mode'
-    myWidth = document.documentElement.clientWidth;
-    myHeight = document.documentElement.clientHeight;
-  } else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {
-    //IE 4 compatible
-    myWidth = document.body.clientWidth;
-    myHeight = document.body.clientHeight;
-  }
+	var myWidth = 0, myHeight = 0;
+	if( typeof( window.innerWidth ) == 'number' ) {
+		//Non-IE
+		myWidth = window.innerWidth;
+		myHeight = window.innerHeight;
+	} else if( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) {
+		//IE 6+ in 'standards compliant mode'
+		myWidth = document.documentElement.clientWidth;
+		myHeight = document.documentElement.clientHeight;
+	} else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {
+		//IE 4 compatible
+		myWidth = document.body.clientWidth;
+		myHeight = document.body.clientHeight;
+	}
 
-  return {
-  	"width": myWidth,
-  	"height": myHeight
-  }
-}
+	return {
+		"width": myWidth,
+		"height": myHeight
+	};
+}*/
 
 function getPageTopLeft(el) {
 	var rect = el.getBoundingClientRect();
@@ -584,38 +580,14 @@ function getPageTopLeft(el) {
 	};
 }
 
-function findElementCat(el){
-	if(!el || el.tagName == "body" || el.tagName == "html"){
-		return false;
-	}
-	var element = el.parentNode;
-	var previouse = null;
-	while(true){
-		previouse = element;
-		element = isParent(element);
-		if(!element){
-			if(previouse){
-				return previouse;
-			}
-		}
-	}
-}
 
-function findFirstEl(el){
-	el = el.childNodes;
-	for(var a = 0, max = el.length; a < max; ++a){
-		if(el[a].nodeType == 1){
-			return el[a];
-		}
-	}
-}
 
 function isParent(el){
-	if(!el || !el.tagName || el.tagName == "body" || el.tagName == "html"){
+	if(!el || !el.tagName || el.tagName === "body" || el.tagName === "html"){
 		return false;
 	}
 	el = el.parentNode;
-	if(el.id == "contentWrapper"){
+	if(el.id === "contentWrapper"){
 		return false;
 	} else {
 		return el;
@@ -624,13 +596,14 @@ function isParent(el){
 
 var map;
 function initialize() {
+	console.log("initializer is going");
 	var styles =[
 		{
 			"stylers": [
 				{ "hue": "#33ccff" }
 			]
 		}
-	]
+	];
 
 	google.maps.visualRefresh = true;
 
@@ -640,15 +613,15 @@ function initialize() {
 		mapTypeId: google.maps.MapTypeId.ROADMAP,
 		overviewMapControl: true,
 		disableDefaultUI: true,
-	    scrollwheel: false,
+		scrollwheel: false,
 		styles: styles,
 		backgroundColor:"33ccff",
 
 		zoomControl: true,
 		zoomControlOptions: {
-		        style: google.maps.ZoomControlStyle.LARGE,
-		        position: google.maps.ControlPosition.BOTTOM_LEFT
-			}
+			style: google.maps.ZoomControlStyle.LARGE,
+			position: google.maps.ControlPosition.BOTTOM_LEFT
+		}
 	};
 
 	google.maps.visualRefresh = true;
