@@ -186,18 +186,18 @@ section {
 	width: 100%;
 }*/
 
-.defaultstate #staticBackground:hover {
+.defaultstate #staticBackground:hover, .defaultstate #widthOfWork:hover {
 	background-color: #eee;
 	transition: all;
 	transition-duration: 1s;
 	transition-timing-function: ease-in;
 }
 
-.navstate #staticBackground:hover {
-	background-color: #eee;
+.navstate section:hover {
+/*	background-color: #eee;
 	transition: all;
 	transition-duration: 1s;
-	transition-timing-function: ease-in;
+	transition-timing-function: ease-in;*/
 }
 
 /*#about .defaultstate #staticBackground:hover{
@@ -440,6 +440,7 @@ h1 span{
 	/*background-image: url("/static/img/background1.jpg");*/
 	background-color: #9933ff;
 	overflow: hidden;
+	top: 0%;
 }
 
 #work:hover{
@@ -586,20 +587,25 @@ About
 	-moz-columns:2em 2; /* Firefox */
 }
 
-#people .page .imageContainer{
+#about_people .page .imageContainer{
 	height: 50%;
 	overflow: hidden;
 }
 
-#people .page .profileImage{
+#about_people .page .profileImage{
 	width: 100%;
 	height: auto;
 }
 
-#people .page h1{
+#about_people .page h1{
 	margin:	0;
 	background-color: none;
 	text-align: center;
+}
+
+#about_contact #map-canvas img{
+	width: 100%;
+	height: auto;
 }
 
 /*#people .page p{

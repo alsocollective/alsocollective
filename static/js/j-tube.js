@@ -1,5 +1,6 @@
 (function ( $ ) {
 $.fn.Jtube = function( options ) {
+	var YT = null;
 	/*
 		version 0.1 of J-tube
 		by Bohdan Anderson @ Also Collective
@@ -147,19 +148,21 @@ $.fn.Jtube = function( options ) {
 	$(settings.iframeEl).addClass("hide");
 
 	this.setupPlayer = function(){
-		settings.player = new YT.Player(settings.iframeEl.id, {
-			height: '390',
-			width: '640',
-			videoId: settings.videoId,
-			// 'autoplay': 1,
-			playerVars:{"loop":0,"autohide":0,"controls":0,"showinfo":0,"hd":0,"modestbranding":1,"wmode":"opaque"},
-			events: {'onReady': onPlayerReady,'onStateChange':removeVideo}
-		});
+		if(YT){
+			settings.player = new YT.Player(settings.iframeEl.id, {
+				height: '390',
+				width: '640',
+				videoId: settings.videoId,
+				// 'autoplay': 1,
+				playerVars:{"loop":0,"autohide":0,"controls":0,"showinfo":0,"hd":0,"modestbranding":1,"wmode":"opaque"},
+				events: {'onReady': onPlayerReady,'onStateChange':removeVideo}
+			});
 
-		setPlayerSizeCustom();
-		settings.playerResizer = $(window).on("resize",setPlayerSizeCustom);
-		if(!window.addEventListener){
-			removeVideo({data:1});
+			setPlayerSizeCustom();
+			settings.playerResizer = $(window).on("resize",setPlayerSizeCustom);
+			if(!window.addEventListener){
+				removeVideo({data:1});
+			}
 		}
 	}
 	function onPlayerReady(evt){
@@ -239,8 +242,10 @@ $.fn.Jtube = function( options ) {
 			settings.onPause();
 		}
 
-		if (evt.data == YT.PlayerState.BUFFERING) {
-			evt.target.setPlaybackQuality("hd720");
+		if(YT){
+			if (evt.data == YT.PlayerState.BUFFERING) {
+				evt.target.setPlaybackQuality("hd720");
+			}
 		}
 	}
 	function myStartFunc(){
