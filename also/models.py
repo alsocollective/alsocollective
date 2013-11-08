@@ -11,8 +11,8 @@ class ImageNode(models.Model):
 		slug = slugify(fname)
 		instance.title = '%s.%s' % (slug, extension)
 		# return '/srv/www/also-static.com/static/alsocollective/upload/%s.%s' % (slug, extension)
-		# return '/srv/www/alsocollective.com/public_html/alsocollective/static/img/uploaded/%s.%s' % (slug, extension)
-		return '/srv/www/alsocollective.com/public_html/alsocollectivedev/static/upload/%s.%s' % (slug, extension)
+		return '/srv/www/alsocollective.com/public_html/alsocollectivedev/static/img/uploaded/%s.%s' % (slug, extension)
+		# return '/srv/www/alsocollective.com/public_html/alsocollectivedev/static/upload/%s.%s' % (slug, extension)
 
 	location = models.FileField(upload_to=slugify_filename)
 
