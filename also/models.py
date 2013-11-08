@@ -9,7 +9,7 @@ class ImageNode(models.Model):
 		fname, dot, extension = filename.rpartition('.')
 		slug = slugify(fname)
 		instance.title = '%s.%s' % (slug, extension)
-		return '/srv/www/alsocollective.com/public_html/alsocollective/static/img/uploaded/%s.%s' % (slug, extension)
+		return '/srv/www/also-static.com/alsocollective/upload/%s.%s' % (slug, extension)
 
 	location = models.FileField(upload_to=slugify_filename)
 
@@ -34,7 +34,7 @@ class ImageNode(models.Model):
 
 	def admin_image(self):
 		if self.title:
-			return '<img style="width:200px;height:auto;" src="/static/img/uploaded/%s"/>' % self.title
+			return '<img style="width:200px;height:auto;" src="http://www.also-static/alsocollective/upload/%s"/>' % self.title
 		return "not an image"
 	admin_image.allow_tags = True
 

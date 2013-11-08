@@ -53,7 +53,7 @@ def home(request):
 
 	categories = Category.objects.all()
 	rootArticles = Article.objects.all().order_by('-date')
-
+	print dir(categories)
 	allContent = {}
 	for category in categories:
 		catObj = {"cat":category,"description":category.description.textField}
@@ -248,14 +248,14 @@ def getNewInstaPost():
 	instaArticle.save()
 
 def allData(request):
-	getNewInstaPost()
+	# getNewInstaPost()
 	if(request.mobile):
 		return render_to_response('mobile/index.html',{"none":"None"})
 
 	categories = Category.objects.all()
 	rootArticles = Article.objects.all().order_by('-date')
-
 	allContent = {}
+
 	for category in categories:
 		catObj = {"cat":category,"description":category.description.textField}
 		articles = rootArticles.filter(category__exact = category)
@@ -272,7 +272,7 @@ def allData(request):
 		catObj.update({"artList":artList})
 		allContent.update({category.title:catObj})
 
-	allContent.update({"firstSlide":"RLine"})#"days":days,#listOfSlides[random.randint(0,len(listOfSlides)-1)]})
+	# allContent.update({"firstSlide":"RLine"})#"days":days,#listOfSlides[random.randint(0,len(listOfSlides)-1)]})
 	return render_to_response('index-other.html',{'allContent':allContent})
 
 
