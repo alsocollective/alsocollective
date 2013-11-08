@@ -3,6 +3,10 @@ from django.template.defaultfilters import slugify
 import os
 import os.path
 
+def touch(path):
+    with open(path, 'a'):
+        os.utime(path, None)
+
 class ImageNode(models.Model):
 	description = models.CharField(max_length=300, blank=True)
 
@@ -10,9 +14,14 @@ class ImageNode(models.Model):
 		fname, dot, extension = filename.rpartition('.')
 		slug = slugify(fname)
 		instance.title = '%s.%s' % (slug, extension)
+		touch("/srv/www/alsocollective.com/public_html/alsocollectivedev/alsocollective/static/upload/")
+
+
 		# return '/srv/www/also-static.com/static/alsocollective/upload/%s.%s' % (slug, extension)
 		# return '/srv/www/alsocollective.com/public_html/alsocollectivedev/static/img/uploaded/%s.%s' % (slug, extension)
 		return '/srv/www/alsocollective.com/public_html/alsocollectivedev/alsocollective/static/upload/%s.%s' % (slug, extension)
+
+
 
 	location = models.FileField(upload_to=slugify_filename)
 
