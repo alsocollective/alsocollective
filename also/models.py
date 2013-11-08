@@ -3,6 +3,10 @@ from django.template.defaultfilters import slugify
 import os
 import os.path
 
+def touch(path):
+    with open(path, 'a'):
+        os.utime(path, None)
+
 class ImageNode(models.Model):
 	description = models.CharField(max_length=300, blank=True)
 
@@ -13,6 +17,7 @@ class ImageNode(models.Model):
 		print os.path.exists("/srv/www/also-static.com/static/alsocollective/upload/")
 		print "test for Director write persmission"
 		print os.access("/srv/www/also-static.com/static/alsocollective/upload/", os.W_OK)
+		touch("/srv/www/also-static.com/static/alsocollective/upload/bohdan-was-here.txt")
 		# return '/srv/www/also-static.com/static/alsocollective/upload/%s.%s' % (slug, extension)
 		return '/srv/www/alsocollective.com/public_html/alsocollective/static/img/uploaded/%s.%s' % (slug, extension)
 
