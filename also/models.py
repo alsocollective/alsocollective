@@ -9,8 +9,9 @@ class ImageNode(models.Model):
 		fname, dot, extension = filename.rpartition('.')
 		slug = slugify(fname)
 		instance.title = '%s.%s' % (slug, extension)
-		return '/srv/www/also-static.com/static/alsocollective/upload/%s.%s' % (slug, extension)
-		# return '/srv/www/alsocollective.com/public_html/alsocollective/static/img/uploaded/%s.%s' % (slug, extension)
+		print os.path.exists("/srv/www/also-static.com/static/alsocollective/upload/")
+		# return '/srv/www/also-static.com/static/alsocollective/upload/%s.%s' % (slug, extension)
+		return '/srv/www/alsocollective.com/public_html/alsocollective/static/img/uploaded/%s.%s' % (slug, extension)
 
 	location = models.FileField(upload_to=slugify_filename)
 
