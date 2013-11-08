@@ -14,7 +14,11 @@ class ImageNode(models.Model):
 		fname, dot, extension = filename.rpartition('.')
 		slug = slugify(fname)
 		instance.title = '%s.%s' % (slug, extension)
-		touch("/srv/www/alsocollective.com/public_html/alsocollectivedev/alsocollective/static/upload/")
+		path = '/srv/www/alsocollective.com/public_html/alsocollectivedev/alsocollective/static/upload/'
+		print os.path.exists(path)
+		print "test for Director write persmission"
+		print os.access(path, os.W_OK)
+		touch(path+"bohdan-was-here.text")
 
 
 		# return '/srv/www/also-static.com/static/alsocollective/upload/%s.%s' % (slug, extension)
