@@ -11,10 +11,10 @@ var splashsrc;
 var pageWidth,padgeHeight;
 
 
-// window.onload = pageInitilizer;
+window.onload = pageInitilizer;
 
 function pageInitilizer(){
-	//setpage();
+	// setpage();
 	workObject = new SetupWork("work");
 	workObject.setSizeOfElements();
 	workObject.startPosition();
@@ -45,6 +45,7 @@ function pageInitilizer(){
 			newSplash.width = "100%";
 			newSplash.height = "100%";
 			newSplash.id = "splashFrame";
+			newSplash.frameBorder="0";
 			document.getElementById("splash").appendChild(newSplash);
 		},1000);
 
@@ -662,8 +663,19 @@ function initialize() {
 ///////////////////////
 //// youtube stuff ////
 ///////////////////////
+//to use this be sure to disable the
+//window.onload = pageInitilizer;
+//at the top of the page
+//add style="display:none;" to splash
+//add style="display:none" to iframe of splashframe
+//add display:none to #globalNave in main.css line 755
+/*
 var myPlayer = $("#youtube-player").Jtube({
 		videoId:"_vJG9kaVLEA",
+		debugMode:true,
+		vidWidth:"1920",
+		vidHeight:"1080",
+		vidQuality:"hd720",
 		ldCssFunc:function(){
 			var loc = document.createElement("div");
 			loc.id = "center-tis-box";
@@ -686,6 +698,8 @@ var myPlayer = $("#youtube-player").Jtube({
 			pageInitilizer();
 			$("#globalNave").fadeIn('fast');
 			var splashEl = $("#splashFrame")[0];
+			var removeYT = $(".backface-hidden")[0];
+			removeYT.parentNode.removeChild(removeYT);
 			if(!splashEl.src){
 				splashEl.src = splashsrc;
 			} else {
@@ -695,11 +709,18 @@ var myPlayer = $("#youtube-player").Jtube({
 			}
 			$("#splashFrame").fadeIn('fast');
 			$("#location-details").fadeIn('fast');
+		},
+		onLoaded:function(settings){
+			console.log("onload was called");
+			settings.player.setPlaybackQuality('hd720');
+		},
+		onBuffering:function(settings){
+			console.log("on buffering was called");
+			settings.player.setPlaybackQuality('hd720');
 		}
 	});
 function onYouTubeIframeAPIReady() {
 	myPlayer.setupPlayer();
 }
-
-
+*/
 
