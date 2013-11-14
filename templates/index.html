@@ -102,10 +102,11 @@
 
 						<p>{{article.text.0.text|safe}}</p>
 					{% else %}
-						<div style="position:relative;">
-						<h1 style="position:absolute; top:0; left:0;">{{article.title|safe}}</h1>
+						<div style="position:relative;" id="about-video">
+							<h1 style="position:absolute; top:0; left:0; z-index:99;">{{article.title|safe}}</h1>
 
-						<div class="background" style="background-image: url('http://www.also-static.com/alsocollective/uploaded/{{article.image.0.title}}')">
+							<div class="page background" style="background-image: url('http://www.also-static.com/alsocollective/uploaded/{{article.image.0.title}}')">
+							<div id="about-play-video" class="playvideo-button" style="top:0; left:0;" onclick="replaceParentWithVideo('about-play-video','{{article.image.0.link}}')"></div>
 						</div>
 						<img src="http://www.also-static.com/alsocollective/uploaded/{{article.image.0.title}}">
 						{{article.image.0.link}}
@@ -168,5 +169,12 @@ _gaq.push(['_trackPageview']);
 </script>
 
 </body>
+
+<script type="text/javascript">
+function replaceParentWithVideo(id,videoLink){
+	document.getElementById(id).parentNode.innerHTML = '<iframe src="' + videoLink + '?autoplay=1;title=0&amp;amp;byline=0&amp;amp;portrait=0&amp;amp;color=c67eb4" frameborder="0" width="100%;" height="100%;"></iframe>'
+}
+
+</script>
 
 </html>
