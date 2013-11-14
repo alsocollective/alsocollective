@@ -54,7 +54,7 @@
 						<p>
 							{{text.text|safe}}
 						</p>
-					</span><a href="//www.pinterest.com/pin/create/button/" data-pin-do="buttonBookmark"><img src="//assets.pinterest.com/images/pidgets/pinit_fg_en_rect_gray_20.png" /></a>{% endfor %}{% for image in article.image %}<span class="page background">
+					</span>{% endfor %}{% for image in article.image %}<span class="page background">
 					<!-- style="background-image: url('/static/img/uploaded/{{image.title}}')" -->
 					{%if image.link%}
 						<!-- <iframe src="{{image.link}}?title=0&amp;byline=0&amp;portrait=0&amp;color=ff0179" width="500" height="331" frameBorder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe> -->
@@ -151,9 +151,7 @@
 <script type="text/javascript"src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsprgq2AfDNOAr9zdeizAbhG_FNGyP8-4&sensor=true"></script>
 <!--[endif]-->
 
-<script src="/static/js/main-ck.js"></script>
-
-<script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
+<script src="/static/js/main.js"></script>
 
 <script type="text/javascript">
 var _gaq = _gaq || [];
@@ -170,4 +168,16 @@ _gaq.push(['_trackPageview']);
 </script>
 
 </body>
+
+<script type="text/javascript">
+(function(d){
+  var f = d.getElementsByTagName('SCRIPT')[0], p = d.createElement('SCRIPT');
+  p.type = 'text/javascript';
+  p.setAttribute('data-pin-hover', true);
+  p.async = true;
+  p.src = '//assets.pinterest.com/js/pinit.js';
+  f.parentNode.insertBefore(p, f);
+}(document));
+</script>
+
 </html>
