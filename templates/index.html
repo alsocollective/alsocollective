@@ -26,7 +26,7 @@
 	<!--[if IE]>
 		<div id="splashFrame" class="background" style="background-image: url('/static/img/bkimg.jpg')";width:100%;height:100%;></div>
 	<![endif]-->
-	<![if !IE]><iframe src="static/splash/{{allContent.firstSlide}}/index.html" frameBorder="0" id="splashFrame" width="100%" height="100%" style="display:none" title="IEiframe"></iframe><![endif]>
+	<!--[if !IE]--><iframe src="static/splash/{{allContent.firstSlide}}/index.html" frameBorder="0" id="splashFrame" width="100%" height="100%" style="display:none" title="IEiframe"></iframe><!--[endif]-->
 
 	<h3 id="location-details">{% for article in allContent.About.artList %}{% if article.contact %}{{article.text.0.text|safe}}{% endif %}{% endfor %}</h3>
 
@@ -49,7 +49,7 @@
 						<p>
 							{{text.text|safe}}
 						</p>
-					</span>{% endfor %}{% for image in article.image %}<span class="page background">
+					</span><a href="//www.pinterest.com/pin/create/button/" data-pin-do="buttonBookmark"><img src="//assets.pinterest.com/images/pidgets/pinit_fg_en_rect_gray_20.png" /></a>{% endfor %}{% for image in article.image %}<span class="page background">
 					<!-- style="background-image: url('/static/img/uploaded/{{image.title}}')" -->
 					{%if image.link%}
 						<!-- <iframe src="{{image.link}}?title=0&amp;byline=0&amp;portrait=0&amp;color=ff0179" width="500" height="331" frameBorder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe> -->
@@ -68,11 +68,14 @@
 				</ul>
 			</div><div id="widthOfWork"><a href="#about" class="invisibleButton" id="about"></a>{% for article in allContent.About.artList %}<article id="about_{{article.slug}}" class="project">{% if article.contact %}
 
-					<![if !IE]><div id="map-canvas"/><![endif]>
-					<![if IE]><div>
+					<!--[if !IE]-->
+					<div id="map-canvas"/>
+					<!--[endif]-->
+					
+					<!--[if IE]><div>
 						<img src="static/img/map-fallback.jpg" alt="Google Map Fallback"/>
 
-					</div><![endif]>
+					</div><![endif]-->
 
 				<h1>{{article.title|safe}}</h1>
 
@@ -124,12 +127,14 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="http://alsocollective.github.io/also-cdn/js/dragdivscroll-ck.js"></script>
 <script src="http://alsocollective.github.io/also-cdn/js/j-tube.js"></script>
-<![if !IE]>
+
+<!--[if !IE]-->
 <script type="text/javascript"src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsprgq2AfDNOAr9zdeizAbhG_FNGyP8-4&sensor=true"></script>
-<![endif]>
+<!--[endif]-->
+
 <script src="/static/js/main-ck.js"></script>
 
-
+<script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
 
 <script type="text/javascript">
 var _gaq = _gaq || [];
