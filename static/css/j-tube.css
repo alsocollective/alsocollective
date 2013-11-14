@@ -1,8 +1,25 @@
-#player-container{
+#background-container{
+  background-color: #000;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: 1;
 }
 #youtube-player{
-	position: absolute;
+  position: relative;
+  z-index: 10;
+  text-decoration: none;
 }
+.backface-hidden{
+  color: #FFF;
+  -webkit-backface-visibility:hidden;
+  position: static;
+}
+
+
 .hide{
 	opacity: 0;
 }
@@ -26,6 +43,7 @@
 	left: 0;
   cursor:pointer;
   text-decoration: none;
+  z-index: 99;
 }
 #yt-skip-video-button{
 	color: #fff;
