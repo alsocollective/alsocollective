@@ -685,6 +685,13 @@ function initialize() {
 ///////////////////////
 //// youtube stuff ////
 ///////////////////////
+//to use this be sure to disable the
+//window.onload = pageInitilizer;
+//at the top of the page
+//add style="display:none;" to splash
+//add style="display:none" to iframe of splashframe
+//add display:none to #globalNave in main.css line 755
+
 /*var myPlayer = $("#youtube-player").Jtube({
 		videoId:"_vJG9kaVLEA",
 		ldCssFunc:function(){
