@@ -788,6 +788,10 @@ process
 	text-align: left!important;
 }
 
+.project .background.page a {
+	z-index: 999;
+}
+
 /*
 BLUE: #33ccff
 YELLOW: #e6dc5a

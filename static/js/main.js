@@ -11,10 +11,10 @@ var splashsrc;
 var pageWidth,padgeHeight;
 
 
-window.onload = pageInitilizer;
+// window.onload = pageInitilizer;
 
 function pageInitilizer(){
-	// setpage();
+	//setpage();
 	workObject = new SetupWork("work");
 	workObject.setSizeOfElements();
 	workObject.startPosition();
@@ -45,7 +45,6 @@ function pageInitilizer(){
 			newSplash.width = "100%";
 			newSplash.height = "100%";
 			newSplash.id = "splashFrame";
-			newSplash.frameBorder="0";
 			document.getElementById("splash").appendChild(newSplash);
 		},1000);
 
@@ -112,13 +111,22 @@ function loadwork(){
 				children.each(function(imgLvl){
 					if(data[artLvl].image[imgLvl]){
 						if(data[artLvl].image[imgLvl].link){
-							createImage(children[imgLvl+1],'/static/img/uploaded/'+data[artLvl]["image"][imgLvl].title,data[artLvl].image[imgLvl].link);
+							createImage(children[imgLvl+1],'http://also-static.com/alsocollective/uploaded/'+data[artLvl]["image"][imgLvl].title,data[artLvl].image[imgLvl].link);
 						} else {
-							createImage(children[imgLvl+1],'/static/img/uploaded/'+data[artLvl]["image"][imgLvl].title);
+							createImage(children[imgLvl+1],'http://also-static.com/alsocollective/uploaded/'+data[artLvl]["image"][imgLvl].title);
 						}
 					}
 				});
 			});
+			
+			(function(d){
+			  var f = d.getElementsByTagName('SCRIPT')[0], p = d.createElement('SCRIPT');
+			  p.type = 'text/javascript';
+			  p.async = true;
+			  p.src = '//assets.pinterest.com/js/pinit.js';
+			  f.parentNode.insertBefore(p, f);
+			}(document));
+			
 		});
 	}
 	setTimeout(function(){
@@ -136,11 +144,25 @@ function imagefullscreenresize(){
 	this.style.top = padgeHeight/2 - $(this).height()/2;
 }
 
+
+
 function createImage(parent,image,video){
 	var out = document.createElement("img");
 	out.src = image;
 	out.className = "image-fullscreen";
 	out.alt = image;
+	
+	var pinLink = document.createElement("a");
+	pinLink.href = "//www.pinterest.com/pin/create/button/?url="+encodeURIComponent(image);
+	pinLink.className = "pin-link";
+	pinLink.setAttribute("data-pin-do","buttonPin");
+	
+	var pinImg = document.createElement("img");
+	pinImg.src = "//assets.pinterest.com/images/pidgets/pinit_fg_en_rect_gray_20.png";
+	
+	pinLink.appendChild(pinImg);
+	parent.appendChild(pinLink);
+	
 	parent.appendChild(out);
 	if(video){
 		var ontop = document.createElement("div");
@@ -663,19 +685,8 @@ function initialize() {
 ///////////////////////
 //// youtube stuff ////
 ///////////////////////
-//to use this be sure to disable the
-//window.onload = pageInitilizer;
-//at the top of the page
-//add style="display:none;" to splash
-//add style="display:none" to iframe of splashframe
-//add display:none to #globalNave in main.css line 755
-/*
-var myPlayer = $("#youtube-player").Jtube({
+/*var myPlayer = $("#youtube-player").Jtube({
 		videoId:"_vJG9kaVLEA",
-		debugMode:true,
-		vidWidth:"1920",
-		vidHeight:"1080",
-		vidQuality:"hd720",
 		ldCssFunc:function(){
 			var loc = document.createElement("div");
 			loc.id = "center-tis-box";
@@ -698,8 +709,6 @@ var myPlayer = $("#youtube-player").Jtube({
 			pageInitilizer();
 			$("#globalNave").fadeIn('fast');
 			var splashEl = $("#splashFrame")[0];
-			var removeYT = $(".backface-hidden")[0];
-			removeYT.parentNode.removeChild(removeYT);
 			if(!splashEl.src){
 				splashEl.src = splashsrc;
 			} else {
@@ -709,18 +718,11 @@ var myPlayer = $("#youtube-player").Jtube({
 			}
 			$("#splashFrame").fadeIn('fast');
 			$("#location-details").fadeIn('fast');
-		},
-		onLoaded:function(settings){
-			console.log("onload was called");
-			settings.player.setPlaybackQuality('hd720');
-		},
-		onBuffering:function(settings){
-			console.log("on buffering was called");
-			settings.player.setPlaybackQuality('hd720');
 		}
 	});
 function onYouTubeIframeAPIReady() {
 	myPlayer.setupPlayer();
-}
-*/
+}*/
+
+
 
