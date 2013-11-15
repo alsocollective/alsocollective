@@ -763,7 +763,6 @@ process
 	-webkit-transform: rotate(45deg);
 	background-color: none;
 	overflow: hidden;
-	display: none;
 }
 
 #globalNave a{
@@ -787,6 +786,10 @@ process
 
 .people-first {
 	text-align: left!important;
+}
+
+.project .background.page a {
+	z-index: 999;
 }
 
 /*

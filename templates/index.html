@@ -22,21 +22,26 @@
 	<p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
 <![endif]-->
 
-<div id="splash" style="display:none;">
+<div id="splash">
 	<!--[if IE]>
 		<div id="splashFrame" class="background" style="background-image: url('/static/img/bkimg.jpg')";width:100%;height:100%;></div>
 	<![endif]-->
-	<![if !IE]><iframe src="static/splash/{{allContent.firstSlide}}/index.html" frameBorder="0" id="splashFrame" width="100%" height="100%" style="display:none" title="IEiframe"></iframe><![endif]>
+
+	<!--[if !IE]--><iframe src="static/splash/{{allContent.firstSlide}}/index.html" frameBorder="0" id="splashFrame" width="100%" height="100%" title="IEiframe"></iframe><!--[endif]-->
 
 	<h3 id="location-details">{% for article in allContent.About.artList %}{% if article.contact %}{{article.text.0.text|safe}}{% endif %}{% endfor %}</h3>
 
-	<div id="player-container">
-		<div id="youtube-player"></div>
+<!--	<div class="backface-hidden">
+		<div id="background-container" class="stuck">
+			<div id="youtube-container">
+				<div id="youtube-player"></div>
+			</div>
+		</div>
 	</div>
+-->
 </div>
 <div id="contentWrapper"><section id="work"><div id="staticBackground">
 			<h1>{{allContent.Work.cat|safe}}</h1>
-			{# <p>{{allContent.Work.description|safe}}</p> #}
 		</div><div class="slider" id="sWork"><div id="backgroundAREA">
 					<ul class="navList">
 						{% for article in allContent.Work.artList %}
@@ -68,11 +73,14 @@
 				</ul>
 			</div><div id="widthOfWork"><a href="#about" class="invisibleButton" id="about"></a>{% for article in allContent.About.artList %}<article id="about_{{article.slug}}" class="project">{% if article.contact %}
 
-					<![if !IE]><div id="map-canvas"/><![endif]>
-					<![if IE]><div>
+					<!--[if !IE]-->
+					<div id="map-canvas"/>
+					<!--[endif]-->
+					
+					<!--[if IE]><div>
 						<img src="static/img/map-fallback.jpg" alt="Google Map Fallback"/>
 
-					</div><![endif]>
+					</div><![endif]-->
 
 				<h1>{{article.title|safe}}</h1>
 
@@ -89,8 +97,22 @@
 
 					{%endif%}</span>{% endfor %}{% else %}
 
-					<h1>{{article.title|safe}}</h1>
-					<p>{{article.text.0.text|safe}}</p>
+					{% if article.text %}
+						<h1>{{article.title|safe}}</h1>
+
+						<p>{{article.text.0.text|safe}}</p>
+					{% else %}
+						<div style="position:relative;" id="about-video">
+							<h1 style="position:absolute; top:0; left:0; z-index:99;">{{article.title|safe}}</h1>
+
+							<div class="page background" style="background-image: url('http://www.also-static.com/alsocollective/uploaded/{{article.image.0.title}}')">
+							<div id="about-play-video" class="playvideo-button" style="top:0; left:0;" onclick="replaceParentWithVideo('about-play-video','{{article.image.0.link}}')"></div>
+						</div>
+						<img src="http://www.also-static.com/alsocollective/uploaded/{{article.image.0.title}}">
+						{{article.image.0.link}}
+						{{article}}
+						</div>
+					{% endif %}
 
 				{% endif %}</article>{% endfor %}</div>
 		</div>
@@ -123,13 +145,14 @@
 <!-- <script src="/static/js/jquery.js"></script> -->
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="http://alsocollective.github.io/also-cdn/js/dragdivscroll-ck.js"></script>
-<script src="http://alsocollective.github.io/also-cdn/js/j-tube.js"></script>
-<![if !IE]>
+
+<script src="http://alsocollective.github.io/also-cdn/js/j-tube/j-tube.js"></script>
+
+<!--[if !IE]-->
 <script type="text/javascript"src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsprgq2AfDNOAr9zdeizAbhG_FNGyP8-4&sensor=true"></script>
-<![endif]>
-<script src="/static/js/main-ck.js"></script>
+<!--[endif]-->
 
-
+<script src="/static/js/main.js"></script>
 
 <script type="text/javascript">
 var _gaq = _gaq || [];
@@ -146,4 +169,12 @@ _gaq.push(['_trackPageview']);
 </script>
 
 </body>
+
+<script type="text/javascript">
+function replaceParentWithVideo(id,videoLink){
+	document.getElementById(id).parentNode.innerHTML = '<iframe src="' + videoLink + '?autoplay=1;title=0&amp;amp;byline=0&amp;amp;portrait=0&amp;amp;color=c67eb4" frameborder="0" width="100%;" height="100%;"></iframe>'
+}
+
+</script>
+
 </html>
