@@ -11,7 +11,7 @@ var splashsrc;
 var pageWidth,padgeHeight;
 
 
-// window.onload = pageInitilizer;
+window.onload = pageInitilizer;
 
 function pageInitilizer(){
 	//setpage();
@@ -152,13 +152,17 @@ function createImage(parent,image,video){
 	out.className = "image-fullscreen";
 	out.alt = image;
 	
+	
+	//Pinterest Link Creation
+	
+	var pinRef = encodeURIComponent(image);
 	var pinLink = document.createElement("a");
-	pinLink.href = "//www.pinterest.com/pin/create/button/?url="+encodeURIComponent(image);
+	pinLink.href = "//www.pinterest.com/pin/create/button/?url="+pinRef+"&media="+pinRef+"&description="+encodeURIComponent("Well that was fun");
 	pinLink.className = "pin-link";
 	pinLink.setAttribute("data-pin-do","buttonPin");
 	
 	var pinImg = document.createElement("img");
-	pinImg.src = "//assets.pinterest.com/images/pidgets/pinit_fg_en_rect_gray_20.png";
+	pinImg.src = "//also-static.com/alsocollective/uploaded/pinterest.png"; //Needs to be our pin it button
 	
 	pinLink.appendChild(pinImg);
 	parent.appendChild(pinLink);
