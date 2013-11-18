@@ -792,6 +792,34 @@ process
 	z-index: 999;
 }
 
+/* Pintrest Stuff */
+#work .page.background a {
+	/*display: none;*/
+	overflow: hidden;
+	position: absolute;
+	right: 1em;
+	bottom: 1em;
+	text-align: right;
+}
+#work .page.background a img{
+	min-width: inherit;
+	min-height: inherit;
+	opacity: 0.5;
+}
+
+#work .page.background:hover a img{
+	/*display: inline-block;*/
+	opacity: 1;
+
+}
+
+.transition-all-2{
+	transition: all 0.2s;
+	-moz-transition: all 0.2s;
+	-webkit-transition: all 0.2s;
+	-o-transition: all 0.2s;
+}
+
 /*
 BLUE: #33ccff
 YELLOW: #e6dc5a

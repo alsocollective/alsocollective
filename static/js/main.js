@@ -142,20 +142,29 @@ function createImage(parent,image,video){
 	out.src = image;
 	out.className = "image-fullscreen";
 	out.alt = image;
-	
+
+	//Pinterest Link Creation
+	var pinRef = encodeURIComponent(image);
 	var pinLink = document.createElement("a");
-	pinLink.href = "//www.pinterest.com/pin/create/button/?url="+encodeURIComponent(image)+"&description=Next";
+
+	pinLink.href = "//www.pinterest.com/pin/create/button/?url="+encodeURIComponent("http://alsocollective.com/#"+parent.parentNode.id)+"&media="+pinRef+"&description="+encodeURIComponent("The work of ALSO Collective.");
 	pinLink.className = "pin-link";
-	pinLink.setAttribute("data-pin-do","buttonPin");
-	pinLink.setAttribute("data-pin-config","above");
-	
+	//pinLink.setAttribute("data-pin-do","buttonPin");
+	pinLink.id = "pin-link-a";
+
 	var pinImg = document.createElement("img");
-	pinImg.src = "//assets.pinterest.com/images/pidgets/pinit_fg_en_rect_gray_20.png";
-	
+
+	pinImg.src = "http://also-static.com/alsocollective/uploaded/pinterest.png"; //Needs to be our pin it button
+	pinImg.className = "transition-all-2";
+	$(pinLink).click(function(event){
+		event.preventDefault();
+		window.open(this.href,'_blank','location=yes,height=315,width=520,scrollbars=yes,status=yes');
+		return false;
+	})
+
+	parent.appendChild(out);
 	pinLink.appendChild(pinImg);
 	parent.appendChild(pinLink);
-	
-	parent.appendChild(out);
 	if(video){
 		var ontop = document.createElement("div");
 		ontop.className="playvideo-button";
