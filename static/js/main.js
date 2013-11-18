@@ -41,6 +41,7 @@ function pageInitilizer(){
 		if(splashsrc){
 		setTimeout(function(){
 			var newSplash = document.createElement("iframe");
+			newSplash.frameBorder = "0";
 			newSplash.src = splashsrc;
 			newSplash.width = "100%";
 			newSplash.height = "100%";
@@ -146,8 +147,17 @@ function createImage(parent,image,video){
 	//Pinterest Link Creation
 	var pinRef = encodeURIComponent(image);
 	var pinLink = document.createElement("a");
+	var hashId = parent.parentNode.id;
+	//var workTitle = hashId.replace("work_","");
+	var workTitle = hashId.slice(5).replace("-"," ");
+	
+	//function to convert work titles into proper title case, could be used globally
+	String.prototype.toProperCase = function () {
+	    return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+	};
 
-	pinLink.href = "//www.pinterest.com/pin/create/button/?url="+encodeURIComponent("http://alsocollective.com/#"+parent.parentNode.id)+"&media="+pinRef+"&description="+encodeURIComponent("The work of ALSO Collective.");
+	pinLink.href = "//www.pinterest.com/pin/create/button/?url="+encodeURIComponent("http://alsocollective.com/#"+hashId)+"&media="+pinRef+"&description="+encodeURIComponent(workTitle.toProperCase()+", a project by ALSO Collective.");
+	console.log(workTitle);
 	pinLink.className = "pin-link";
 	//pinLink.setAttribute("data-pin-do","buttonPin");
 	pinLink.id = "pin-link-a";

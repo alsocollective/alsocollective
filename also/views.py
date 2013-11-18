@@ -47,13 +47,13 @@ def getInstagram(listin):
 
 ##Desktop Main request
 def home(request):
-	# getNewInstaPost()
+	#getNewInstaPost()
 	if(request.mobile):
 		return render_to_response('mobile/index.html',{"none":"None"})
 
 	categories = Category.objects.all()
 	rootArticles = Article.objects.all().order_by('-date')
-	print dir(categories)
+	#print dir(categories)
 	allContent = {}
 	for category in categories:
 		catObj = {"cat":category,"description":category.description.textField}

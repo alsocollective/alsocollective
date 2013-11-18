@@ -66,7 +66,7 @@ a {
 }
 
 a:hover{
-	width: 100%;
+	/*width: 100%;*/ /*What was this doing here!?""
 	/*background-color: #000;*/
 }
 
@@ -720,7 +720,7 @@ process
 	float: left;
 	width: inherit;
 	height: 50%;
-	font-size: 1.5em;
+	font-size: 1em;
 }
 
 .instaPic div img{
@@ -737,7 +737,7 @@ process
 }
 
 .instaPic div div:hover{
-	background-color: #33ccff;
+	background-color: #ffcc66;
 	color:#fff;
 	opacity: 0.8;
 }
@@ -793,14 +793,26 @@ process
 }
 
 /* Pintrest Stuff */
-#work .page.background a {
-	/*display: none;*/
+/*#work .page.background a {
 	overflow: hidden;
 	position: absolute;
 	right: 1em;
 	bottom: 1em;
 	text-align: right;
+}*/
+
+#work .page.background a {
+position: absolute;
+bottom: 10px;
+right: 10px;
 }
+
+#work .page.background a:hover {
+position: absolute;
+bottom: 10px;
+right: 10px;
+}
+
 #work .page.background a img{
 	min-width: inherit;
 	min-height: inherit;
@@ -810,7 +822,6 @@ process
 #work .page.background:hover a img{
 	/*display: inline-block;*/
 	opacity: 1;
-
 }
 
 .transition-all-2{
