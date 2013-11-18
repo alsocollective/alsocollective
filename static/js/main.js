@@ -11,7 +11,7 @@ var splashsrc;
 var pageWidth,padgeHeight;
 
 
-// window.onload = pageInitilizer;
+window.onload = pageInitilizer;
 
 function pageInitilizer(){
 	//setpage();
@@ -118,15 +118,6 @@ function loadwork(){
 					}
 				});
 			});
-			
-			(function(d){
-			  var f = d.getElementsByTagName('SCRIPT')[0], p = d.createElement('SCRIPT');
-			  p.type = 'text/javascript';
-			  p.async = true;
-			  p.src = '//assets.pinterest.com/js/pinit.js';
-			  f.parentNode.insertBefore(p, f);
-			}(document));
-			
 		});
 	}
 	setTimeout(function(){
@@ -153,9 +144,10 @@ function createImage(parent,image,video){
 	out.alt = image;
 	
 	var pinLink = document.createElement("a");
-	pinLink.href = "//www.pinterest.com/pin/create/button/?url="+encodeURIComponent(image);
+	pinLink.href = "//www.pinterest.com/pin/create/button/?url="+encodeURIComponent(image)+"&description=Next";
 	pinLink.className = "pin-link";
 	pinLink.setAttribute("data-pin-do","buttonPin");
+	pinLink.setAttribute("data-pin-config","above");
 	
 	var pinImg = document.createElement("img");
 	pinImg.src = "//assets.pinterest.com/images/pidgets/pinit_fg_en_rect_gray_20.png";
@@ -677,9 +669,6 @@ function initialize() {
 		},1000);
 	});
 }
-
-
-
 
 
 ///////////////////////
