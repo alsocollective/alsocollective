@@ -118,15 +118,19 @@ function loadwork(){
 					}
 				});
 			});
-			
-			(function(d){
-			  var f = d.getElementsByTagName('SCRIPT')[0], p = d.createElement('SCRIPT');
-			  p.type = 'text/javascript';
-			  p.async = true;
-			  p.src = '//assets.pinterest.com/js/pinit.js';
-			  f.parentNode.insertBefore(p, f);
-			}(document));
-			
+			// (function(d){
+			//   var f = d.getElementsByTagName('SCRIPT')[0], p = d.createElement('SCRIPT');
+			//   p.type = 'text/javascript';
+			//   p.async = true;
+			//   p.src = '//assets.pinterest.com/js/pinit.js';
+			//   p.onload = function(){
+			//   	$("#work .page.background a").each(function(index,element){
+			//   		console.log(element);
+			//   		$(element).css("background","url(http://also-static.com/alsocollective/uploaded/pinterest.png)!important");
+			//   	})
+			//   }
+			//   f.parentNode.insertBefore(p, f);
+			// }(document));
 		});
 	}
 	setTimeout(function(){
@@ -151,23 +155,27 @@ function createImage(parent,image,video){
 	out.src = image;
 	out.className = "image-fullscreen";
 	out.alt = image;
-	
-	
+
 	//Pinterest Link Creation
-	
 	var pinRef = encodeURIComponent(image);
 	var pinLink = document.createElement("a");
 	pinLink.href = "//www.pinterest.com/pin/create/button/?url="+pinRef+"&media="+pinRef+"&description="+encodeURIComponent("Well that was fun");
 	pinLink.className = "pin-link";
 	pinLink.setAttribute("data-pin-do","buttonPin");
-	
+	pinLink.id = "pin-link-a";
 	var pinImg = document.createElement("img");
-	pinImg.src = "//also-static.com/alsocollective/uploaded/pinterest.png"; //Needs to be our pin it button
-	
+
+	pinImg.src = "http://also-static.com/alsocollective/uploaded/pinterest.png"; //Needs to be our pin it button
+	pinImg.className = "transition-all-2";
+	$(pinLink).click(function(event){
+		event.preventDefault();
+		window.open(this.href,'_blank','location=yes,height=315,width=520,scrollbars=yes,status=yes');
+		return false;
+	})
+
+	parent.appendChild(out);
 	pinLink.appendChild(pinImg);
 	parent.appendChild(pinLink);
-	
-	parent.appendChild(out);
 	if(video){
 		var ontop = document.createElement("div");
 		ontop.className="playvideo-button";
