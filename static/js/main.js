@@ -111,9 +111,9 @@ function loadwork(){
 				children.each(function(imgLvl){
 					if(data[artLvl].image[imgLvl]){
 						if(data[artLvl].image[imgLvl].link){
-							createImage(children[imgLvl+1],'/static/img/uploaded/'+data[artLvl]["image"][imgLvl].title,data[artLvl].image[imgLvl].link);
+							createImage(children[imgLvl+1],'http://also-static.com/alsocollective/uploaded/'+data[artLvl]["image"][imgLvl].title,data[artLvl].image[imgLvl].link);
 						} else {
-							createImage(children[imgLvl+1],'/static/img/uploaded/'+data[artLvl]["image"][imgLvl].title);
+							createImage(children[imgLvl+1],'http://also-static.com/alsocollective/uploaded/'+data[artLvl]["image"][imgLvl].title);
 						}
 					}
 				});

@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <!DOCTYPE html lang="en-ca">
 <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en-ca">
 
@@ -70,7 +71,7 @@
 
 					<![if !IE]><div id="map-canvas"/><![endif]>
 					<![if IE]><div>
-						<img src="static/img/map-fallback.jpg" alt="Google Map Fallback"/>
+						<img src="{% static "map-fallback.jpg" %}" alt="Google Map Fallback"/>
 
 					</div><![endif]>
 
@@ -127,7 +128,7 @@
 <![if !IE]>
 <script type="text/javascript"src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsprgq2AfDNOAr9zdeizAbhG_FNGyP8-4&sensor=true"></script>
 <![endif]>
-<script src="/static/js/main-ck.js"></script>
+<script src="/static/js/main.js"></script>
 
 
 
