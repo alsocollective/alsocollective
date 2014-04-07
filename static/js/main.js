@@ -11,7 +11,7 @@ var splashsrc;
 var pageWidth,padgeHeight;
 
 
-// window.onload = pageInitilizer;
+window.onload = pageInitilizer;
 
 function pageInitilizer(){
 	//setpage();
@@ -41,6 +41,7 @@ function pageInitilizer(){
 		if(splashsrc){
 		setTimeout(function(){
 			var newSplash = document.createElement("iframe");
+			newSplash.frameBorder = "0";
 			newSplash.src = splashsrc;
 			newSplash.width = "100%";
 			newSplash.height = "100%";
@@ -135,12 +136,45 @@ function imagefullscreenresize(){
 	this.style.top = padgeHeight/2 - $(this).height()/2;
 }
 
+
+
 function createImage(parent,image,video){
 	var out = document.createElement("img");
 	out.src = image;
 	out.className = "image-fullscreen";
 	out.alt = image;
+
+	//Pinterest Link Creation
+	var pinRef = encodeURIComponent(image);
+	var pinLink = document.createElement("a");
+	var hashId = parent.parentNode.id;
+	//var workTitle = hashId.replace("work_","");
+	var workTitle = hashId.slice(5).replace("-"," ");
+	
+	//function to convert work titles into proper title case, could be used globally
+	String.prototype.toProperCase = function () {
+	    return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+	};
+
+	pinLink.href = "//www.pinterest.com/pin/create/button/?url="+encodeURIComponent("http://alsocollective.com/#"+hashId)+"&media="+pinRef+"&description="+encodeURIComponent(workTitle.toProperCase()+", a project by ALSO Collective.");
+	console.log(workTitle);
+	pinLink.className = "pin-link";
+	//pinLink.setAttribute("data-pin-do","buttonPin");
+	pinLink.id = "pin-link-a";
+
+	var pinImg = document.createElement("img");
+
+	pinImg.src = "http://also-static.com/alsocollective/uploaded/pinterest.png"; //Needs to be our pin it button
+	pinImg.className = "transition-all-2";
+	$(pinLink).click(function(event){
+		event.preventDefault();
+		window.open(this.href,'_blank','location=yes,height=315,width=520,scrollbars=yes,status=yes');
+		return false;
+	})
+
 	parent.appendChild(out);
+	pinLink.appendChild(pinImg);
+	parent.appendChild(pinLink);
 	if(video){
 		var ontop = document.createElement("div");
 		ontop.className="playvideo-button";
@@ -656,13 +690,17 @@ function initialize() {
 }
 
 
-
-
-
 ///////////////////////
 //// youtube stuff ////
 ///////////////////////
-var myPlayer = $("#youtube-player").Jtube({
+//to use this be sure to disable the
+//window.onload = pageInitilizer;
+//at the top of the page
+//add style="display:none;" to splash
+//add style="display:none" to iframe of splashframe
+//add display:none to #globalNave in main.css line 755
+
+/*var myPlayer = $("#youtube-player").Jtube({
 		videoId:"_vJG9kaVLEA",
 		ldCssFunc:function(){
 			var loc = document.createElement("div");
@@ -699,7 +737,7 @@ var myPlayer = $("#youtube-player").Jtube({
 	});
 function onYouTubeIframeAPIReady() {
 	myPlayer.setupPlayer();
-}
+}*/
 
 
 

@@ -1,6 +1,11 @@
 from django.db import models
 from django.template.defaultfilters import slugify
+import os
 import os.path
+
+def touch(path):
+    with open(path, 'a'):
+        os.utime(path, None)
 
 class ImageNode(models.Model):
 	description = models.CharField(max_length=300, blank=True)
@@ -9,7 +14,18 @@ class ImageNode(models.Model):
 		fname, dot, extension = filename.rpartition('.')
 		slug = slugify(fname)
 		instance.title = '%s.%s' % (slug, extension)
-		return '/srv/www/alsocollective.com/public_html/alsocollective/static/img/uploaded/%s.%s' % (slug, extension)
+		# path = '/srv/www/alsocollective.com/public_html/alsocollectivedev/alsocollective/static/upload/'
+		# print os.path.exists(path)
+		# print "test for Director write persmission"
+		# print os.access(path, os.W_OK)
+		# touch(path+"bohdan-was-here.text")
+
+
+		# return '/srv/www/also-static.com/static/alsocollective/upload/%s.%s' % (slug, extension)
+		return '/srv/www/alsocollective.com/public_html/alsocollectivedev/alsocollective/static/img/uploaded/%s.%s' % (slug, extension)
+		# return '/srv/www/alsocollective.com/public_html/alsocollectivedev/alsocollective/static/upload/%s.%s' % (slug, extension)
+
+
 
 	location = models.FileField(upload_to=slugify_filename)
 
@@ -34,7 +50,8 @@ class ImageNode(models.Model):
 
 	def admin_image(self):
 		if self.title:
-			return '<img style="width:200px;height:auto;" src="/static/img/uploaded/%s"/>' % self.title
+			# return '<img style="width:200px;height:auto;" src="/static/img/uploaded/%s"/>' % self.title
+			return '<img style="width:200px;height:auto;" src="http://www.also-static.com/alsocollective/uploaded/%s"/>' % self.title
 		return "not an image"
 	admin_image.allow_tags = True
 
