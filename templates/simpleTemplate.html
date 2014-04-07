@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<title></title>
+	<link href="./cutmr11_files/css" rel="stylesheet" type="text/css">
+	<style type="text/css">
+		body,html{padding:0;margin:0;height:100%;width:100%;font-family:sans-serif;text-align:center}
+		.portait,.landscape{width:80%;margin:auto;padding:9em 0;text-align:center}
+		.portait {height: 80%;}
+		.landscape img{width:80%}
+		.portait img {height: 100%;}
+	</style>
+</head>
+<body>
+
+{% for image in current.image %}
+<div class="landscape">
+	<img src="/static/img/uploaded/{{image.title}}" >
+</div>
+{% endfor %}
+
+</body></html>
+
