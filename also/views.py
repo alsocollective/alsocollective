@@ -276,3 +276,20 @@ def allData(request):
 	return render_to_response('index-other.html',{'allContent':allContent})
 
 
+
+
+def simplework(request,project = None):
+
+	if project:
+		pro = Article.objects.all().order_by('-date').filter(slug = project)[0]
+		current = {
+					"title":pro.title,"slug":pro.slug,
+					"text":getTexts(pro.textFields.all().order_by('-date')),
+					"image":getImages(pro.imageFields.all().order_by('order'))
+					}
+	else:
+		current = False
+
+	return render_to_response("simpleTemplate.html",{"current":current})
+
+

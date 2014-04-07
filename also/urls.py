@@ -19,6 +19,7 @@ urlpatterns = patterns('',
     url(r'^people/(?P<person>.*)/$','also.views.mPersons',name="persons"),
 
     url(r'^other/','also.views.allData'),
+    url(r'^simple/work/(?P<project>.*)/$','also.views.simplework',name="projects"),
     #url(r'^basic/', 'also.views.pureData', name='home'),
     # url(r'^alsowD/', include('alsowD.foo.urls')),
 
