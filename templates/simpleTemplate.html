@@ -11,11 +11,12 @@
 	</style>
 </head>
 <body>
-
 {% for image in current.image %}
-<div class="landscape">
-	<img src="/static/img/uploaded/{{image.title}}" >
-</div>
+	{% if image.link %}{% else %}
+	<div class="landscape">
+		<img src="/static/img/uploaded/{{image.title}}" >
+	</div>
+	{% endif %}
 {% endfor %}
 
 </body></html>
