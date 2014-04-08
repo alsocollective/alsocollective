@@ -22,7 +22,7 @@ class ImageNode(models.Model):
 
 
 		# return '/srv/www/also-static.com/static/alsocollective/upload/%s.%s' % (slug, extension)
-		return '/srv/www/alsocollective.com/public_html/alsocollectivedev/alsocollective/static/img/uploaded/%s.%s' % (slug, extension)
+		return '/srv/www/alsocollective.com/public_html/alsocollective/static/img/uploaded/%s.%s' % (slug, extension)
 		# return '/srv/www/alsocollective.com/public_html/alsocollectivedev/alsocollective/static/upload/%s.%s' % (slug, extension)
 
 
