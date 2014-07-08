@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render_to_response, get_object_or_404
 # from  also.models import Project,Category,Page
 from also.models import *
-
+from django.db.models import Q
 
 
 import requests
@@ -279,7 +279,8 @@ def allData(request):
 
 
 def simplework(request,project = None):
-
+	if(project == None):
+		return False
 	if project:
 		pro = Article.objects.all().order_by('-date').filter(slug = project)[0]
 		current = {
@@ -292,4 +293,16 @@ def simplework(request,project = None):
 
 	return render_to_response("simpleTemplate.html",{"current":current})
 
+def simpleworklist(request):
+	categories = Category.objects.all()
+	archive = categories.filter(slug = "archive")
+	work = categories.filter(slug = "work")
+
+	articles = Article.objects.all().order_by('-date').filter(category = work )
+
+	archivelist = Article.objects.all().order_by('-date').filter(category = archive )
+
+	current = [{"title":"thisTitle","link":"thisLink"}]
+
+	return render_to_response("archivelist.html",{"current":articles,"archived":archivelist})
 

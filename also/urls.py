@@ -20,6 +20,9 @@ urlpatterns = patterns('',
 
     url(r'^other/','also.views.allData'),
     url(r'^simple/work/(?P<project>.*)/$','also.views.simplework',name="projects"),
+    url(r'^archive/$','also.views.simpleworklist',name="archivelist"),
+    url(r'^archive/(?P<project>.*)/$','also.views.simplework',name="archive"),
+
     #url(r'^basic/', 'also.views.pureData', name='home'),
     # url(r'^alsowD/', include('alsowD.foo.urls')),
 
