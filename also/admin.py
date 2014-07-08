@@ -11,7 +11,7 @@ from also.models import ImageNode, TextNode, Category, Article, InstaPost, Post,
 # 	]
 
 class ArticleAdmin(admin.ModelAdmin):
-	list_display = ('title', 'date')
+	list_display = ('title', 'date','showCat')
 	list_editable = ('date',)
 	filter_horizontal = ('textFields','imageFields','instagramFields',)
 

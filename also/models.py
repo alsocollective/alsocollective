@@ -115,6 +115,9 @@ class Article(models.Model):
 		self.slug = slugify(self.title)
 		super(Article, self).save(*args, **kwargs)
 
+	def showCat(self):
+		return self.category.all()[0].title
+
 	def __unicode__(self):
 		return self.title
 
