@@ -317,4 +317,4 @@ def sitemap(request):
 	archives = Article.objects.all().order_by('-date').filter(Q(category = work)|Q(category = archive))
 	about = Article.objects.all().order_by('-date').filter(category = about)
 
-	return render_to_response("sitemap.xml",{"projects":projects,"about":about,'archives':archives})
+	return render_to_response("sitemap.xml",{"projects":projects,"about":about,'archives':archives},content_type="application/xhtml+xml")
