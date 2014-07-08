@@ -2,4 +2,4 @@
 
 User-agent: *
 
-Sitemap: http://alsocollective.com/static/seo/sitemap.xml
+Sitemap: http://alsocollective.com/seo/sitemap.xml

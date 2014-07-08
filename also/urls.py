@@ -31,4 +31,5 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
+    url(r'seo/sitemap\.xml', 'also.views.sitemap', name="sitemap"),
 )

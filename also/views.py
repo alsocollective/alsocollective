@@ -283,6 +283,7 @@ def simplework(request,project = None):
 		return False
 	if project:
 		pro = Article.objects.all().order_by('-date').filter(slug = project)[0]
+		print project
 		current = {
 					"title":pro.title,"slug":pro.slug,
 					"text":getTexts(pro.textFields.all().order_by('-date')),
@@ -306,3 +307,14 @@ def simpleworklist(request):
 
 	return render_to_response("archivelist.html",{"current":articles,"archived":archivelist})
 
+def sitemap(request):
+	categories = Category.objects.all()	
+	archive = categories.filter(slug = "archive")
+	work = categories.filter(slug = "work")
+	about = categories.filter(slug = "about")
+
+	projects = Article.objects.all().order_by('-date').filter(category = work)
+	archives = Article.objects.all().order_by('-date').filter(Q(category = work)|Q(category = archive))
+	about = Article.objects.all().order_by('-date').filter(category = about)
+
+	return render_to_response("sitemap.xml",{"projects":projects,"about":about,'archives':archives})
