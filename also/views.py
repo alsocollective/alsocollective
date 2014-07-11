@@ -11,6 +11,8 @@ from datetime import datetime
 import random
 import time
 
+import thread
+
 ##functions
 def getTexts(listin):
 	textList = []
@@ -47,7 +49,8 @@ def getInstagram(listin):
 
 ##Desktop Main request
 def home(request):
-	getNewInstaPost()
+	thread.start_new_thread(getNewInstaPost, ())		
+
 	if(request.mobile):
 		return render_to_response('mobile/index.html',{"none":"None"})
 
@@ -244,11 +247,11 @@ def getNewInstaPost():
 				newImage = InstaPost.objects.create(message = text,url = link,date = normalTS,creator = user)
 				newImage.save()
 				instaArticle.instagramFields.add(newImage)
-
 	instaArticle.save()
 
 def allData(request):
-	getNewInstaPost()
+	thread.start_new_thread(getNewInstaPost, ())		
+
 	if(request.mobile):
 		return render_to_response('mobile/index.html',{"none":"None"})
 
