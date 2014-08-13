@@ -1,0 +1,13 @@
+body{
+	margin: 0px;
+	background-color: #ffffff;
+}
+
+img{
+	display: none;
+}
+
+#editor{
+	position: fixed;
+	display: none;
+}

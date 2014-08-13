@@ -1,0 +1,25 @@
+{% load staticfiles %}
+<div class="nav">
+	<ul>
+	{% for article in articles %}
+		<li><a href="#{{article.slug}}">{{article.title}}</a></li>
+
+	{%endfor%}
+	</ul>		
+</div>
+
+{% for article in articles %}<article id="{{article.slug}}" class="project articles"><span class="halfPage">
+	<div class="page-content">
+		<h1>{{article.title}}</h1>
+		<p>{{article.text.0.text|safe}}</p>
+	</div>
+	</span>{% for img in article.image %}<span class="page" >
+		<div class="image background-image clickformog" style="background-image: url('{{ MEDIA_URL }}{{img.title}}')">
+			{% if img.link %}
+				<a href="{{img.link}}"></a>
+				<span><span><img src="{% static "img/play.png"%}"></span></span>
+			{% endif %}
+		</div>
+	</span>{% endfor %}</article>
+
+{% endfor %}

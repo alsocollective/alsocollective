@@ -1,0 +1,84 @@
+* {
+ padding:0;
+ margin:0;
+}
+body {
+font-size: 75%;
+ background-color:white;
+font-family: 'helvetica neue',helvetica,arial,sans-serif;
+}
+h1, h2, h3, h4, h5, h6 {
+font-family: georgia,'times new roman',times,serif;
+font-weight: normal;
+line-height: 1em;
+}
+
+#chart svg {
+  height: 1000px;
+}
+
+h1 {
+text-align:center;
+color:#3366CD;
+font: 80px/1em Post, georgia, serif;
+font-variant:small-caps;
+border-bottom:1px solid #666;
+}
+
+h2 {
+font: 54px/1.25em PostSerifLight, georgia, 'times new roman', serif;
+font-weight:lighter;
+border-bottom:1px dotted #999;
+padding:.5em 0;
+}
+
+h3 {
+font: 30px/1em PostSerifLight, georgia, 'times new roman', serif;
+padding:.5em 0;
+}
+
+h4 {
+ padding:1em 0;
+ font: 20px/1em PostSerifLight, georgia, 'times new roman', serif;
+
+}
+
+.center {
+  background-color:white;
+  width:940px;
+  margin-left:auto;
+  margin-right:auto;
+}
+.left {
+  float:left;
+}
+.right {
+  float:right;
+}
+
+#content { 
+margin-top:.5em;
+background-color:white;
+height:auto;
+overflow:hidden;
+}
+
+#main {
+width:620px;
+border-right:1px solid #999;
+padding-right:9px;
+padding-bottom:30em;
+}
+#side {
+padding-left:10px;
+width:300px;
+}
+#side ul {
+  padding:1em;
+}
+#side ul li {
+  font-size:14px;
+  margin-bottom:1em;
+  list-style-type:decimal;
+  margin-left:1em;
+}

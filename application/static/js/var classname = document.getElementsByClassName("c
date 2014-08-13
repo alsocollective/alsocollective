@@ -1,0 +1,25 @@
+var classname = document.getElementsByClassName("classname");
+
+function makePopout(event) {
+	var container = document.createElement("div");
+	container.className = "fullscreenmodul";
+	var exit = document.createElement("span");
+	exit.className = "exit-button";
+	var subcon = document.createElement("div");
+	var img = document.createElement("img");
+	img.src = this.style.backgroundImage.split("(")[1].split(")")[0];
+	subcon.appendChild(img);
+	container.appendChild(exit);
+	container.appendChild(subcon);
+	document.body.appendChild(container);
+
+	container.addEventListener('click',closeTHIS,false);
+
+}
+function closeTHIS() {
+	this.parentNode.removeChild(this);
+}
+
+for(var i=0;i<classname.length;i++){
+	classname[i].addEventListener('click', makePopout, false);
+}

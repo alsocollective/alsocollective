@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<style type="text/css">
+		html,body{
+			padding: 0;
+			margin: 0;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+		}
+	</style>
+</head>
+<body>
+<div id="player"></div>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script>
+	//Load player api asynchronously.
+	var tag = document.createElement('script');
+	tag.src = "https://www.youtube.com/iframe_api";
+	var firstScriptTag = document.getElementsByTagName('script')[0];
+	firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+	// var done = false;
+	// var player;
+
+	function onYouTubeIframeAPIReady() {
+		var w = $(window).width();
+		var h = $(window).height();
+		console.log(w/h,16/9);
+		var playerWidth = 0;
+		var playerHeight = 0;
+		if(w/h > 16/9){
+			playerWidth = w;
+			playerHeight = h*(1+(w/h) - (16/9));
+		} else {
+
+		}
+		var player = new YT.Player('player', {
+			height: playerHeight,
+			width: playerWidth,
+			videoId: 'j3akX_qYIsw',
+			playerVars:{
+							'autoplay': 1,
+							"loop":0,
+							"autohide":0,
+							"controls":0,
+							"showinfo":0
+
+						},
+			events: {
+				'onStateChange':removeVideo
+			},
+		});
+		$(window).on("resize",function(){
+			player
+		})
+	}
+	function removeVideo(evt){
+		if(evt.data == 0){
+			console.log(evt.target.a);
+			$(evt.target.a).fadeOut();
+			// evt.target.a.style.display = "none";
+			evt.target.playVideo();
+
+		}
+		console.log(evt);
+	}
+
+	function onPlayerReady(evt) {
+		$(evt.target.a).fadeIn();
+		// evt.target.playVideo();
+	}
+	function stopVideo() {
+    	// player.stopVideo();
+	}
+	</script>
+</body>
+</html>

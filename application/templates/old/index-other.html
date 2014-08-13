@@ -1,0 +1,98 @@
+<!DOCTYPE html lang="en-ca">
+<html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en-ca">
+
+	<head>
+		{# {% include "header-meta.html" %} #}
+		<script src="/static/js/modernizr.js"></script>
+		<script src="/static/js/jquery.js"></script>
+		<style type="text/css">
+			body,html{
+				width: 100%;
+				height: 100%;
+				padding: 0;
+				margin: 0;
+			}
+			#container{
+				height: 90%;
+				text-align: right;
+			}
+			.inst-container{
+				display: inline-block;
+				height: 100%;
+			}
+			.inst-container img{
+				width: 100%;
+				height: auto;
+			}
+			img{
+				border: 1px solid black;
+			}
+
+		</style>
+
+	<head>
+	<body>
+		<script src="http://alsocollective.github.io/also-cdn/js/dragdivscroll-ck.js"></script>
+
+		<script type="text/javascript">
+		var offset = 0.8;
+		var process = [
+			{% for c1, c2 in allContent.Process.artList.0.insta %}
+				{ url:"{{c1.url}}",date:"{{c1.date}}",message:"{{c1.message}}",creator:"{{c1.creator}}"} ,
+				{ url:"{{c2.url}}",date:"{{c2.date}}",message:"{{c2.message}}",creator:"{{c2.creator}}"} ,{% endfor %}
+		];
+		var parent = document.createElement("div")
+		parent.id = "parent-slider";
+		document.body.appendChild(parent);
+		var container = document.createElement("div");
+		container.id = "container";
+		parent.appendChild(container);
+		var dragDiv = new DragDivScroll("parent-slider", "mouseWheelX noOverscroll");
+		var imageCount = 0;
+
+		var singleWidth = null;
+		var windowW = $(window).width();
+		calcWidth();
+		// $(window).
+
+		function calcWidth(){
+			var h = $(container).height();
+			singleWidth = h/2;
+			container.style.width = process.length*h/2/2 + ($(window).width()*0.8)
+		}
+
+		$(parent).scroll(calcToLoad);
+		function calcToLoad(){
+			if(arrayOfImagesToLoad[0].parent)
+			console.log("something");
+			// var left = $(this).scroll();
+			// console.log(left,"this");
+		}
+
+
+		for(var a = 0; a < process.length; a += 2){
+			var intCon = document.createElement("div");
+			intCon.className = "inst-container";
+			createInstaImg(intCon, process[a]);
+			createInstaImg(intCon, process[a+1]);
+			container.appendChild(intCon);
+		}
+
+		var arrayOfImagesToLoad = [];
+		function createInstaImg(parent,image){
+			var imgCon = document.createElement("div");
+			imgCon.style.width = singleWidth;
+			var img = document.createElement("img");
+			var text = document.createElement("div");
+			imgCon.appendChild(img);
+			imgCon.appendChild(text);
+			parent.appendChild(imgCon);
+
+			arrayOfImagesToLoad.push({"parent":imgCon,"img":img,"src":image.url});
+		}
+
+		</script>
+		
+	</body>
+</html>
+

@@ -1,0 +1,6 @@
+{% for post in posts %}{% if not forloop.counter|divisibleby:2 %}<div class="instagram-page">{%endif%}
+	<div class="insgegram-row background-image" style="background-image: url('{{post.url}}')" >
+		<div class="message">
+		{{post.message}}
+		</div>
+	</div>{% if forloop.counter|divisibleby:2 %}</div>{%endif%}{% endfor %}

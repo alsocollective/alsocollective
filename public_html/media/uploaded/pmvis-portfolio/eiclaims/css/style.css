@@ -1,0 +1,390 @@
+* {
+ padding:0;
+ margin:0;
+}
+
+body {
+	font-family: 'helvetica neue',helvetica,arial,sans-serif;
+	/*font-family: "Times New Roman", Times, serif;*/
+	font-size: 75%;
+ 	background-color:white;
+}
+
+h1, h2, h3, h4, h5, h6 {
+/*font-family: georgia,'times new roman',times,serif;*/
+font-weight: normal;
+line-height: 1em;
+}
+
+
+h1#headline{
+text-align:center;
+color:#3366CD;
+font: 80px/1em Post, georgia, serif;
+font-variant:small-caps;
+text-transform: uppercase;
+border-bottom:1px solid #666;
+
+margin: 1.2em 0 0 0;
+}
+
+h2#headtitle{
+font: 54px/1.25em PostSerifLight, georgia, 'times new roman', serif;
+font-weight:lighter;
+border-bottom:1px dotted #999;
+padding: 0.5em 0 0 0;
+}
+
+
+h3 {
+ padding:1em 0;
+ font-family: Arial, Helvetica, sans-serif;
+ text-transform: uppercase;
+ font-stretch:condensed;
+ font-weight: bold;
+ font-size: 12pt;
+ /*font: 20px/1em PostSerifLight, georgia, 'times new roman', serif;*/
+}
+
+h2 {
+	/*font: 30px/1em PostSerifLight, georgia, 'times new roman', serif;*/
+	font-size: 4.0em;
+	text-transform: uppercase;
+	text-align: center;
+
+	margin: 0.2em 0 0 0;
+	padding: 0.3em 0 0.5em 0;
+	border-top: 1px dotted #999;
+	border-bottom: 1px dotted #999;
+}
+
+/*article h4 {
+	background-color:white;
+	opacity:0.8;
+	=position:absolute;
+	top:0;
+}*/
+
+article img {
+	margin-top:2em;
+}
+
+.center {
+  background-color:white;
+  width:940px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.left {
+  float:left;
+}
+
+.right {
+  float:right;
+}
+
+.nvtooltip {
+	border-radius:0;
+	overflow:auto;
+}
+
+
+.hidden { display:none; }
+
+
+#main {
+width:940px;
+}
+
+#charts {
+	overflow:hidden;
+	position:relative;
+	margin-left:0px;
+	margin-top: 1em;
+}
+
+#chart .nvtooltip {
+	background-color: #FFF;
+	border: 1px solid #4f90CA;
+}
+
+#chart .nvtooltip h3{
+	font-size: 17px;
+/*font-family: "Times New Roman", Times, serif;*/
+font-weight: lighter;
+}
+
+#chart .nvtooltip p{
+	font-style: italic;
+	font-size: 15px;
+	text-align: center;
+}
+
+#charts .nvtooltip {
+	bottom:100px;
+	position:absolute;
+}
+
+#charts .nvtooltip h3{
+	color: #fff;
+	margin-top: 90px;
+font-size: 2em;
+font-weight: bold;
+opacity: 0.8;
+/*font-family: "Times New Roman", Times, serif;*/
+font-weight: lighter;
+}
+
+#charts .nvtooltip h4	{
+	color: #456b92;
+	/*font-style: italic;*/
+	font-size: 2em;
+	font-weight: bold;
+	/*opacity: 0.8;*/
+	text-align: center;
+}
+
+#charts .nvtooltip p	{
+	color: #456b92;
+	/*font-style: italic;*/
+	font-size: 1.2em;
+	font-weight: bold;
+	/*opacity: 0.8;*/
+	text-align: center;
+}
+
+#chart .canada path.nv-line {
+	stroke-opacity:0;
+}
+
+#charts .chart-2 h5 {
+	text-align:left;
+	text-transform: capitalize;
+	position:absolute;
+	top:10px;
+	height:20px;
+	font-size:1.2em;
+	font-weight:bold;
+	width:100%;
+	color: #456b92;
+	left: 2.2em;
+}
+
+#chart #hover path.nv-line {
+	stroke:red;
+	stroke-width:2px;
+}
+
+/*#ri-chart #hover path.nv-area {
+	stroke:red;
+	stroke-width:2px;
+}*/
+
+#ri-chart{
+	margin: -6.2em 0 0 0;
+}
+
+#chart svg {
+  height: 550px;
+}
+
+#charts .chart {
+	width:180px;
+	float:left;
+	margin:0;
+}
+#charts .chart-2 {
+	position:relative;
+	width:100%;
+	margin-top: 3em;
+}
+
+#charts .chart-2 .nvtooltip {
+	text-align:center;
+	left: 5px !important;
+	text-align:center;
+	width:100%;
+	
+	position:absolute !important;
+	top: 30px !important;
+
+	
+}
+
+
+
+#charts .chart-2 .nv-point-0 {
+    stroke-width: 20px;
+    fill-opacity: .5 !important;
+    stroke-opacity: .5 !important;
+	
+}
+
+#charts .chart-2 .nv-point-10 {
+    stroke-width: 20px;
+    fill-opacity: .5 !important;
+    stroke-opacity: .5 !important;
+	
+}
+
+/* use ~ for the sibling  */
+#charts .nv-scatterWrap:hover .nv-point-10{
+    stroke-width: 0px !important;
+    fill-opacity: .0 !important;
+    stroke-opacity: .5 !important;
+	
+}
+
+#charts .nv-point {
+	stroke-width: 20px;
+	position:relative !important;
+	height:20px;
+	width:20px;
+}
+
+#charts .chart-2 h2 {
+	border: none;
+	position: absolute;
+	width: 100%;
+	opacity: 0.7;
+	text-align: center;
+	bottom: 40px;
+	font-size: 3em;
+	font-weight: bold;
+	color: #456b92;
+	left: 0.7em;
+}
+
+#charts .chart-2 {
+	width:180px;
+	float:left;
+}
+
+.chart-2 {
+	z-index: 1;
+}
+.chart-2 h2 {
+	z-index: -200;
+	/*bottom: 60px !important;*/
+}
+
+#charts .chart-2 svg{
+	height: 320px;
+	width:220px;
+}
+
+
+#ri-chart svg {
+
+	height:600px;
+}
+
+
+.fixed {
+	position:fixed;
+	top:0;
+}
+
+#scrollLock {
+width: 100%;
+/*text-align: center;*/
+}
+
+blockquote {
+	font-family: "Times New Roman", Times, serif;
+	font-style:italic;
+	font-size:2.5em;
+	text-align: center;
+	line-height:1.4em;
+	
+	position:relative;
+	margin: 0.6em 0 1.4em 0;
+	padding: 0 0 0.6em 0;
+	border-bottom:1px dotted #999;
+}
+
+.subtext h4{
+	font-size: 1.2em;
+	display: inline-block;
+	/*font-family:"Times New Roman", Times, serif;*/
+	text-transform: uppercase;
+}
+
+.subtext h5{
+	font-size: 1.2em;
+	float: right;
+	/*font-family:"Times New Roman", Times, serif;*/
+	text-transform: uppercase;
+	white-space: nowrap;
+	padding: 0 2.2em 0 0;
+}
+
+.subtext{
+	margin: -0.3em 0 2em 0;
+	display: inline;
+}
+
+.dline {
+	stroke-width:4px;
+	stroke:#333;
+	stroke-opacity:0.7;
+}
+
+.cline {
+	stroke-width:2px !important;
+	stroke-dasharray: 6,5;
+	stroke:#f00;
+	stroke-opacity:0.7;
+}
+
+#rectangle{
+	width: 20px;
+	height: 10px;
+	background: #4f90CA;
+	float: left;
+	margin: 0.01em 0.4em 0 0;
+}
+
+/* GRAPH STYLES */
+.nv-controlsWrap{
+	right:20px;
+}
+
+#ri-chart .nvtooltip {
+	background-color: #FFF;
+	border: 1px solid #456b92;
+	/*font-family: "Times New Roman", Times, serif;*/
+}
+
+#ri-chart .nvtooltip h3{
+	text-transform: none;
+	/*font-family: "Times New Roman", Times, serif;*/
+}
+
+#ri-chart .nvtooltip p{
+	font-style: italic;
+}
+
+#chart g .nv-legendWrap{
+}
+
+#graphtext{
+	font-size: 4em;
+	color: #FFF;
+	position: relative;
+	margin-left:auto;
+	margin-right:auto;
+	top: 10em;
+	width:420px;
+	text-transform:uppercase;
+	letter-spacing: 0.3em;
+}
+
+#chart{
+	margin: 2em 0 0 0;
+}
+
+article{
+	margin: 0 0 7em 0;
+}

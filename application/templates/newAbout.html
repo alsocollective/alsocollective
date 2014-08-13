@@ -1,0 +1,49 @@
+{% load staticfiles %}
+
+<div class="nav">
+	<ul>
+	{% for article in articles %}
+		<li><a href="#{{article.slug}}">{{article.title}}</a></li>
+
+	{%endfor%}
+	</ul>		
+</div>
+
+{% for article in articles %}{% if article.slug == 'contact' %}<article id="{{article.slug}}" class="articles">
+			<div class="page">
+				<h3 class="absolute">CONTACT</h3>
+				<div id="map-canvas"/>
+			</div>
+		</article>{% else %}<article id="{{article.slug}}" class="articles">
+			{% if article.slug == 'about-us' %}
+				<div class="page">
+					<div class="image background-image clickformog" style="background-image: url('{{ MEDIA_URL }}{{article.image.0.title}}')">
+						{% if article.image.0.link %}
+							<a href="{{article.image.0.link}}"></a>
+							<span><span><img src="{% static "img/play.png"%}"></span></span>
+						{% endif %}
+					</div>					
+				</div>
+			{% else %}		
+				{% for text in article.text %}<div class="{% if article.slug == 'people' %}halfPage {% if text.bkImage %}background-image-top{% endif %}{% else %}page{% endif %}" {% if article.slug == 'people' %}style="background-image: url('{{MEDIA_URL}}{{text.bkImage}}')" {% endif%}>
+					
+					{% if text.bkImage and not article.slug == 'people'%}
+						<img src="{{MEDIA_URL}}{{text.bkImage}}">
+					{% endif %}
+					{% if text.text %}
+						<div class="page-content">
+							<div>
+								{% if forloop.first and article.title%}
+									<h2 class="page-title">{{article.title}}</h2>
+								{% endif %}						
+								{{text.text|safe}}
+							</div>
+						</div>
+					{% endif %}
+					</div>{% endfor %}
+			{% endif %}
+
+		</article>{% endif %}{% endfor %}
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsprgq2AfDNOAr9zdeizAbhG_FNGyP8-4&sensor=true&v=3.exp&' + 'callback=initialize"></script>
+
