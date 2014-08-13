@@ -15,7 +15,7 @@
 		<p>{{article.text.0.text|safe}}</p>
 	</div>
 	</span>{% for img in article.image %}<span class="page" >
-		<div class="image background-image clickformog {% if firstloop %}lazy{%endif%}" data-original="{{ MEDIA_URL }}{{img.title}}"  style="background-image: url('{{ MEDIA_URL }}{{img.title}}')">
+		<div class="image background-image clickformog lazy" data-original="{{ MEDIA_URL }}{{img.title}}"  > {# style="background-image: url('{{ MEDIA_URL }}{{img.title}}')" #}
 			{% if img.link %}
 				<a href="{{img.link}}"></a>
 				<span><span><img src="{% static "img/play.png"%}"></span></span>

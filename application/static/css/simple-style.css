@@ -230,10 +230,10 @@ strong {
   display: block;
   right: -75%;
   overflow: hidden;
-  -webkit-transition: right ease-out 0.5s, width ease-out 0.5s;
-  -moz-transition: right ease-out 0.5s, width ease-out 0.5s;
-  -o-transition: right ease-out 0.5s, width ease-out 0.5s;
-  transition: right ease-out 0.5s, width ease-out 0.5s;
+  -webkit-transition: all ease-out 0.5s;
+  -moz-transition: all ease-out 0.5s;
+  -o-transition: all ease-out 0.5s;
+  transition: all ease-out 0.5s;
   z-index: 5;
   -webkit-animation: slidein 2s 1;
   -moz-animation: slidein 2s 1;

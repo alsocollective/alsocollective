@@ -5,7 +5,9 @@ var windowWidth = 0,
 	fullWidthMin = 700,
 	betweenslides = 400,
 	mousedownStart = null,
-	draggerText = " noVertical MOUSEWHEELX noOverscroll noStatus";
+	scrollmoving = false,
+	SCROLLLEFT = 0,
+	draggerText = " noVertical MOUSEWHEELX noOverscroll noStatus"; //
 
 $(document).ready(function() {
 	windowWidth = $(window).width();
@@ -37,18 +39,26 @@ $(document).ready(function() {
 			return false;
 		}
 		loadingBool = true;
-		$(this.parentNode).addClass("show-loading");
+		// $(this.parentNode).addClass("show-loading");
 		setHash(this.parentNode.id)
 		$('#work .section-content').load('/ajax/work/', loadedWork)
 	}
 
 	function loadedWork() {
 		resizeWork();
+		$("#work .lazy").lazyload({
+			effect: "fadeIn",
+			container: $("#work-scoller")
+		});
+
 		$("#work .clickformog").on("mousedown", function(event) {
 			mousedownStart = new Date();
 		}).on("mouseup", makePopout);
 		$("#work .nav a").click(scrollToID);
-		new DragDivScroll('work-scoller', draggerText);
+
+		new DragDivScroll('work-scoller', draggerText, function(newBol) {
+			scrollmoving = newBol;
+		});
 
 		//expand element all the way
 		$("#content").addClass("content-on");
@@ -67,60 +77,6 @@ $(document).ready(function() {
 		}, 2000);
 	}
 
-	// function loadWork() {
-	// 	console.log("clicked work")
-
-	// 	if (loadingBool) {
-	// 		console.log("loading something")
-	// 		return false;
-	// 	}
-	// 	if ($("#work .section-content").html()) {
-	// 		console.log("already Loaded");
-	// 		return false
-	// 	}
-
-	// 	loadingBool = true;
-	// 	$(this.parentNode).addClass("show-loading");
-	// 	setHash(this.parentNode.id)
-
-	// 	console.log("work: " + new Date().getTime());
-	// 	setTimeout(function() {
-	// 		$.ajax({
-	// 			cache: false,
-	// 			url: '/ajax/work/',
-	// 			success: function(data) {
-	// 				$('#work .section-content').html(data).waitForImages({
-	// 					finished: function() {
-	// 						resizeWork();
-	// 						$("#work .clickformog").on("mousedown", function(event) {
-	// 							mousedownStart = new Date();
-	// 						}).on("mouseup", makePopout);
-	// 						$("#work .nav a").click(scrollToID);
-	// 						new DragDivScroll('work-scoller', draggerText);
-
-	// 						//expand element all the way
-	// 						$("#content").addClass("content-on");
-	// 						$(".active").removeClass("active").addClass("section-off");
-	// 						$("#work").addClass("active").removeClass("section-off");
-	// 						$("#work").removeClass("show-loading");
-
-	// 						//fade and destroy
-	// 						var loading = $("#work .loading-section")
-	// 						loading.addClass("fadeout-animation");
-	// 						setTimeout(function() {
-	// 							var loading = $("#work .loading-section")
-	// 							loading[0].parentNode.removeChild(loading[0]);
-	// 							loadingBool = false;
-	// 							showHome();
-	// 						}, 2000);
-
-	// 					},
-	// 					waitForAll: true
-	// 				});
-	// 			}
-	// 		});
-	// 	}, 500)
-	// }
 
 	function resizeWork() {
 		if (!$("#work .section-content").html()) {
@@ -174,7 +130,9 @@ $(document).ready(function() {
 								mousedownStart = new Date();
 							}).on("mouseup", makePopout);
 
-							new DragDivScroll('about-scoller', draggerText);
+							new DragDivScroll('about-scoller', draggerText, function(newBol) {
+								scrollmoving = newBol;
+							});
 							$('#about .section-content').height(parseInt(windowHeight * 0.9));
 
 							readyGoogleMaps();
@@ -367,10 +325,20 @@ function makePopout(event) {
 
 }
 
+function testLoad(i, el) {
+	console.log(el);
+	// console.log(SCROLLLEFT)
+	// console.log($(el).scrollLeft());
+	// console.log($(el).data())
+}
+
 
 function scrollToID(event) {
 	event.preventDefault();
 	event.stopPropagation();
+	if (scrollmoving) {
+		return false;
+	}
 	var location = this.href.split("#")[1],
 		parentEl = $(this.parentNode.parentNode.parentNode.parentNode.parentNode),
 		parentOffset = parentEl.scrollLeft();
