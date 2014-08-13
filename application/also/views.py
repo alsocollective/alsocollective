@@ -80,7 +80,7 @@ def newAbout(request):
 	return render_to_response('newAbout.html',response_data)		
 
 def newProcess(request):
-	posts = InstaPost.objects.all().order_by('-date')[:20]
+	posts = InstaPost.objects.all().order_by('-date')
 	return render_to_response('newInsta.html',{"posts":posts,"MEDIA_URL":settings.MEDIA_URL})
 
 def home(request):

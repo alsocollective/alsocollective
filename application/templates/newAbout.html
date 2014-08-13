@@ -25,7 +25,7 @@
 					</div>					
 				</div>
 			{% else %}		
-				{% for text in article.text %}<div class="{% if article.slug == 'people' %}halfPage {% if text.bkImage %}background-image-top{% endif %}{% else %}page{% endif %}" {% if article.slug == 'people' %}style="background-image: url('{{MEDIA_URL}}{{text.bkImage}}')" {% endif%}>
+				{% for text in article.text %}<div class="{% if article.slug == 'people' %}halfPage lazy {% if text.bkImage %}background-image-top{% endif %}{% else %}page{% endif %}" {% if article.slug == 'people' %} data-original="{{MEDIA_URL}}{{text.bkImage}}" {% endif%}>
 					
 					{% if text.bkImage and not article.slug == 'people'%}
 						<img src="{{MEDIA_URL}}{{text.bkImage}}">
