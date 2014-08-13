@@ -32,65 +32,101 @@ $(document).ready(function() {
 	$("#home").click(clickHome);
 
 	function loadWork() {
-		console.log("clicked work")
-
-		if (loadingBool) {
-			console.log("loading something")
+		if (loadingBool || $("#work .section-content").html()) {
+			console.log("can't go");
 			return false;
 		}
-		if ($("#work .section-content").html()) {
-			console.log("already Loaded");
-			return false
-		}
-
 		loadingBool = true;
 		$(this.parentNode).addClass("show-loading");
 		setHash(this.parentNode.id)
-
-		console.log("work: " + new Date().getTime());
-		setTimeout(function() {
-			$.ajax({
-				cache: false,
-				url: '/ajax/work/',
-				success: function(data) {
-					$('#work .section-content').html(data).waitForImages({
-						finished: function() {
-							resizeWork();
-							$("#work .clickformog").on("mousedown", function(event) {
-								mousedownStart = new Date();
-							}).on("mouseup", makePopout);
-							$("#work .nav a").click(scrollToID);
-							new DragDivScroll('work-scoller', draggerText);
-
-							//expand element all the way
-							$("#content").addClass("content-on");
-							$(".active").removeClass("active").addClass("section-off");
-							$("#work").addClass("active").removeClass("section-off");
-							$("#work").removeClass("show-loading");
-
-							//fade and destroy
-							var loading = $("#work .loading-section")
-							loading.addClass("fadeout-animation");
-							setTimeout(function() {
-								var loading = $("#work .loading-section")
-								loading[0].parentNode.removeChild(loading[0]);
-								loadingBool = false;
-								showHome();
-							}, 2000);
-
-						},
-						waitForAll: true
-					});
-				}
-			});
-		}, 500)
+		$('#work .section-content').load('/ajax/work/', loadedWork)
 	}
+
+	function loadedWork() {
+		resizeWork();
+		$("#work .clickformog").on("mousedown", function(event) {
+			mousedownStart = new Date();
+		}).on("mouseup", makePopout);
+		$("#work .nav a").click(scrollToID);
+		new DragDivScroll('work-scoller', draggerText);
+
+		//expand element all the way
+		$("#content").addClass("content-on");
+		$(".active").removeClass("active").addClass("section-off");
+		$("#work").addClass("active").removeClass("section-off");
+		$("#work").removeClass("show-loading");
+
+		//fade and destroy
+		var loading = $("#work .loading-section")
+		loading.addClass("fadeout-animation");
+		setTimeout(function() {
+			var loading = $("#work .loading-section")
+			loading[0].parentNode.removeChild(loading[0]);
+			loadingBool = false;
+			showHome();
+		}, 2000);
+	}
+
+	// function loadWork() {
+	// 	console.log("clicked work")
+
+	// 	if (loadingBool) {
+	// 		console.log("loading something")
+	// 		return false;
+	// 	}
+	// 	if ($("#work .section-content").html()) {
+	// 		console.log("already Loaded");
+	// 		return false
+	// 	}
+
+	// 	loadingBool = true;
+	// 	$(this.parentNode).addClass("show-loading");
+	// 	setHash(this.parentNode.id)
+
+	// 	console.log("work: " + new Date().getTime());
+	// 	setTimeout(function() {
+	// 		$.ajax({
+	// 			cache: false,
+	// 			url: '/ajax/work/',
+	// 			success: function(data) {
+	// 				$('#work .section-content').html(data).waitForImages({
+	// 					finished: function() {
+	// 						resizeWork();
+	// 						$("#work .clickformog").on("mousedown", function(event) {
+	// 							mousedownStart = new Date();
+	// 						}).on("mouseup", makePopout);
+	// 						$("#work .nav a").click(scrollToID);
+	// 						new DragDivScroll('work-scoller', draggerText);
+
+	// 						//expand element all the way
+	// 						$("#content").addClass("content-on");
+	// 						$(".active").removeClass("active").addClass("section-off");
+	// 						$("#work").addClass("active").removeClass("section-off");
+	// 						$("#work").removeClass("show-loading");
+
+	// 						//fade and destroy
+	// 						var loading = $("#work .loading-section")
+	// 						loading.addClass("fadeout-animation");
+	// 						setTimeout(function() {
+	// 							var loading = $("#work .loading-section")
+	// 							loading[0].parentNode.removeChild(loading[0]);
+	// 							loadingBool = false;
+	// 							showHome();
+	// 						}, 2000);
+
+	// 					},
+	// 					waitForAll: true
+	// 				});
+	// 			}
+	// 		});
+	// 	}, 500)
+	// }
 
 	function resizeWork() {
 		if (!$("#work .section-content").html()) {
 			return false
 		}
-		$('#work .section-content').height(windowHeight * 0.9);
+		$('#work .section-content').height(parseInt(windowHeight * 0.9));
 
 		var half = $("#work .halfPage"),
 			whole = $("#work .page"),
@@ -139,7 +175,7 @@ $(document).ready(function() {
 							}).on("mouseup", makePopout);
 
 							new DragDivScroll('about-scoller', draggerText);
-							$('#about .section-content').height(windowHeight * 0.9)
+							$('#about .section-content').height(parseInt(windowHeight * 0.9));
 
 							readyGoogleMaps();
 
@@ -171,7 +207,7 @@ $(document).ready(function() {
 		if (!$("#about .section-content").html()) {
 			return false
 		}
-		$('#about .section-content').height(windowHeight * 0.9);
+		$('#about .section-content').height(parseInt(windowHeight * 0.9));
 
 		var half = $("#about .halfPage"),
 			whole = $("#about .page"),
@@ -251,7 +287,7 @@ $(document).ready(function() {
 	}
 
 	function resizeProcess() {
-		var height = windowHeight * 0.9;
+		var height = parseInt(windowHeight * 0.9);
 		$('#process .section-content').height(height);
 
 		var article = $("#process .instagram-page"),
@@ -285,8 +321,8 @@ $(document).ready(function() {
 	}
 
 	$(window).resize(function() {
-		$('#about .section-content').height(windowHeight * 0.9)
-		$('#process .section-content').height(windowHeight * 0.9)
+		$('#about .section-content').height(parseInt(windowHeight * 0.9))
+		$('#process .section-content').height(parseInt(windowHeight * 0.9))
 		windowWidth = $(window).width();
 		windowHeight = $(window).height();
 		resizeWork();
@@ -315,15 +351,15 @@ function makePopout(event) {
 			img.setAttribute('webkitallowfullscreen', "")
 			img.setAttribute('mozallowfullscreen', "")
 			img.setAttribute('allowfullscreen', "")
-			img.height = windowHeight * 0.8;
-			img.width = windowHeight * 0.8 * 1.779;
+			img.height = parseInt(windowHeight * 0.8);
+			img.width = parseInt(windowHeight * 0.8 * 1.779);
 		}
 		subcon.appendChild(img);
 		container.appendChild(subcon);
 		document.body.appendChild(container);
 
-		if ($(img).height() > (windowHeight * 0.9)) {
-			$(img).height(windowHeight * 0.9).width("auto");
+		if ($(img).height() > (parseInt(windowHeight * 0.9))) {
+			$(img).height(parseInt(windowHeight * 0.9)).width("auto");
 		}
 
 		$(container).click(closeTHIS);
