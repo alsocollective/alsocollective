@@ -1,5 +1,0 @@
-# robotstxt.org/
-
-User-agent: *
-
-Sitemap: http://alsocollective.com/seo/sitemap.xml
