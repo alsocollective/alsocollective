@@ -396,9 +396,13 @@ function minValue(value, min) {
 
 function showHome() {
 	$("#home").addClass("show");
-	var el = $("#splash");
-	HOMEIFRAME = el.html();
-	el.html("");
+	var el = $("#splash"),
+		html = el.html();
+	if (html) {
+		HOMEIFRAME = html;
+		el.html("");
+	}
+
 }
 
 function hideHome() {
