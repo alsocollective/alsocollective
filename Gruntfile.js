@@ -15,15 +15,32 @@ module.exports = function(grunt) {
 				}
 			}
 		},
+		uglify: {
+			js: {
+				files: {
+					'application/static/js/main.min.js': [
+						'application/static/js/dragdivscroll-ck.js',
+						'application/static/js/jquery.js',
+						'application/static/js/jquery.lazyload.min.js',
+						'application/static/js/main.js',
+					]
+				}
+			}
+		},
 		watch: {
 			css: {
 				files: '**/*.scss',
-				tasks: ['sass', 'cssmin']
+				tasks: ['sass', 'cssmin', 'uglify']
+			},
+			js: {
+				files: 'application/static/js/*.js',
+				tasks: ['uglify']
 			}
 		}
 	});
 	grunt.loadNpmTasks('grunt-contrib-sass');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
+	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.registerTask('default', ['watch']);
 };

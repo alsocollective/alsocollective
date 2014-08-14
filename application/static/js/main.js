@@ -7,7 +7,8 @@ var windowWidth = 0,
 	mousedownStart = null,
 	scrollmoving = false,
 	SCROLLLEFT = 0,
-	draggerText = " noVertical MOUSEWHEELX noOverscroll noStatus";
+	draggerText = " noVertical MOUSEWHEELX noOverscroll noStatus",
+	HOMEIFRAME = null;
 
 $(document).ready(function() {
 	windowWidth = $(window).width();
@@ -33,8 +34,8 @@ $(document).ready(function() {
 	GoToHash();
 
 	$(window).resize(function() {
-		$('#about .section-content').height(parseInt(windowHeight * 0.9))
-		$('#process .section-content').height(parseInt(windowHeight * 0.9))
+		$('#about .section-content').height(Math.ceil(windowHeight * 0.9))
+		$('#process .section-content').height(Math.ceil(windowHeight * 0.9))
 		windowWidth = $(window).width();
 		windowHeight = $(window).height();
 		resizeWork();
@@ -92,7 +93,7 @@ function resizeWork() {
 	if (!$("#work .section-content").html()) {
 		return false
 	}
-	$('#work .section-content').height(parseInt(windowHeight * 0.9));
+	$('#work .section-content').height(Math.ceil(windowHeight * 0.9));
 
 	var half = $("#work .halfPage"),
 		whole = $("#work .page"),
@@ -142,7 +143,7 @@ function loadedAbout() {
 		new DragDivScroll('about-scoller', draggerText, function(newBol) {
 			scrollmoving = newBol;
 		});
-		$('#about .section-content').height(parseInt(windowHeight * 0.9));
+		$('#about .section-content').height(Math.ceil(windowHeight * 0.9));
 
 		readyGoogleMaps();
 
@@ -166,7 +167,7 @@ function resizeAbout() {
 	if (!$("#about .section-content").html()) {
 		return false
 	}
-	$('#about .section-content').height(parseInt(windowHeight * 0.9));
+	$('#about .section-content').height(Math.ceil(windowHeight * 0.9));
 
 	var half = $("#about .halfPage"),
 		whole = $("#about .page"),
@@ -188,6 +189,7 @@ function resizeAbout() {
 
 
 function readyGoogleMaps() {
+	console.log("should be readying google maps")
 	var script = document.createElement('script');
 	script.type = 'text/javascript';
 	script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAsprgq2AfDNOAr9zdeizAbhG_FNGyP8-4&v=3.exp&callback=initialize';
@@ -236,7 +238,7 @@ function loadedProcess() {
 }
 
 function resizeProcess() {
-	var height = parseInt(windowHeight * 0.9);
+	var height = Math.ceil(windowHeight * 0.9);
 	$('#process .section-content').height(height);
 
 	var article = $("#process .instagram-page"),
@@ -246,14 +248,12 @@ function resizeProcess() {
 		"width": w
 	})
 	article[0].style.marginLeft = aPadding + "px"
-	console.log((article.length * (height / 2)) + aPadding)
 	$("#process .section-content").width((article.length * (height / 2)) + aPadding)
 }
 
 function resizeImages() {
 	$(".image img").each(function(index, value) {
 		var width = $(value).width();
-		console.log(width);
 		if (width > (windowWidth - 100)) {
 			$(value).css({
 				"margin-left": "-" + (windowWidth - 100 / 2) + "px",
@@ -289,15 +289,15 @@ function makePopout(event) {
 			img.setAttribute('webkitallowfullscreen', "")
 			img.setAttribute('mozallowfullscreen', "")
 			img.setAttribute('allowfullscreen', "")
-			img.height = parseInt(windowHeight * 0.8);
-			img.width = parseInt(windowHeight * 0.8 * 1.779);
+			img.height = Math.ceil(windowHeight * 0.8);
+			img.width = Math.ceil(windowHeight * 0.8 * 1.779);
 		}
 		subcon.appendChild(img);
 		container.appendChild(subcon);
 		document.body.appendChild(container);
 
-		if ($(img).height() > (parseInt(windowHeight * 0.9))) {
-			$(img).height(parseInt(windowHeight * 0.9)).width("auto");
+		if ($(img).height() > (Math.ceil(windowHeight * 0.9))) {
+			$(img).height(Math.ceil(windowHeight * 0.9)).width("auto");
 		}
 
 		$(container).click(closeTHIS);
@@ -306,7 +306,6 @@ function makePopout(event) {
 }
 
 function testLoad(i, el) {
-	console.log(el);
 	// console.log(SCROLLLEFT)
 	// console.log($(el).scrollLeft());
 	// console.log($(el).data())
@@ -375,7 +374,6 @@ function initialize() {
 	});
 
 	var infoContent = $("#smith-address")[0].cloneNode(true);
-	console.log(infoContent);
 	var infowindow = new google.maps.InfoWindow({
 		content: infoContent
 	});
@@ -385,6 +383,7 @@ function initialize() {
 	google.maps.event.addListener(marker, 'click', function() {
 		infowindow.open(map, marker);
 	});
+	console.log("google maps happed")
 }
 
 function minValue(value, min) {
@@ -397,10 +396,16 @@ function minValue(value, min) {
 
 function showHome() {
 	$("#home").addClass("show");
+	var el = $("#splash");
+	HOMEIFRAME = el.html();
+	el.html("");
 }
 
 function hideHome() {
 	$("#home").removeClass("show");
+	setTimeout(function() {
+		$("#splash").html(HOMEIFRAME);
+	}, 1000)
 }
 
 function clickHome() {
@@ -435,7 +440,6 @@ function GoToHash() {
 					(function(loc) {
 						setTimeout(function() {
 							$("#" + loc[0] + " .nav [href='#" + loc[1] + "']").click()
-							console.log(loc[1]);
 						}, 2000)
 					})(loc)
 				}
