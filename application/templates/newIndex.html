@@ -27,7 +27,11 @@
 <body>
 <div id="maincontainer">
 	<div id="splash">
-		<iframe src="http://www.alsocollective.com/static/splash/RLine/index.html" frameborder="0" id="splashFrame" width="100%" height="100%" title="IEiframe"></iframe>
+
+	<!--[if lt IE 7]>-->
+		<iframe src="http://www.alsocollective.com/static/splash/RLine/index.html" frameborder="0" id="splashFrame" width="	100%" height="100%" title="IEiframe"></iframe>
+	<!--<![endif]-->		
+
 	</div>
 	<div id="content" >
 		<div id="work" class="section-off"><div class="title notloaded"><h2>Work</h2></div><div id="work-scoller"><div class="section-content"></div></div></div>
@@ -40,7 +44,14 @@
 	<div id="home"><a href="#">Home</a></div>
 </div>
 
-<script type="text/javascript" src={% static "js/main.min.js"%}></script>
+<!-- <script type="text/javascript" src={% static "js/main.min.js"%}></script>
+ -->
+<script type="text/javascript" src="{% static "js/dragdivscroll-ck.js"%}"></script>
 
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript" src="{% static "js/jquery.waitforimages.min.js"%}"></script>
+<script type="text/javascript" src="{% static "js/jquery.lazyload.min.js"%}"></script>
+
+<script type="text/javascript" src="{% static "js/main.js"%}"></script>
 </body>
 </html>

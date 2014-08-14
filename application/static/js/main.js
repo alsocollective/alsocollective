@@ -281,7 +281,8 @@ function makePopout(event) {
 		var img = null;
 		if (children.length == 0) {
 			img = document.createElement("img");
-			img.src = this.style.backgroundImage.split("(")[1].split(")")[0];
+			var loc = this.style.backgroundImage.split("(")[1].split(")")[0];
+			img.src = loc;
 		} else {
 			img = document.createElement("iframe");
 			img.src = children[0].href + "?title=0&amp;byline=0&amp;portrait=0&amp;autoplay=1"
@@ -436,7 +437,8 @@ function testLocation(index, el) {
 function GoToHash() {
 	if (window.location.hash) {
 		setTimeout(function() {
-			loc = window.location.hash.split("#");
+			var subloc = window.location.hash.split("#");
+			loc = subloc;
 			if (loc.length > 0) {
 				loc = loc[1].split("/");
 				$("#" + loc[0] + " .title").click();
