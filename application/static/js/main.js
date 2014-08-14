@@ -7,266 +7,30 @@ var windowWidth = 0,
 	mousedownStart = null,
 	scrollmoving = false,
 	SCROLLLEFT = 0,
-	draggerText = " noVertical MOUSEWHEELX noOverscroll noStatus"; //
+	draggerText = " noVertical MOUSEWHEELX noOverscroll noStatus";
 
 $(document).ready(function() {
 	windowWidth = $(window).width();
 	windowHeight = $(window).height();
 	$("#content > div .title").click(function() {
-		if (loadingBool) {
+		if (loadingBool || $(this).hasClass("notloaded")) {
 			return false;
 		}
-		if ($(this.parentNode).find(".loading-section").length > 0) {
-			console.log("has a loading section still")
-		} else {
-			$("#content").addClass("content-on");
-			$(".active").removeClass("active").addClass("section-off");
-			$(this.parentNode).addClass("active").removeClass("section-off");
-			setHash(this.parentNode.id)
-			showHome();
-			console.log("does not have laoder")
-		}
+		$("#content").addClass("content-on");
+		$(".active").removeClass("active").addClass("section-off");
+		$(this.parentNode).addClass("active").removeClass("section-off");
+		$(".on-page").removeClass("on-page");
+		$(this).next().addClass("on-page")
+
+		setHash(this.parentNode.id)
+		showHome();
 	})
 
 	$("#work .title").click(loadWork);
 	$("#about .title").click(loadAbout);
 	$("#process .title").click(loadProcess);
 	$("#home").click(clickHome);
-
-	function loadWork() {
-		if (loadingBool || $("#work .section-content").html()) {
-			console.log("can't go");
-			return false;
-		}
-		loadingBool = true;
-		$(this.parentNode).addClass("show-loading");
-		setHash(this.parentNode.id)
-		setTimeout(function() {
-			$('#work .section-content').load('/ajax/work/', loadedWork)
-		}, 500);
-	}
-
-	function loadedWork() {
-		$('#work').ready(function() {
-			resizeWork();
-			$("#work .lazy").lazyload({
-				effect: "fadeIn",
-				container: $("#work-scoller")
-			});
-
-			$("#work .clickformog").on("mousedown", function(event) {
-				mousedownStart = new Date();
-			}).on("mouseup", makePopout);
-			$("#work .nav a").click(scrollToID);
-
-			new DragDivScroll('work-scoller', draggerText, function(newBol) {
-				scrollmoving = newBol;
-			});
-
-			//expand element all the way
-			$("#content").addClass("content-on");
-			$(".active").removeClass("active").addClass("section-off");
-			$("#work").addClass("active").removeClass("section-off");
-			$("#work").removeClass("show-loading");
-
-			//fade and destroy
-			var loading = $("#work .loading-section")
-			loading.addClass("fadeout-animation");
-			setTimeout(function() {
-				var loading = $("#work .loading-section")
-				loading[0].parentNode.removeChild(loading[0]);
-				loadingBool = false;
-				showHome();
-			}, 2000);
-		})
-	}
-
-
-	function resizeWork() {
-		if (!$("#work .section-content").html()) {
-			return false
-		}
-		$('#work .section-content').height(parseInt(windowHeight * 0.9));
-
-		var half = $("#work .halfPage"),
-			whole = $("#work .page"),
-			article = $("#work .articles"),
-			hW = minValue(((windowWidth / 2) - 100), halfWidthMin),
-			wW = minValue((windowWidth - 100), fullWidthMin),
-			aPadding = betweenslides;
-
-		half.width(hW);
-		whole.width(wW);
-		article.css({
-			"margin-left": aPadding
-		})
-
-		article[0].style.marginLeft = hW + "px"
-
-		$("#work .section-content").width(((half.length + 1) * hW) + (whole.length * wW) + ((article.length - 1) * aPadding) + 100 /*for good measure*/ );
-	}
-
-	function loadAbout() {
-		if (loadingBool || $("#about .section-content").html()) {
-			return false
-		}
-
-		loadingBool = true;
-		$(this.parentNode).addClass("show-loading");
-		setHash(this.parentNode.id)
-
-		setTimeout(function() {
-			$('#about .section-content').load('/ajax/about/', loadedAbout)
-		}, 500);
-	}
-
-	function loadedAbout() {
-		$('#about').ready(function() {
-			resizeAbout();
-			$("#about .nav a").click(scrollToID);
-			$("#about .lazy").lazyload({
-				effect: "fadeIn",
-				container: $("#about-scoller")
-			});
-
-			$("#about .clickformog").on("mousedown", function(event) {
-				mousedownStart = new Date();
-			}).on("mouseup", makePopout);
-
-			new DragDivScroll('about-scoller', draggerText, function(newBol) {
-				scrollmoving = newBol;
-			});
-			$('#about .section-content').height(parseInt(windowHeight * 0.9));
-
-			readyGoogleMaps();
-
-			//expand element all the way
-			$("#content").addClass("content-on");
-			$(".active").removeClass("active").addClass("section-off");
-			$("#about").addClass("active").removeClass("section-off");
-			$("#about").removeClass("show-loading");
-
-			//fade and destroy
-			var loading = $("#about .loading-section")
-			loading.addClass("fadeout-animation");
-			setTimeout(function() {
-				var loading = $("#about .loading-section")
-				loading[0].parentNode.removeChild(loading[0]);
-				loadingBool = false;
-				showHome()
-			}, 2000);
-		});
-	}
-
-	function resizeAbout() {
-		if (!$("#about .section-content").html()) {
-			return false
-		}
-		$('#about .section-content').height(parseInt(windowHeight * 0.9));
-
-		var half = $("#about .halfPage"),
-			whole = $("#about .page"),
-			article = $("#about .articles"),
-			hW = minValue(((windowWidth / 2) - 100), halfWidthMin),
-			wW = minValue((windowWidth - 100), fullWidthMin),
-			aPadding = betweenslides;
-
-		half.width(hW);
-		whole.width(wW);
-
-		article.css({
-			"margin-left": aPadding
-		})
-		console.log(article[0])
-		article[0].style.marginLeft = hW + "px"
-
-		$("#about .section-content").width(((half.length + 1) * hW) + (whole.length * wW) + ((article.length - 1) * aPadding) + 100);
-	}
-
-
-	function readyGoogleMaps() {
-		var script = document.createElement('script');
-		script.type = 'text/javascript';
-		script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAsprgq2AfDNOAr9zdeizAbhG_FNGyP8-4&v=3.exp&callback=initialize';
-		document.body.appendChild(script);
-	}
-
-	function loadProcess() {
-		if (loadingBool || $("#process .section-content").html()) {
-			return false;
-		}
-
-		loadingBool = true;
-
-		$(this.parentNode).addClass("show-loading");
-		setHash(this.parentNode.id)
-
-		setTimeout(function() {
-			$('#process .section-content').load('/ajax/process/', loadedProcess)
-		}, 500);
-
-	}
-
-	function loadedProcess() {
-		$('#process').ready(function() {
-			resizeProcess();
-
-			$("#process .lazy").lazyload({
-				effect: "fadeIn",
-				container: $("#process-scoller")
-			});
-
-			new DragDivScroll('process-scoller', draggerText);
-			var loading = $("#process .loading-section")
-			loading.addClass("fadeout-animation");
-			setTimeout(function() {
-				var loading = $("#process .loading-section")
-				loading[0].parentNode.removeChild(loading[0]);
-
-				$("#content").addClass("content-on");
-				$(".active").removeClass("active").addClass("section-off");
-				$("#process").addClass("active").removeClass("section-off");
-				$("#process").removeClass("show-loading");
-				showHome()
-			}, 500);
-
-			loadingBool = false;
-		});
-	}
-
-	function resizeProcess() {
-		var height = parseInt(windowHeight * 0.9);
-		$('#process .section-content').height(height);
-
-		var article = $("#process .instagram-page"),
-			w = (height / 2) + "px",
-			aPadding = minValue(((windowWidth / 2) - 100), fullWidthMin);
-		article.css({
-			"width": w
-		})
-		article[0].style.marginLeft = aPadding + "px"
-		console.log((article.length * (height / 2)) + aPadding)
-		$("#process .section-content").width((article.length * (height / 2)) + aPadding)
-	}
-
-	function resizeImages() {
-		$(".image img").each(function(index, value) {
-			var width = $(value).width();
-			console.log(width);
-			if (width > (windowWidth - 100)) {
-				$(value).css({
-					"margin-left": "-" + (windowWidth - 100 / 2) + "px",
-					"width": "auto"
-				});
-			} else {
-				$(value).css({
-					"margin-left": "-" + ((windowWidth - 100) / 2) + "px",
-					"height": "auto",
-					"width": "100%"
-				});
-			}
-		})
-	}
+	GoToHash();
 
 	$(window).resize(function() {
 		$('#about .section-content').height(parseInt(windowHeight * 0.9))
@@ -278,6 +42,232 @@ $(document).ready(function() {
 	});
 });
 
+function loadWork() {
+	if (loadingBool || $("#work .section-content").html()) {
+		return false;
+	}
+	loadingBool = true;
+	$(this).removeClass("notloaded")
+	$(this.parentNode).addClass("show-loading");
+	setHash(this.parentNode.id)
+	$('#work .section-content').load('/ajax/work/', loadedWork)
+}
+
+function loadedWork() {
+	$('#work').ready(function() {
+		resizeWork();
+		$("#work .lazy").lazyload({
+			effect: "fadeIn",
+			threshold: 600,
+			container: $("#work-scoller")
+		});
+
+		$("#work .clickformog").on("mousedown", function(event) {
+			mousedownStart = new Date();
+		}).on("mouseup", makePopout);
+		$("#work .nav a").click(scrollToID);
+
+		new DragDivScroll('work-scoller', draggerText, function(newBol) {
+			scrollmoving = newBol;
+		});
+
+		//expand element all the way
+		$("#content").addClass("content-on");
+		$(".active").removeClass("active").addClass("section-off");
+		$("#work").addClass("active").removeClass("section-off");
+		$("#work").removeClass("show-loading");
+		$(".on-page").removeClass("on-page");
+		$("#work-scoller").scroll(scrollLocationToHash)
+
+		setTimeout(function() {
+			$("#work-scoller").addClass("on-page")
+			loadingBool = false;
+			showHome();
+		}, 1000);
+	})
+}
+
+
+function resizeWork() {
+	if (!$("#work .section-content").html()) {
+		return false
+	}
+	$('#work .section-content').height(parseInt(windowHeight * 0.9));
+
+	var half = $("#work .halfPage"),
+		whole = $("#work .page"),
+		article = $("#work .articles"),
+		hW = minValue(((windowWidth / 2) - 100), halfWidthMin),
+		wW = minValue((windowWidth - 100), fullWidthMin),
+		aPadding = betweenslides;
+
+	half.width(hW);
+	whole.width(wW);
+	article.css({
+		"margin-left": aPadding
+	})
+
+	article[0].style.marginLeft = hW + "px"
+
+	$("#work .section-content").width(((half.length + 1) * hW) + (whole.length * wW) + ((article.length - 1) * aPadding) + 100 /*for good measure*/ );
+}
+
+function loadAbout() {
+	if (loadingBool || $("#about .section-content").html()) {
+		return false
+	}
+
+	loadingBool = true;
+	$(this.parentNode).addClass("show-loading");
+	$(this).removeClass("notloaded")
+	setHash(this.parentNode.id)
+
+	$('#about .section-content').load('/ajax/about/', loadedAbout)
+}
+
+function loadedAbout() {
+	$('#about').ready(function() {
+		resizeAbout();
+		$("#about .nav a").click(scrollToID);
+		$("#about .lazy").lazyload({
+			effect: "fadeIn",
+			threshold: 600,
+			container: $("#about-scoller")
+		});
+
+		$("#about .clickformog").on("mousedown", function(event) {
+			mousedownStart = new Date();
+		}).on("mouseup", makePopout);
+
+		new DragDivScroll('about-scoller', draggerText, function(newBol) {
+			scrollmoving = newBol;
+		});
+		$('#about .section-content').height(parseInt(windowHeight * 0.9));
+
+		readyGoogleMaps();
+
+		//expand element all the way
+		$("#content").addClass("content-on");
+		$(".active").removeClass("active").addClass("section-off");
+		$("#about").addClass("active").removeClass("section-off");
+		$("#about").removeClass("show-loading");
+		$(".on-page").removeClass("on-page");
+		$("#about-scoller").scroll(scrollLocationToHash)
+
+		setTimeout(function() {
+			$("#about-scoller").addClass("on-page")
+			loadingBool = false;
+			showHome()
+		}, 1000);
+	});
+}
+
+function resizeAbout() {
+	if (!$("#about .section-content").html()) {
+		return false
+	}
+	$('#about .section-content').height(parseInt(windowHeight * 0.9));
+
+	var half = $("#about .halfPage"),
+		whole = $("#about .page"),
+		article = $("#about .articles"),
+		hW = minValue(((windowWidth / 2) - 100), halfWidthMin),
+		wW = minValue((windowWidth - 100), fullWidthMin),
+		aPadding = betweenslides;
+
+	half.width(hW);
+	whole.width(wW);
+
+	article.css({
+		"margin-left": aPadding
+	})
+	article[0].style.marginLeft = hW + "px"
+
+	$("#about .section-content").width(((half.length + 1) * hW) + (whole.length * wW) + ((article.length - 1) * aPadding) + 100);
+}
+
+
+function readyGoogleMaps() {
+	var script = document.createElement('script');
+	script.type = 'text/javascript';
+	script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAsprgq2AfDNOAr9zdeizAbhG_FNGyP8-4&v=3.exp&callback=initialize';
+	document.body.appendChild(script);
+}
+
+function loadProcess() {
+	if (loadingBool || $("#process .section-content").html()) {
+		return false;
+	}
+
+	loadingBool = true;
+
+	$(this.parentNode).addClass("show-loading");
+	$(this).removeClass("notloaded")
+	setHash(this.parentNode.id)
+
+	$('#process .section-content').load('/ajax/process/', loadedProcess)
+
+}
+
+function loadedProcess() {
+	$('#process').ready(function() {
+		resizeProcess();
+
+		$("#process .lazy").lazyload({
+			effect: "fadeIn",
+			threshold: 600,
+			container: $("#process-scoller")
+		});
+
+		new DragDivScroll('process-scoller', draggerText);
+		$("#content").addClass("content-on");
+		$(".active").removeClass("active").addClass("section-off");
+		$("#process").addClass("active").removeClass("section-off");
+		$("#process").removeClass("show-loading");
+		$(".on-page").removeClass("on-page");
+
+		setTimeout(function() {
+			$("#process-scoller").addClass("on-page")
+			showHome()
+		}, 500);
+
+		loadingBool = false;
+	});
+}
+
+function resizeProcess() {
+	var height = parseInt(windowHeight * 0.9);
+	$('#process .section-content').height(height);
+
+	var article = $("#process .instagram-page"),
+		w = (height / 2) + "px",
+		aPadding = minValue(((windowWidth / 2) - 100), fullWidthMin);
+	article.css({
+		"width": w
+	})
+	article[0].style.marginLeft = aPadding + "px"
+	console.log((article.length * (height / 2)) + aPadding)
+	$("#process .section-content").width((article.length * (height / 2)) + aPadding)
+}
+
+function resizeImages() {
+	$(".image img").each(function(index, value) {
+		var width = $(value).width();
+		console.log(width);
+		if (width > (windowWidth - 100)) {
+			$(value).css({
+				"margin-left": "-" + (windowWidth - 100 / 2) + "px",
+				"width": "auto"
+			});
+		} else {
+			$(value).css({
+				"margin-left": "-" + ((windowWidth - 100) / 2) + "px",
+				"height": "auto",
+				"width": "100%"
+			});
+		}
+	})
+}
 
 
 function makePopout(event) {
@@ -348,8 +338,6 @@ function closeTHIS() {
 }
 
 function initialize() {
-	console.log("initializer is going");
-
 	var styles = [{
 		"stylers": [{
 			"hue": "#33ccff"
@@ -387,7 +375,7 @@ function initialize() {
 	});
 
 	var infoContent = $("#smith-address")[0].cloneNode(true);
-
+	console.log(infoContent);
 	var infowindow = new google.maps.InfoWindow({
 		content: infoContent
 	});
@@ -419,6 +407,43 @@ function clickHome() {
 	hideHome();
 	$("#content").removeClass("content-on");
 	$(".active").removeClass("active").addClass("section-off");
+}
+
+function scrollLocationToHash(event) {
+	var list = $($($(this).children()[0]).children().get().reverse());
+	list.each(testLocation);
+}
+
+function testLocation(index, el) {
+	var el = $(el);
+	if (index !== 0) {
+		if (el.position().left < 0) {
+			setHash(el[0].parentNode.parentNode.parentNode.id + "/" + el[0].id)
+			return false;
+		}
+	}
+}
+
+function GoToHash() {
+	if (window.location.hash) {
+		setTimeout(function() {
+			loc = window.location.hash.split("#");
+			if (loc.length > 0) {
+				loc = loc[1].split("/");
+				$("#" + loc[0] + " .title").click();
+				if (loc[1]) {
+					(function(loc) {
+						setTimeout(function() {
+							$("#" + loc[0] + " .nav [href='#" + loc[1] + "']").click()
+							console.log(loc[1]);
+						}, 2000)
+					})(loc)
+				}
+			}
+		}, 2000);
+	} else {
+		return false;
+	}
 }
 
 

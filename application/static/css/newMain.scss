@@ -195,6 +195,7 @@ strong {
 		}
 	}
 	a{
+		text-transform: uppercase;
 		position:relative;
 		text-decoration: none;
 		color: inherit;
@@ -290,13 +291,16 @@ strong {
 	background: -ms-linear-gradient(left, #33ccff, #fff);
 	background: -o-linear-gradient(left, #33ccff, #fff);	
 }
-#contact{
+#maincontainer > #contact{
 	width: 100%;
 	display:block;
 	position:absolute;
 	bottom:0;
 	text-align:center;
 	z-index: -1;
+}
+#about #contact{
+	color: #000;
 }
 
 .title{
@@ -355,7 +359,7 @@ strong {
 
 
 
-.active #work-scoller, .active #about-scoller, .active #process-scoller, .show-loading #work-scoller, .show-loading #about-scoller, .show-loading #process-scoller{
+.active #work-scoller.on-page, .active #about-scoller.on-page, .active #process-scoller.on-page, .show-loading #work-scoller, .show-loading #about-scoller, .show-loading #process-scoller{
 	left: 0;
 }
 
@@ -402,14 +406,22 @@ strong {
 	a{
 		color: inherit;
 	}
+	h1{
+		font-size:3.6em;
+		text-transform: uppercase;
+	}
 	.halfPage{
 		height: 100%;		
 		display: inline-block;
 		vertical-align: top;
-		overflow: scroll;
-		.page-content{
-			padding: 2em;
-		}
+		overflow: scroll;		
+	}
+	.page-content{
+		padding: 2em;
+	}
+	ul{
+		padding: 0;
+		margin: 0;
 	}
 	.page{
 		height: 100%;

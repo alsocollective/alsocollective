@@ -182,6 +182,7 @@ strong {
       padding: 0 10px;
       background-color: transparent; }
   .nav a {
+    text-transform: uppercase;
     position: relative;
     text-decoration: none;
     color: inherit;
@@ -267,13 +268,16 @@ strong {
   background: -ms-linear-gradient(left, #33ccff, white);
   background: -o-linear-gradient(left, #33ccff, white); }
 
-#contact {
+#maincontainer > #contact {
   width: 100%;
   display: block;
   position: absolute;
   bottom: 0;
   text-align: center;
   z-index: -1; }
+
+#about #contact {
+  color: #000; }
 
 .title {
   width: 100%;
@@ -320,7 +324,7 @@ strong {
   -o-transition: left ease-out 0.5s;
   transition: left ease-out 0.5s; }
 
-.active #work-scoller, .active #about-scoller, .active #process-scoller, .show-loading #work-scoller, .show-loading #about-scoller, .show-loading #process-scoller {
+.active #work-scoller.on-page, .active #about-scoller.on-page, .active #process-scoller.on-page, .show-loading #work-scoller, .show-loading #about-scoller, .show-loading #process-scoller {
   left: 0; }
 
 .section-content {
@@ -360,13 +364,19 @@ strong {
   vertical-align: top; }
   .articles a {
     color: inherit; }
+  .articles h1 {
+    font-size: 3.6em;
+    text-transform: uppercase; }
   .articles .halfPage {
     height: 100%;
     display: inline-block;
     vertical-align: top;
     overflow: scroll; }
-    .articles .halfPage .page-content {
-      padding: 2em; }
+  .articles .page-content {
+    padding: 2em; }
+  .articles ul {
+    padding: 0;
+    margin: 0; }
   .articles .page {
     height: 100%;
     display: inline-block;
