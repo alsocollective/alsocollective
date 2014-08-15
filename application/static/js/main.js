@@ -323,6 +323,9 @@ function scrollToID(event) {
 }
 
 function setHash(location) {
+	if (ga) {
+		ga('send', location);
+	}
 	window.location.hash = location;
 }
 
