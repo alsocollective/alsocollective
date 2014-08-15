@@ -44,17 +44,21 @@
 	<div id="home"><a href="#">Home</a></div>
 </div>
 
-<script type="text/javascript">
-	var ga = null;
+<script>
 	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-	ga('create', 'UA-37086718-1', 'alsocollective.com');
-	ga('send', 'index');
-</script>	
- <script type="text/javascript" src={% static "js/main.min.js"%}></script>
+	ga('create', 'UA-37086718-1', 'auto');
+	// ga('create', 'UA-37086718-1', {
+	// 	'cookieDomain': 'none'
+	// });
+	ga('send', 'pageview',{
+		'page': "index"
+	});
+</script>
+<script type="text/javascript" src={% static "js/main.min.js"%}></script>
 <!--
 <script type="text/javascript" src="{% static "js/dragdivscroll-ck.js"%}"></script>
 

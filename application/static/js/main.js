@@ -8,7 +8,8 @@ var windowWidth = 0,
 	scrollmoving = false,
 	SCROLLLEFT = 0,
 	draggerText = " noVertical MOUSEWHEELX noOverscroll noStatus",
-	HOMEIFRAME = null;
+	HOMEIFRAME = null,
+	currentHASH = null;
 
 $(document).ready(function() {
 	windowWidth = $(window).width();
@@ -323,9 +324,16 @@ function scrollToID(event) {
 }
 
 function setHash(location) {
-	if (ga) {
-		ga('send', location);
+	// if (ga) {
+	if (currentHASH == location) {
+		return false;
 	}
+	currentHASH = location;
+	console.log(location);
+	ga('send', 'pageview', {
+		'page': location
+	});
+	// }
 	window.location.hash = location;
 }
 
