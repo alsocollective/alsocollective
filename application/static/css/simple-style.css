@@ -472,7 +472,14 @@ strong {
 
 #map-canvas {
   width: 100%;
-  height: 100%; }
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -ms-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover; }
 
 .section-content .instagram-page:first-child {
   -webkit-box-shadow: black 0px 30px -2px;

@@ -12,7 +12,7 @@
 {% for article in articles %}{% if article.slug == 'contact' %}<article id="{{article.slug}}" class="articles">
 			<div class="page">
 				<h3 class="absolute">CONTACT</h3>
-				<div id="map-canvas"/>
+				<div id="map-canvas" class="lazy" data-original="http://also-static.com/alsocollective/static/img/map-fallback.png/">
 			</div>
 		</article>{% else %}<article id="{{article.slug}}" class="articles">
 			{% if article.slug == 'about-us' %}
