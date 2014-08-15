@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US" xmlns:x2="http://www.w3.org/2002/06/xhtml2">
 
 <head>
@@ -5,14 +6,9 @@
 
 	<!--For Mobile Devices-->
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-<!--
-    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css">
-    <script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
-    <script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
- -->
- 	<link rel="stylesheet" type="text/css" href="/static/js/temp/jquery.mobile-1.3.1.css">
- 	<script type="text/javascript" src="/static/js/temp/jquery.js"></script>
- 	<script type="text/javascript" src="/static/js/temp/jquery.mobile-1.3.1.js"></script>
+ 	<link rel="stylesheet" type="text/css" href="{% static "js/temp/jquery.mobile-1.3.1.css"%}">
+ 	<script type="text/javascript" src="{% static "js/temp/jquery.js"%}"></script>
+ 	<script type="text/javascript" src="{% static "js/temp/jquery.mobile-1.3.1.js"%}"></script>
 
 	<link rel="stylesheet" href="/static/css/mobile.css">
 
