@@ -161,6 +161,11 @@ strong {
   -o-background-size: cover;
   background-size: cover; }
 
+.lazy {
+  background: #fff;
+  background-color: #fff;
+  background-image: url("http://also-static.com/alsocollective/static/img/loading.png"); }
+
 #maincontainer {
   width: 100%;
   height: 100%;
@@ -448,11 +453,13 @@ strong {
     display: block;
     padding: 1em 0; }
   .articles#people .background-image-top .page-content {
+    display: none;
     opacity: 0;
     background-color: #33ccff;
     padding: 2em;
     height: 100%; }
   .articles#people .background-image-top:hover .page-content {
+    display: block;
     opacity: 0.9; }
 
 #map-canvas {

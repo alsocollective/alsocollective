@@ -189,7 +189,6 @@ function resizeAbout() {
 
 
 function readyGoogleMaps() {
-	console.log("should be readying google maps")
 	var script = document.createElement('script');
 	script.type = 'text/javascript';
 	script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAsprgq2AfDNOAr9zdeizAbhG_FNGyP8-4&v=3.exp&callback=initialize';
@@ -281,7 +280,8 @@ function makePopout(event) {
 		var img = null;
 		if (children.length == 0) {
 			img = document.createElement("img");
-			var loc = this.style.backgroundImage.split("(")[1].split(")")[0];
+			var loc = this.style.backgroundImage.split("(")[1].split(")")[0].replace('"', "").replace('"', "");
+			console.log(loc);
 			img.src = loc;
 		} else {
 			img = document.createElement("iframe");
@@ -305,13 +305,6 @@ function makePopout(event) {
 	}
 
 }
-
-function testLoad(i, el) {
-	// console.log(SCROLLLEFT)
-	// console.log($(el).scrollLeft());
-	// console.log($(el).data())
-}
-
 
 function scrollToID(event) {
 	event.preventDefault();
@@ -384,7 +377,6 @@ function initialize() {
 	google.maps.event.addListener(marker, 'click', function() {
 		infowindow.open(map, marker);
 	});
-	console.log("google maps happed")
 }
 
 function minValue(value, min) {
