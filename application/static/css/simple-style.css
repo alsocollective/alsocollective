@@ -162,8 +162,11 @@ strong {
   background-size: cover; }
 
 .lazy {
-  background: #fff;
-  background-color: #fff;
+  -webkit-background-size: initial;
+  -moz-background-size: initial;
+  -ms-background-size: initial;
+  -o-background-size: initial;
+  background-size: initial;
   background-image: url("http://also-static.com/alsocollective/static/img/loading.png"); }
 
 #maincontainer {
