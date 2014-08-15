@@ -1,5 +1,5 @@
 {% extends "mobile/base.html" %}
-
+{% load staticfiles %}
 {% block content %}
 	<div id="about">
 	<div class="header-container">
@@ -34,7 +34,7 @@
 	<p class="bio">
 		{{bio|safe}}
 	</p>
-	<img src="/static/img/group_shot.jpg">
+	<img src="{% static "img/group_shot.jpg"%}">
 
 	<h2>Awards</h2>
 	{{awards|safe}}
