@@ -8,11 +8,11 @@
 	<div class="project-images">
 		{%for img in image %}
 			{% if img.link%}
-				<div class="background-strech" style="background-image:url('/static/img/uploaded/{{img.title}}');">
+				<div class="background-strech" style="background-image:url('{{ MEDIA_URL }}{{img.title}}');">
 					<a href="{{img.link}}">Video link</a>
 				</div>
 			{% elif img.title %}
-				<img src="/static/img/uploaded/{{img.title}}">
+				<img src="{{ MEDIA_URL }}{{img.title}}">
 			{% endif%}
 		{%endfor%}
 	</div>

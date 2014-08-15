@@ -2,7 +2,7 @@
 
 {% block content %}
 <div id="person">
-	<img src="/static/img/uploaded/{{bkimg}}">
+	<img src="{{ MEDIA_URL }}{{bkimg}}">
 
 	<div class="header-container">
 		<h2>{{name|safe}}</h2>

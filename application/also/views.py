@@ -160,7 +160,7 @@ def mWorkData(request,project = None):
 
 	if project:
 		# projectObject = articles.filter(slug = project)[0]
-		current = {"prev":False}
+		current = {"prev":False,"MEDIA_URL":settings.MEDIA_URL}
 		found = False
 		for pro in articles:
 			if(found):
@@ -186,7 +186,7 @@ def mWorkData(request,project = None):
 				"text":getTexts(pro.textFields.all().order_by('-date')),
 				"image":getImages(pro.imageFields.all().order_by('order'))})
 
-	return render_to_response("mobile/work.html",{"projects":projectData,"current":current})
+	return render_to_response("mobile/work.html",{"projects":projectData,"current":current,"MEDIA_URL":settings.MEDIA_URL})
 
 def mAboutData(request):
 	articles = Article.objects.all()
@@ -196,7 +196,7 @@ def mAboutData(request):
 	response_data = {"bio":bios[0].textField,
 					"contact":getTexts(articles.filter(title = "Contact")[0].textFields.all())[0]["text"],
 					"awards":getTexts(articles.filter(title = "Awards")[0].textFields.all())[0]["text"],
-					"people":people,
+					"people":people,"MEDIA_URL":settings.MEDIA_URL
 	}
 	return render_to_response("mobile/about.html",response_data)
 
@@ -239,6 +239,7 @@ def mPersons(request, person = None):
 					"bkimg":getImages(current.backgroundImage.all())[0]["title"],
 					"prev":prev.slug,
 					"next":next.slug,
+					"MEDIA_URL":settings.MEDIA_URL
 					}
 			return render_to_response('mobile/person.html',out)
 
@@ -250,6 +251,7 @@ def mPersons(request, person = None):
 			"bio":current.textField,
 			"bkimg":getImages(current.backgroundImage.all())[0]["title"],
 			"prev":prev.slug,
+			"MEDIA_URL":settings.MEDIA_URL
 			}
 	return render_to_response('mobile/person.html',out)
 
