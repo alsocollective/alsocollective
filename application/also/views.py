@@ -135,6 +135,7 @@ def aboutData(request):
 		textList.append(textObj)
 
 	response_data = {"articles":textList}
+	print json.dumps(textList)
 	return HttpResponse(json.dumps(textList), mimetype="application/json")
 
 def instaData(request):
