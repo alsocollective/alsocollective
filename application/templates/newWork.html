@@ -11,7 +11,7 @@
 {% for article in articles %}<article id="{{article.slug}}" class="project articles"><span class="halfPage">
 	{% with forloop.first as firstloop %}
 	<div class="page-content">
-		<h1>{{article.title}}</h1>
+		<h1>{{article.title|safe}}</h1>
 		<p>{{article.text.0.text|safe}}</p>
 	</div>
 	</span>{% for img in article.image %}<span class="page" >
