@@ -63,13 +63,13 @@ OTHER PURPLE: #9933ff
 <h2>Projects On Display</h2>
 <ul>
 	{% for project in  current%}
-		<li><a href="/archive/{{project.slug}}">{{project.title}}</a></li>
+		<li><a href="/archive/{{project.slug}}">{{project.title|safe}}</a></li>
 	{% endfor %}
 </ul>
 <h2>Archived Projects</h2>
 <ul>
 	{% for project in  archived%}
-		<li><a href="/archive/{{project.slug}}">{{project.title}}</a></li>
+		<li><a href="/archive/{{project.slug}}">{{project.title|safe}}</a></li>
 	{% endfor %}
 </ul>
 </body>
